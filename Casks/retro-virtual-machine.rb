@@ -1,12 +1,17 @@
-cask 'retro-virtual-machine' do
-  version '1.1.6'
-  sha256 '4025387610cdc8bca78b5ac3513001fe2ef7ab14d6019472b14653e89bb58afa'
+cask "retro-virtual-machine" do
+  version "2.0,1.r7"
+  sha256 "75e94f2df589ead3fb1eab529713312a17dc16e6b2ba547594cd9d5975def566"
 
-  url "http://static1.retrovirtualmachine.org/release/Retro%20Virtual%20Machine%20v#{version}.dmg"
-  appcast 'http://www.retrovirtualmachine.org/en/changelog',
-          checkpoint: 'cc438ecb3a8552a76ce38a305546aa6ce8a733924c96f3b9a14c1e28b49a2ab9'
-  name 'Retro Virtual Machine'
-  homepage 'http://www.retrovirtualmachine.org/'
+  url "https://retrovirtualmachine.ams3.digitaloceanspaces.com/release/beta#{version.after_comma.major}/macos/RetroVirtualMachine.#{version.before_comma}.beta-#{version.after_comma}.macos.dmg",
+      verified: "retrovirtualmachine.ams3.digitaloceanspaces.com/"
+  appcast "https://www.retrovirtualmachine.org/en/downloads"
+  name "Retro Virtual Machine"
+  homepage "https://www.retrovirtualmachine.org/en/"
 
-  app 'Retro Virtual Machine.app'
+  app "Retro Virtual Machine #{version.major}.app"
+
+  zap trash: [
+    "~/Library/Application Support/Retro Virtual Machine v#{version.major}.x",
+    "~/Library/Preferences/com.madeinalacant.RetroVirtualMachine#{version.major}.plist",
+  ]
 end

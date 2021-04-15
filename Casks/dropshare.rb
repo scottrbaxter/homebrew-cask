@@ -1,22 +1,28 @@
-cask 'dropshare' do
-  version '4.8,4693'
-  sha256 'df366b7c90e9d2fdc03c956fda11ca26c001ea660df96aaf3c687ba8fd608c1b'
+cask "dropshare" do
+  version "5.10,5207"
+  sha256 "79bf7b1d3e7561b9a4e97ee2af627caa94f98a3d77aa0fed6e89dd82c20c5e8b"
 
-  # d2wvuuix8c9e48.cloudfront.net was verified as official when first introduced to the cask
-  url "https://d2wvuuix8c9e48.cloudfront.net/Dropshare#{version.major}-#{version.after_comma}.app.zip"
-  appcast "https://getdropsha.re/sparkle/Dropshare#{version.major}.xml",
-          checkpoint: '07f95e01339197f3d9ff6f22224d275dd8af2dcaf3fb1424f9016968d7f01a85'
-  name 'Dropshare'
-  homepage 'https://getdropsha.re/'
+  url "https://d2wvuuix8c9e48.cloudfront.net/Dropshare#{version.major}-#{version.after_comma}.app.zip",
+      verified: "d2wvuuix8c9e48.cloudfront.net/"
+  name "Dropshare"
+  desc "File sharing solution"
+  homepage "https://dropshare.app/"
+
+  livecheck do
+    url "https://dropshare.app/sparkle/Dropshare#{version.major}.xml"
+    strategy :sparkle do |item|
+      "#{item.title[/(\d+(?:\.\d+)*)/i, 1]},#{item.version}"
+    end
+  end
 
   app "Dropshare #{version.major}.app"
-  binary "#{appdir}/Dropshare #{version.major}.app/Contents/Resources/ds.sh", target: 'ds'
+  binary "#{appdir}/Dropshare #{version.major}.app/Contents/Resources/ds.sh", target: "ds"
 
   zap trash: [
-               '~/Library/Application Support/Dropshare 4',
-               '~/Library/Caches/net.mkswap.Dropshare4',
-               '~/Library/Cookies/net.mkswap.Dropshare4.binarycookies',
-               '~/Library/Logs/Dropshare 4',
-               '~/Library/Preferences/net.mkswap.Dropshare4.plist',
-             ]
+    "~/Library/Application Support/Dropshare #{version.major}",
+    "~/Library/Caches/net.mkswap.Dropshare#{version.major}",
+    "~/Library/Cookies/net.mkswap.Dropshare#{version.major}.binarycookies",
+    "~/Library/Logs/Dropshare #{version.major}",
+    "~/Library/Preferences/net.mkswap.Dropshare#{version.major}.plist",
+  ]
 end

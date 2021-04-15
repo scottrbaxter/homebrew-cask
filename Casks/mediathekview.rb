@@ -1,12 +1,17 @@
-cask 'mediathekview' do
-  version '13.0.6'
-  sha256 'a53a62a40e94064a9d66adce7b0139f908b8d4d5bc5a8e9d590a07040694a32e'
+cask "mediathekview" do
+  version "13.7.1"
+  sha256 "4e9cc25d62b6fe4420da6b881c41d067beef6f4c3beeae47a9ce66331a97f14c"
 
-  url "https://download.mediathekview.de/stabil/MediathekView-#{version}.dmg"
-  appcast 'https://mediathekview.de/changelog/index.xml',
-          checkpoint: '0de169102203a6eabee85ee23511411b38cdddc5b8c4fb89d9c1a643f616c190'
-  name 'MediathekView'
-  homepage 'https://mediathekview.de/'
+  url "https://download.mediathekview.de/stabil/MediathekView-#{version}-mac.dmg"
+  name "MediathekView"
+  desc "Manages online multimedia libs of German, Austrian and Swiss public broadcasters"
+  homepage "https://mediathekview.de/"
 
-  app 'MediathekView.app'
+  livecheck do
+    url "https://download.mediathekview.de/stabil/"
+    strategy :page_match
+    regex(%r{href=.*?/MediathekView-(\d+(?:\.\d+)*)-mac\.dmg}i)
+  end
+
+  app "MediathekView.app"
 end

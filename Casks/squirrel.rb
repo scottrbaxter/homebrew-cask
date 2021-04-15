@@ -1,21 +1,33 @@
-cask 'squirrel' do
-  version '0.9.26.2'
-  sha256 '7ba8f934f8d4fe1d42c944ea0771f1a54ed558dd65ea558c4ba4d203505bc130'
+cask "squirrel" do
+  version "0.15.2"
+  sha256 "91c3c7506e7225d793b8d1d77d65713f81ead65153bb3f1bdd69f9445c0ac9f6"
 
-  # dl.bintray.com/lotem/rime was verified as official when first introduced to the cask
-  url "https://dl.bintray.com/lotem/rime/Squirrel-#{version}.zip"
-  name 'Squirrel'
-  homepage 'http://rime.im/download/'
+  url "https://dl.bintray.com/rime/squirrel/Squirrel-#{version}.zip",
+      verified: "dl.bintray.com/rime/squirrel/"
+  name "Squirrel"
+  desc "Rime input method engine"
+  homepage "https://rime.im/"
 
-  depends_on macos: '>= :lion'
+  livecheck do
+    url "https://rime.im/release/squirrel/appcast.xml"
+    strategy :sparkle
+  end
 
-  pkg 'Squirrel.pkg'
+  auto_updates true
 
-  uninstall pkgutil: 'com.googlecode.rimeime.Squirrel.pkg',
-            delete:  '/Library/Input Methods/Squirrel.app'
+  pkg "Squirrel.pkg"
+
+  uninstall pkgutil: [
+    "im.rime.inputmethod.Squirrel",
+    "com.googlecode.rimeime.Squirrel.pkg", # Package name of older versions (< 0.10.0)
+  ],
+            delete:  "/Library/Input Methods/Squirrel.app"
 
   zap trash: [
-               '~/Library/Caches/com.googlecode.rimeime.inputmethod.Squirrel',
-               '~/Library/Preferences/com.googlecode.rimeime.inputmethod.Squirrel.plist',
-             ]
+    "~/Library/Caches/im.rime.inputmethod.Squirrel",
+    "~/Library/Preferences/im.rime.inputmethod.Squirrel.plist",
+    # Data for older versions (< 0.10.0)
+    "~/Library/Caches/com.googlecode.rimeime.inputmethod.Squirrel",
+    "~/Library/Preferences/com.googlecode.rimeime.inputmethod.Squirrel.plist",
+  ]
 end

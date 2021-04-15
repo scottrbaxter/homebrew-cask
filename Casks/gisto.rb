@@ -1,12 +1,12 @@
-cask 'gisto' do
-  version '0.3.1'
-  sha256 '93df9da2888f1cca3e649ccc30b8c4784e95ad22000c77d684d89363d873cbba'
+cask "gisto" do
+  version "1.13.4"
+  sha256 "40b8cb8654231af8550d0df76d39a8e69eb1e2fc909faba68882f2fe3576800e"
 
-  url "http://download.gistoapp.com/Gisto-#{version}-OSX_x86_64.dmg"
-  appcast 'http://www.gistoapp.com/GistoAppCast.xml',
-          checkpoint: 'c959dc4ada9c64029566aa4b1174818e360df84444da255d9626c2bef41f9cf3'
-  name 'Gisto'
-  homepage 'http://www.gistoapp.com/'
+  url "https://github.com/Gisto/Gisto/releases/download/v#{version}/Gisto-#{version}.dmg",
+      verified: "github.com/Gisto/Gisto/"
+  name "Gisto"
+  desc "Snippets management desktop application with (team) sharing options"
+  homepage "https://www.gistoapp.com/"
 
-  app 'Gisto.app'
+  app "Gisto.app"
 end

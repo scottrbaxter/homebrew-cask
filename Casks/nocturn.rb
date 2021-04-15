@@ -1,12 +1,11 @@
-cask 'nocturn' do
-  version '1.6.0'
-  sha256 'f2cc3f4cb9a94f68d9f5d6619502180b15016487e25877455477686d06b4b520'
+cask "nocturn" do
+  version "1.8.2"
+  sha256 "5ec4c8d1e209d2a2f10d46ea8b4e0f16ddcdc28bebb76affba55560d7dfb3a2d"
 
   url "https://github.com/k0kubun/Nocturn/releases/download/v#{version}/Nocturn-darwin-x64.zip"
-  appcast 'https://github.com/k0kubun/Nocturn/releases.atom',
-          checkpoint: '662d24f582eadab35cf19a52643f60f73120b796119092fb849b10aaca2f583e'
-  name 'Nocturn'
-  homepage 'https://github.com/k0kubun/Nocturn'
+  name "Nocturn"
+  desc "Multi-platform Twitter client"
+  homepage "https://github.com/k0kubun/Nocturn"
 
-  app 'Nocturn-darwin-x64/Nocturn.app'
+  app "Nocturn-darwin-x64/Nocturn.app"
 end

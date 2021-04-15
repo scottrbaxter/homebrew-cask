@@ -1,12 +1,21 @@
-cask 'airmedia' do
-  version '2.0.14'
-  sha256 'f40761616c814d005f4d47bc8b5ef6aba40fdb518c5e40358e2224d24429fb9b'
+cask "airmedia" do
+  version "4.1.2"
+  sha256 "e96b36165378d2fec39d1994d4295cd27da83da505b12f4e3f5aefb5d160bd33"
 
-  url "https://www.crestron.com/downloads/software/airmedia_#{version}_macOS_guest_dmg.zip"
-  name 'Crestron AirMedia'
-  homepage 'https://www.crestron.com/microsites/airmedia-mobile-wireless-hd-presentations'
+  url "https://www.crestron.com/Crestron/media/Crestron/WidenResources/Web%20Miscellaneous/airmedia_osx_#{version.dots_to_underscores}_guest.zip"
+  name "Crestron AirMedia"
+  desc "Touchless presentation and collaboration software"
+  homepage "https://www.crestron.com/microsites/airmedia-mobile-wireless-hd-presentations"
 
-  container nested: "airmedia_#{version}_macOS_guest_dmg/airmedia_#{version}_macOS_guest.dmg"
+  livecheck do
+    url "https://www.crestron.com/en-US/Products/Featured-Solutions/Airmedia"
+    strategy :page_match do |page|
+      v = page[%r{href=.*?/airmedia_osx_(\d+(?:_\d+)*)_guest\.zip}i, 1]
+      v.tr("_", ".")
+    end
+  end
 
-  app 'Crestron AirMedia.app'
+  container nested: "airmedia_osx_#{version}_guest.dmg"
+
+  app "Crestron AirMedia.app"
 end

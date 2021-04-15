@@ -1,23 +1,28 @@
-cask 'the-unarchiver' do
-  version '3.11.3,115:1507740941'
-  sha256 '04dc20b845171e25c7137e504cd5a5387a81bdfdc51d2ad810d5fdcf84cff8c6'
+cask "the-unarchiver" do
+  version "4.2.4,131:1605625663"
+  sha256 "75524096a35fb4dcc8e9f16b162d52ee6c4e8101878c18b5a02c3e37790e532c"
 
-  # devmate.com/cx.c3.theunarchiver was verified as official when first introduced to the cask
-  url "https://dl.devmate.com/cx.c3.theunarchiver/#{version.after_comma.before_colon}/#{version.after_colon}/TheUnarchiver-#{version.after_comma.before_colon}.zip"
-  appcast 'https://updates.devmate.com/cx.c3.theunarchiver.xml',
-          checkpoint: '1c96c54e3a66a32152a075585833353b2a7973e4f3460c49f597dff60626f5cd'
-  name 'The Unarchiver'
-  homepage 'https://theunarchiver.com/'
+  url "https://dl.devmate.com/com.macpaw.site.theunarchiver/#{version.after_comma.before_colon}/#{version.after_colon}/TheUnarchiver-#{version.after_comma.before_colon}.zip",
+      verified: "devmate.com/com.macpaw.site.theunarchiver/"
+  name "The Unarchiver"
+  desc "Unpacks archive files"
+  homepage "https://theunarchiver.com/"
+
+  livecheck do
+    url "https://updates.devmate.com/com.macpaw.site.theunarchiver.xml"
+    strategy :sparkle do |item|
+      "#{item.short_version},#{item.version}:#{item.url[%r{/(\d+)/TheUnarchiver-\d+\.zip}i, 1]}"
+    end
+  end
 
   auto_updates true
-  depends_on macos: '>= :lion'
 
-  app 'The Unarchiver.app'
+  app "The Unarchiver.app"
 
   zap trash: [
-               '~/Library/Caches/cx.c3.theunarchiver',
-               '~/Library/Cookies/cx.c3.theunarchiver.binarycookies',
-               '~/Library/Preferences/cx.c3.theunarchiver.plist',
-               '~/Library/Saved Application State/cx.c3.theunarchiver.savedState',
-             ]
+    "~/Library/Caches/cx.c3.theunarchiver",
+    "~/Library/Cookies/cx.c3.theunarchiver.binarycookies",
+    "~/Library/Preferences/cx.c3.theunarchiver.plist",
+    "~/Library/Saved Application State/cx.c3.theunarchiver.savedState",
+  ]
 end

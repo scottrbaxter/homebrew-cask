@@ -1,12 +1,26 @@
-cask 'diskmaker-x' do
-  version '7'
-  sha256 'd0c80961ca06dca436c0c784e8779defe56a0675d032f054064215a1b193a184'
+cask "diskmaker-x" do
+  if MacOS.version <= :mojave
+    version "8.0.3"
+    sha256 "79b490dc829775450aafadeddd0afc58bdcef9c60fc82d9db1427c51b57e88a7"
 
-  url "https://diskmakerx.com/downloads/DiskMaker_X_#{version}.dmg"
-  appcast 'https://diskmakerx.com/feed/',
-          checkpoint: 'cde4b4adc3d2988a6616df0856c1f77ccb599ff516993c3a65cb2728909f6ae3'
-  name 'DiskMaker X'
-  homepage 'https://diskmakerx.com/'
+    app "DiskMaker X #{version.major} for macOS Mojave.app"
+  else
+    version "9.0"
+    sha256 "96845cd375543401b822fb4e17d2ecc300fcb621f56afcdad613ae11c9afddce"
 
-  app "DiskMaker X #{version.major} for High Sierra.app"
+    app "DiskMaker X #{version.major} for macOS Catalina.app"
+
+    livecheck do
+      url "https://diskmakerx.com/"
+      strategy :page_match
+      regex(/DiskMaker\s*X\s*(\d+(?:\.\d+)*)/i)
+    end
+  end
+
+  url "https://diskmakerx.com/downloads/DiskMaker_X_#{version.major}.dmg"
+  name "DiskMaker X"
+  desc "Tool to build a system install disk"
+  homepage "https://diskmakerx.com/"
+
+  depends_on macos: ">= :yosemite"
 end

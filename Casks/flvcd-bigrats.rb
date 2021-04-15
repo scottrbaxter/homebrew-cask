@@ -1,10 +1,10 @@
-cask 'flvcd-bigrats' do
-  version '0.5.2.1'
-  sha256 'c553e991f6326aa5527ef44df2270d91bc13154ddcfe3d9de0593078d0ffc41f'
+cask "flvcd-bigrats" do
+  version "0.5.2.7"
+  sha256 "92cd22709e6db9607a2b2292d6ac42cda4f5bf97c7d2511b8a35b1fef0f9688b"
 
-  url "http://download.flvcd.com/mac/flvcd_bigrats_mac#{version.no_dots}.zip"
-  name '硕鼠MAC'
-  homepage 'http://www.flvcd.com/index.htm'
+  url "https://app.flvcd.com/flvcd_bigrats_mac#{version.no_dots}.zip"
+  name "硕鼠MAC"
+  homepage "https://www.flvcd.com/index.htm"
 
-  app '硕鼠MAC.app'
+  app "硕鼠MAC.app"
 end

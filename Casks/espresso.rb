@@ -1,14 +1,20 @@
-cask 'espresso' do
-  version '5.1.1'
-  sha256 '728b5cb018479463bfb919533bfdcbd1788d1ec5b00ee312d3dc316d2e50527d'
+cask "espresso" do
+  version "5.6.1"
+  sha256 "f9f044493de83b0d4aebe3ecc9f3b28322563434fbb474739417540728c09bca"
 
-  url "https://presto.espressoapp.com/downloads/Espresso%20v#{version}.zip"
-  appcast "https://update.macrabbit.com/espresso/#{version}.xml",
-          checkpoint: 'c6be149ba0581d51a48418850d3378aa1523814e12f0eb066c552b0b0a6ec4bb'
-  name 'Espresso'
-  homepage 'https://espressoapp.com/'
+  url "https://downloads.kangacode.com/Espresso/Espresso_#{version}.zip",
+      verified: "downloads.kangacode.com/"
+  name "Espresso"
+  desc "Website editor focusing on flair and efficiency"
+  homepage "https://espressoapp.com/"
 
-  depends_on macos: '>= :sierra'
+  livecheck do
+    url "https://espressoapp.com/updates/"
+    strategy :page_match
+    regex(/data-title="(\d+(?:\.\d+)*)"/i)
+  end
 
-  app 'Espresso.app'
+  depends_on macos: ">= :high_sierra"
+
+  app "Espresso.app"
 end

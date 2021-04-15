@@ -1,12 +1,16 @@
-cask 'fastonosql' do
-  version '1.15.1'
-  sha256 'be819f417c0175698273a5b5d995a860b0cd47a9e5fa05743a4fe141f3751c2c'
+cask "fastonosql" do
+  version "2.6.0"
+  sha256 "13755c0f39d65d2d8a729726cdb84e4040d1e488296aa2d57ab5b0b2c272354a"
 
-  url "https://www.fastonosql.com/trial_users_downloads/macosx/fastonosql-#{version}-x86_64.dmg"
-  appcast 'https://github.com/fastogt/fastonosql/releases.atom',
-          checkpoint: '835b2b356a2c8b02b46ec081fe77867ca4583f52342aec70ae9238390398b2f9'
-  name 'FastoNoSQL'
-  homepage 'https://www.fastonosql.com/'
+  url "https://fastonosql.com/downloads_pro/macosx/fastonosql_pro-#{version}-x86_64.dmg"
+  name "FastoNoSQL"
+  homepage "https://www.fastonosql.com/"
 
-  app 'FastoNoSQL.app'
+  livecheck do
+    url "https://fastonosql.com/anonim_users_downloads"
+    strategy :page_match
+    regex(/Mac\s*OS\s*X\s+(\d+(?:\.\d+)*)\s+Installer/i)
+  end
+
+  app "FastoNoSQL.app"
 end

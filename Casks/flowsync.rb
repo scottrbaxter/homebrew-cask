@@ -1,14 +1,20 @@
-cask 'flowsync' do
-  version '2.6.4'
-  sha256 '6a5c3d76b969cfc48c2adb26149e7911fafc1f1ae0b860f72db107e773b072ba'
+cask "flowsync" do
+  version "4.0.6"
+  sha256 "e3a2999dd060deb8a30c4d507f0b9ee4298fa10415f1d87bfd6e2bed46afab06"
 
-  # dngo5v6w7xama.cloudfront.net was verified as official when first introduced to the cask
-  url "https://dngo5v6w7xama.cloudfront.net/connect/download/FlowSync_#{version}.pkg"
-  name 'Polar FlowSync Software'
-  homepage 'https://support.polar.com/uk-en/support/flowsync'
+  url "https://flowsync.flow.polar.com/app/FlowSync_installer-#{version}.pkg"
+  name "Polar FlowSync Software"
+  desc "Syncing software for Polar Flow products"
+  homepage "https://support.polar.com/uk-en/support/flowsync"
 
-  pkg "FlowSync_#{version}.pkg"
+  livecheck do
+    url "https://flow.polar.com/start"
+    strategy :page_match
+    regex(%r{href=.*?/FlowSync_installer-(\d+(?:\.\d+)*)\.pkg}i)
+  end
 
-  uninstall pkgutil: 'com.polarelectro.pkg.flowsync',
-            quit:    'fi.polar.FlowSync'
+  pkg "FlowSync_installer-#{version}.pkg"
+
+  uninstall pkgutil: ["com.polarelectro.pkg.flowsync", "fi.polar.FlowSync", "com.joshuawise.kexts.HoRNDIS"],
+            quit:    "fi.polar.Polar-FlowSync"
 end

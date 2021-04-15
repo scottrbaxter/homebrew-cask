@@ -1,10 +1,26 @@
-cask 'scummvm' do
-  version '2.0.0'
-  sha256 'ac85e37d8bb923bbd1cdd998dc3e6d4a6a0f7dac042a863502c002e997c51414'
+cask "scummvm" do
+  version "2.2.0"
+  sha256 "044de5abed5e86a67a36b1793e6099b3175b612c4130a92bdc88acc73e980a5e"
 
-  url "https://scummvm.org/frs/scummvm/#{version.major_minor_patch}/scummvm-#{version}-macosx.dmg"
-  name 'ScummVM'
-  homepage 'https://www.scummvm.org/'
+  url "https://downloads.scummvm.org/frs/scummvm/#{version}/scummvm-#{version}-macosx.dmg"
+  name "ScummVM"
+  desc "Run classic graphical adventure and role-playing games"
+  homepage "https://www.scummvm.org/"
 
-  app 'ScummVM.app'
+  livecheck do
+    url "https://www.scummvm.org/downloads/"
+    strategy :page_match
+    regex(%r{href=.*?/scummvm-(\d+(?:\.\d+)*)-macosx\.dmg}i)
+  end
+
+  app "ScummVM.app"
+
+  zap trash: [
+    "~/Documents/ScummVM Savegames",
+    "~/Library/Caches/org.scummvm.scummvm",
+    "~/Library/Logs/scummvm.log",
+    "~/Library/Preferences/ScummVM Preferences",
+    "~/Library/Preferences/org.scummvm.scummvm.plist",
+    "~/Library/Saved Application State/org.scummvm.scummvm.savedState",
+  ]
 end

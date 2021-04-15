@@ -1,13 +1,27 @@
-cask 'freac' do
-  version '1.1-alpha-20171119'
-  sha256 '265d6a9304c947b866d36191e9820810a02f4696a66f68828603c86d434ce86e'
+cask "freac" do
+  version "1.1.4"
 
-  # sourceforge.net/bonkenc was verified as official when first introduced to the cask
-  url "https://downloads.sourceforge.net/bonkenc/freac-#{version}-macosx.dmg"
-  appcast 'https://sourceforge.net/projects/bonkenc/rss',
-          checkpoint: '1af0978fed96f9747bcf6adccd9eeaae474d16544bf49c26b37ce74e502cb162'
-  name 'fre:ac'
-  homepage 'https://www.freac.org/'
+  if MacOS.version <= :catalina
+    sha256 "c62588c0afe34cb1163968b5432bd9deb84bd75be8f8f3b7cc292884d735af9b"
 
-  app 'freac.app'
+    url "https://github.com/enzo1982/freac/releases/download/v#{version}/freac-#{version}-macos10.dmg",
+        verified: "github.com/enzo1982/freac/"
+  else
+    sha256 "d5d961798b695569f7636e8b4c0dcf8ac8a5a7d6e57d0c85985f2cb51c936476"
+
+    url "https://github.com/enzo1982/freac/releases/download/v#{version}/freac-#{version}-macos11.dmg",
+        verified: "github.com/enzo1982/freac/"
+  end
+
+  name "fre:ac"
+  desc "Audio converter and CD ripper"
+  homepage "https://www.freac.org/"
+
+  app "freac.app"
+
+  zap trash: [
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/org.freac.freac.sfl*",
+    "~/Library/Preferences/org.freac.freac.plist",
+    "~/Library/Saved Application State/org.freac.freac.savedState",
+  ]
 end

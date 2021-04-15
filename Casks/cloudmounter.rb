@@ -1,10 +1,16 @@
-cask 'cloudmounter' do
-  version :latest
+cask "cloudmounter" do
+  version "3.8,680"
   sha256 :no_check
 
-  url 'http://mac.eltima.com/download/cloudmounter.dmg'
-  name 'Eltima CloudMounter'
-  homepage 'https://mac.eltima.com/mount-cloud-drive.html'
+  url "https://cdn.eltima.com/download/cloudmounter.dmg"
+  name "Eltima CloudMounter"
+  desc "Mounts cloud storages as local disks"
+  homepage "https://mac.eltima.com/mount-cloud-drive.html"
 
-  app 'CloudMounter.app'
+  livecheck do
+    url "https://cdn.eltima.com/download/cloudmounter-update/settings.xml"
+    strategy :sparkle
+  end
+
+  app "CloudMounter.app"
 end

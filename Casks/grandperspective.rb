@@ -1,14 +1,20 @@
-cask 'grandperspective' do
-  version '1.9.1'
-  sha256 '1750c37590e451278cf2d93a521ff7e56572c417a3afcf3204961f5b0e8b5ceb'
+cask "grandperspective" do
+  version "2.5.4"
+  sha256 "69a27cfb2f9bdf9afec22649b01a98cd2779298229029e3508b84bcc64cc46e7"
 
-  url "https://downloads.sourceforge.net/grandperspectiv/grandperspective/#{version}/GrandPerspective-#{version.dots_to_underscores}.dmg"
-  appcast 'https://sourceforge.net/projects/grandperspectiv/rss?path=/grandperspective',
-          checkpoint: 'bc448794e57b511c93a061bc25aec699ab09bfc54f618c44bc7ba91e31ab76c6'
-  name 'GrandPerspective'
-  homepage 'http://grandperspectiv.sourceforge.net/'
+  url "https://downloads.sourceforge.net/grandperspectiv/grandperspective/#{version}/GrandPerspective-#{version.dots_to_underscores}.dmg",
+      verified: "downloads.sourceforge.net/grandperspectiv/"
+  appcast "https://sourceforge.net/projects/grandperspectiv/rss?path=/grandperspective"
+  name "GrandPerspective"
+  desc "Graphically shows disk usage within a file system"
+  homepage "https://grandperspectiv.sourceforge.io/"
 
-  app 'GrandPerspective.app'
+  app "GrandPerspective.app"
 
-  zap trash: '~/Library/Preferences/net.sourceforge.grandperspectiv.plist'
+  zap trash: [
+    "~/Library/Application Scripts/net.courceforge.grandperspectiv",
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/net.sourceforge.grandperspectiv.sfl2",
+    "~/Library/Containers/net.sourceforge.grandperspectiv",
+    "~/Library/Preferences/net.sourceforge.grandperspectiv.plist",
+  ]
 end

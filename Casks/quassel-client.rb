@@ -1,10 +1,16 @@
-cask 'quassel-client' do
-  version '0.12.4'
-  sha256 '42f46882756e795bb75690e5087b026b5b5795c3d057d9b9ee0c9b83243acc07'
+cask "quassel-client" do
+  version "0.13.1"
+  sha256 "2ebfc69a0a5da2554080b6b3d6d27b577c8d5a591253549b5960788741d7aece"
 
-  url "http://quassel-irc.org/pub/QuasselClient_MacOSX-x86_64_#{version}.dmg"
-  name 'Quassel IRC'
-  homepage 'http://quassel-irc.org/'
+  url "https://quassel-irc.org/pub/QuasselClient_MacOSX-x86_64_#{version}.dmg"
+  name "Quassel IRC"
+  desc "Quassel IRC: Chat comfortably.  Everywhere"
+  homepage "https://quassel-irc.org/"
 
-  app 'Quassel Client.app'
+  livecheck do
+    url "https://github.com/quassel/quassel"
+    strategy :github_latest
+  end
+
+  app "Quassel Client.app"
 end

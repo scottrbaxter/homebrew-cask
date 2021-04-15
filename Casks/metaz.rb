@@ -1,13 +1,12 @@
-cask 'metaz' do
-  version '1.0.beta-35'
-  sha256 '9b778eea86ac68a38bc40b88d5a74da6e6cb4a521e2ed1e8b62957309a286ffd'
+cask "metaz" do
+  version "1.0.beta-113"
+  sha256 "5f0d43794ac76c025ad1c0f6419dfea58c8c696d7e2782060d2aa12554316588"
 
-  # github.com/griff/metaz was verified as official when first introduced to the cask
-  url "https://github.com/griff/metaz/releases/download/v#{version}/MetaZ-#{version}.zip"
-  appcast 'https://github.com/griff/metaz/releases.atom',
-          checkpoint: '64ad5ec7895d8b890eab9abef034c46083d783d1d4f40c7e41f3ed978bf49921'
-  name 'MetaZ'
-  homepage 'https://griff.github.io/metaz/'
+  url "https://github.com/griff/metaz/releases/download/v#{version}/MetaZ-#{version}.zip",
+      verified: "github.com/griff/metaz/"
+  name "MetaZ"
+  desc "Mp4 meta-data editor"
+  homepage "https://griff.github.io/metaz/"
 
-  app 'MetaZ.app'
+  app "MetaZ.app"
 end

@@ -1,13 +1,25 @@
-cask 'freecad' do
-  version '0.16-6712.da2d364'
-  sha256 '8b1d6410a2b276de393b99ff21bbd4888c31bcae6bdf0d400e198b291333f345'
+cask "freecad" do
+  version "0.19.1,24276"
+  sha256 :no_check # required as upstream package is updated in-place
 
-  # github.com/FreeCAD/FreeCAD was verified as official when first introduced to the cask
-  url "https://github.com/FreeCAD/FreeCAD/releases/download/0.16.6712/FreeCAD_#{version}-OSX-x86_64.dmg"
-  appcast 'https://github.com/FreeCAD/FreeCAD/releases.atom',
-          checkpoint: '49ced24895e84a20852ec3eb2e50669496a821b7e63e420f4824ef243400c210'
-  name 'FreeCAD'
-  homepage 'https://www.freecadweb.org/'
+  url "https://github.com/FreeCAD/FreeCAD/releases/download/#{version.before_comma}/FreeCAD_#{version.major_minor}-#{version.after_comma}-macOS-x86_64-conda.dmg",
+      verified: "github.com/FreeCAD/FreeCAD/"
+  name "FreeCAD"
+  desc "3D parametric modeler"
+  homepage "https://www.freecadweb.org/"
 
-  app 'FreeCAD.app'
+  livecheck do
+    url "https://github.com/FreeCAD/FreeCAD/releases"
+    strategy :page_match do |page|
+      match = page.match(
+        %r{href=.*?/(\d+(?:\.\d+)*)/FreeCAD_(?:\d+(?:\.\d+)*)-(\d+(?:-rev\d+)?)-macOS-x86_64-conda\.dmg}i,
+      )
+      "#{match[1]},#{match[2]}"
+    end
+  end
+
+  conflicts_with cask: "homebrew/cask-versions/freecad-pre"
+  depends_on macos: ">= :sierra"
+
+  app "FreeCAD.app"
 end

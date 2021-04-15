@@ -1,17 +1,27 @@
-cask 'firestormos' do
-  version '5.0.7.52912'
-  sha256 'e696ec2ef30f2af6de576bc2640602db19b35e011cedf6d933e3fa901d9aa224'
+cask "firestormos" do
+  version "6.4.13.63251"
+  sha256 "989662f0d4ba19c0b9fc34a9fe0b246fe8af41636102d950138b74d8fa694733"
 
-  url "http://downloads.firestormviewer.org/mac/Phoenix-FirestormOS-Releasex64-#{version.dots_to_hyphens}.dmg"
-  name 'Phoenix Firestorm viewer for Second Life'
-  homepage 'http://www.firestormviewer.org/'
+  url "https://downloads.firestormviewer.org/mac/Phoenix-FirestormOS-Releasex64_#{version.dots_to_underscores}_x86_64.dmg"
+  name "Phoenix Firestorm viewer for OpenSim"
+  desc "Viewer for accessing Virtual Worlds"
+  homepage "https://www.firestormviewer.org/"
 
-  app 'FirestormOS-Releasex64.app'
+  livecheck do
+    url "https://www.firestormviewer.org/mac-for-open-simulator/"
+    strategy :page_match do |page|
+      v = page[%r{href=.*?/Phoenix-FirestormOS-Releasex64_(\d+(?:_\d+)*)_x86_64\.dmg}i, 1]
+      v.tr("_", ".")
+    end
+  end
+
+  app "FirestormOS-Releasex64.app"
 
   caveats <<~EOS
     This version does not contain Havok engine (does not matter if you're not a content creator).
+    This version is only needed if you visit OpenSim grids; should not be used for uploading mesh to Second Life.
     Most problems that crop up during updates can be resolved or fixed by performing a clean install:
 
-      http://wiki.phoenixviewer.com/doku.php?id=fs_clean_reinstall for instructions.
+      https://wiki.firestormviewer.org/fs_clean_install for instructions.
   EOS
 end

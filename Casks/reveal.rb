@@ -1,14 +1,28 @@
-cask 'reveal' do
-  version '13'
-  sha256 '1cdae698fe0dd3d7d0f457fb572fc063dc006efa0c9a9b59e6beabebb65099ff'
+cask "reveal" do
+  version "26,13630"
+  sha256 "9cf292d91163030a10dc0da73ebf7d9b1e736b849aeb12c8617a09e38ef81a5e"
 
-  url "https://download.revealapp.com/Reveal.app-#{version}.zip"
-  appcast 'https://revealapp.com/download/',
-          checkpoint: 'ede640ade1401428ea099c57c18a40a08daafecedd9abe833a87139053d0e30d'
-  name 'Reveal'
-  homepage 'https://revealapp.com/'
+  url "https://download.revealapp.com/Reveal.app-#{version.before_comma}.zip"
+  name "Reveal"
+  desc "Runtime view debugger"
+  homepage "https://revealapp.com/"
 
-  depends_on macos: '>= :sierra'
+  livecheck do
+    url "https://updates.devmate.com/com.ittybittyapps.Reveal2.xml"
+    strategy :sparkle
+  end
 
-  app 'Reveal.app'
+  auto_updates true
+  depends_on macos: ">= :mojave"
+
+  app "Reveal.app"
+
+  zap trash: [
+    "~/Library/Application Support/Reveal",
+    "~/Library/Caches/com.ittybittyapps.Reveal2",
+    "~/Library/Logs/com.ittybittyapps.Reveal2",
+    "~/Library/Preferences/com.ittybittyapps.Reveal2.plist",
+    "~/Library/Saved Application State/com.ittybittyapps.Reveal2.savedState",
+    "/Users/Shared/Reveal",
+  ]
 end

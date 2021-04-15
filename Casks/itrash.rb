@@ -1,18 +1,11 @@
-cask 'itrash' do
-  if MacOS.version <= :mavericks
-    version '2.2.1'
-    sha256 '58255c7bbc09d9d37db9021a772fc436bd16eab64e89cdccfefff4e360122e7d'
+cask "itrash" do
+  version "5.3.3.3.202"
+  sha256 :no_check
 
-    url "http://www.osxbytes.com/iTrash#{version.no_dots}.dmg"
-  else
-    version :latest
-    sha256 :no_check
+  url "https://www.osxbytes.com/iTrash.dmg?forcedownload"
+  name "iTrash"
+  desc "Uninstalls all files of an application"
+  homepage "https://www.osxbytes.com/itrash.html"
 
-    url 'http://www.osxbytes.com/iTrash.dmg'
-  end
-
-  name 'iTrash'
-  homepage 'http://www.osxbytes.com/itrash.html'
-
-  app 'iTrash.app'
+  app "iTrash.app"
 end

@@ -1,10 +1,22 @@
-cask 'swift' do
-  version '3.0'
-  sha256 '8849a59f0875f2d3e2c8a99a171b4f0177f98ecc2241deac92509056858f5024'
+cask "swift" do
+  version "4.0.2"
+  sha256 "7fc8ed6911f91f0888b4b9ec3c26df41325cb4d8c2fc588fbacd35a0be7f772b"
 
   url "https://swift.im/downloads/releases/swift-#{version}/Swift-#{version}.dmg"
-  name 'Swift XMPP Client'
-  homepage 'https://swift.im/'
+  name "Swift XMPP Client"
+  homepage "https://swift.im/"
 
-  app 'Swift.app'
+  livecheck do
+    url "https://swift.im/downloads/swift-stable-appcast-mac.xml"
+    strategy :sparkle, &:version
+  end
+
+  app "Swift.app"
+
+  zap trash: [
+    "~/Library/Application Support/Swift",
+    "~/Library/Caches/im.swift.Swift",
+    "~/Library/Preferences/im.swift.Swift.plist",
+    "~/Library/Saved Application State/im.swift.Swift.savedState",
+  ]
 end

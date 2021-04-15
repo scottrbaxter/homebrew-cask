@@ -1,12 +1,20 @@
-cask 'texstudio' do
-  version '2.12.6'
-  sha256 '01f659d2ec82714b9fca5b5055df274c9229f8d793e7a511520a409a81958619'
+cask "texstudio" do
+  version "3.1.1"
+  sha256 "62bd1a4b9208598b3aee34bc57a4dfd374020b26ba2be198d985a06c06fe6b07"
 
-  url "https://downloads.sourceforge.net/texstudio/texstudio-#{version}-osx-qt5.7.1.zip"
-  appcast 'https://sourceforge.net/projects/texstudio/rss',
-          checkpoint: 'bc2e3519f42f8bd2f187cd3646ba3f0ccbd22da32288b70ba5762d6174f3334b'
-  name 'TeXstudio'
-  homepage 'http://texstudio.sourceforge.net/'
+  url "https://github.com/texstudio-org/texstudio/releases/download/#{version}/texstudio-#{version}-osx.dmg",
+      verified: "github.com/texstudio-org/texstudio/"
+  name "TeXstudio"
+  desc "LaTeX editor"
+  homepage "https://texstudio.org/"
 
-  app 'texstudio.app'
+  depends_on macos: ">= :sierra"
+
+  app "texstudio.app"
+
+  zap trash: [
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/texstudio.sfl*",
+    "~/Library/Preferences/texstudio.plist",
+    "~/Library/Saved Application State/texstudio.savedState",
+  ]
 end

@@ -1,13 +1,20 @@
-cask 'visual-paradigm-ce' do
-  version '14.2,20180202'
-  sha256 '22ba0a6311ffc3eca43a7b30e28a580f643b8b1509e606620e8be5fbbe879809'
+cask "visual-paradigm-ce" do
+  version "16.2,20210403"
+  sha256 "81726c35c05ee3dde26c49dcfce17a0bb8ff636a40b399324c118ce428a2c296"
 
-  url "https://usa6.visual-paradigm.com/visual-paradigm/vpce#{version.before_comma}/#{version.after_comma}/Visual_Paradigm_CE_#{version.before_comma.dots_to_underscores}_#{version.after_comma}_OSX_WithJRE.dmg"
-  appcast 'https://www.visual-paradigm.com/downloads/vpce/checksum.html',
-          checkpoint: '81016145e7e9a9168cbf9a7e74502f17b870fad717616e0f0f37d54ab7dfe3a2'
-  name 'Visual Paradigm Community Edition'
-  homepage 'https://www.visual-paradigm.com/'
+  url "https://www.visual-paradigm.com/downloads/vpce/Visual_Paradigm_CE_#{version.before_comma.dots_to_underscores}_#{version.after_comma}_OSX_WithJRE.dmg"
+  name "Visual Paradigm Community Edition"
+  desc "All-in-one UML, SysML, BPMN Modeling Platform for Agile"
+  homepage "https://www.visual-paradigm.com/"
+
+  livecheck do
+    url "https://www.visual-paradigm.com/downloads/vpce/checksum.html"
+    strategy :header_match do |headers|
+      match = headers["location"].match(%r{/vpce(\d+(?:\.\d+)*)/(\d+)/checksum\.html}i)
+      "#{match[1]},#{match[2]}"
+    end
+  end
 
   # Renamed to avoid conflict with visual-paradigm.
-  app 'Visual Paradigm.app', target: 'Visual Paradigm CE.app'
+  app "Visual Paradigm.app", target: "Visual Paradigm CE.app"
 end

@@ -1,24 +1,32 @@
-cask 'clocker' do
-  version '1.5.1'
-  sha256 'd9003079b1c2451932281afab9742943897b0b4015181cc7e1ed1c6c3651db84'
+cask "clocker" do
+  version "20.10.03,5613815"
+  sha256 "27692bbfafb74d0c9f85a7e7bfae53708831900e59eb9ac35681dbebf4bce3c4"
 
-  # github.com/abhishekbanthia/Clocker was verified as official when first introduced to the cask
-  url "https://github.com/abhishekbanthia/Clocker/releases/download/v#{version}/Clocker.zip"
-  appcast 'https://github.com/abhishekbanthia/Clocker/releases.atom',
-          checkpoint: 'a3c5d15412fc810a77449d8a0e1fa722820f870d074c552bc628fc3137bcc7f8'
-  name 'Clocker'
-  homepage 'https://abhishekbanthia.com/Clocker/'
+  url "https://github.com/n0shake/Clocker/files/#{version.after_comma}/Clocker.app.zip",
+      verified: "github.com/n0shake/Clocker/"
+  name "Clocker"
+  desc "Track timezones from your menubar"
+  homepage "https://abhishekbanthia.com/clocker"
 
-  app 'Clocker.app'
+  livecheck do
+    url "https://github.com/n0shake/Clocker/releases/latest"
+    strategy :page_match do |page|
+      v = page[%r{href=.*?/tag/(\d+(?:\.\d+)*)}i, 1]
+      id = page[%r{href=.*?/(\d+)/Clocker\.app\.zip}i, 1]
+      "#{v},#{id}"
+    end
+  end
 
-  uninstall launchctl: 'com.abhishek.ClockerHelper',
-            quit:      'com.abhishek.Clocker'
+  app "Clocker.app"
+
+  uninstall launchctl: "com.abhishek.ClockerHelper",
+            quit:      "com.abhishek.Clocker"
 
   zap trash: [
-               '~/Library/Application Scripts/com.abhishek.Clocker',
-               '~/Library/Containers/com.abhishek.Clocker',
-               '~/Library/Preferences/com.abhishek.Clocker.plist',
-               '~/Library/Preferences/com.abhishek.ClockerHelper.plist',
-               '~/Library/Preferences/com.abhishek.Clocker.prefs',
-             ]
+    "~/Library/Application Scripts/com.abhishek.Clocker",
+    "~/Library/Containers/com.abhishek.Clocker",
+    "~/Library/Preferences/com.abhishek.Clocker.plist",
+    "~/Library/Preferences/com.abhishek.ClockerHelper.plist",
+    "~/Library/Preferences/com.abhishek.Clocker.prefs",
+  ]
 end

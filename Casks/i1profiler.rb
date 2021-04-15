@@ -1,26 +1,31 @@
-cask 'i1profiler' do
-  version '1.7.2'
-  sha256 '276aeda81784d074e50fc6b0a6f4b9a7ffca4e15496b58733ae50acb68091b15'
+cask "i1profiler" do
+  version "3.3.0.13512"
+  sha256 "c8617cde690a33ad37c1b6013d800607b739cac27d3b65d487c141679105598e"
 
-  url "https://downloads.xrite.com/downloads/software/i1Profiler/#{version}/Mac/i1Profiler.zip"
-  name 'i1Profiler'
-  name 'Eye-One Profiler'
-  name 'i1Publish'
-  homepage "http://www.xrite.com/service-support/downloads/I/i1Profiler-i1Publish_V#{version.dots_to_underscores}"
+  url "https://downloads.xrite.com/downloads/software/i1Profiler/#{version.major_minor_patch}/Mac/i1Profiler.zip"
+  name "i1Profiler"
+  name "Eye-One Profiler"
+  name "i1Publish"
+  homepage "https://www.xrite.com/service-support/downloads/I/i1Profiler-i1Publish_V#{version.major_minor_patch.dots_to_underscores}"
 
-  pkg 'i1Profiler.pkg'
+  livecheck do
+    url "http://www.xrite.com/Downloads/Autoupdate/i1profiler_mac_appcast.xml"
+    strategy :sparkle
+  end
+
+  pkg "i1Profiler.pkg"
 
   uninstall pkgutil:   [
-                         'com.xrite.i1profiler.*',
-                         'com.xrite.xritedeviceservices.*',
-                         'com.xrite.hasp.installer.*',
-                       ],
+    "com.xrite.i1profiler.*",
+    "com.xrite.xritedeviceservices.*",
+    "com.xrite.hasp.installer.*",
+  ],
             launchctl: [
-                         'com.xrite.device.softwareupdate.plist',
-                         'com.xrite.device.xrdd.plist',
-                       ],
-            delete:    '/Applications/i1Profiler/i1Profiler.app',
-            rmdir:     '/Applications/i1Profiler'
+              "com.aladdin.aksusbd",
+              "com.aladdin.hasplmd",
+            ],
+            delete:    "/Applications/i1Profiler/i1Profiler.app",
+            rmdir:     "/Applications/i1Profiler"
 
   caveats do
     reboot

@@ -1,12 +1,18 @@
-cask 'twist' do
-  version '1.0.22,3279'
-  sha256 'aca89630774fa53f7cda305e525174e21307ed5455aba48e2cb9df6c32615e7a'
+cask "twist" do
+  version "0.2.3,7025"
+  sha256 "8dfadf3cb9f952f04c5aa3eb37c0298151fb831b5ed70ff35682d8af692eedae"
 
-  url "https://downloads.twistapp.com/mac/Twist-#{version.after_comma}.zip"
-  appcast 'https://downloads.twistapp.com/mac/AppCast.xml',
-          checkpoint: '5aa976bc5fcce3706328408fbc81d788316845b3eb4a783c82adfd7d7ae8d227'
-  name 'Twist'
-  homepage 'https://twistapp.com/'
+  url "https://downloads.twist.com/mac/Twist-#{version.before_comma}.dmg"
+  name "Twist"
+  desc "Team communication and collaboration software"
+  homepage "https://twist.com/"
 
-  app 'Twist.app'
+  livecheck do
+    url "https://downloads.twist.com/mac/AppCast.xml"
+    strategy :sparkle
+  end
+
+  depends_on macos: ">= :el_capitan"
+
+  app "Twist.app"
 end

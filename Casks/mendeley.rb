@@ -1,10 +1,16 @@
-cask 'mendeley' do
-  version '1.17.13'
-  sha256 'd1316eafbf661adfedfdb2daad8527c177036a9fa30b9ba7b2eac696c0a1d54f'
+cask "mendeley" do
+  version "1.19.8"
+  sha256 "5f6b9fe7a04b6b12a81f4300864b243bbe4e4ec31aa71f6b260be519493b1d44"
 
   url "https://desktop-download.mendeley.com/download/Mendeley-Desktop-#{version}-OSX-Universal.dmg"
-  name 'Mendeley'
-  homepage 'https://www.mendeley.com/'
+  name "Mendeley Desktop"
+  desc "Research management tool"
+  homepage "https://www.mendeley.com/reference-management/mendeley-desktop"
 
-  app 'Mendeley Desktop.app'
+  livecheck do
+    url "https://www.mendeley.com/autoupdates/installer/Mac-x64/stable-incoming"
+    strategy :header_match
+  end
+
+  app "Mendeley Desktop.app"
 end

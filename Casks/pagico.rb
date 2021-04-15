@@ -1,12 +1,17 @@
-cask 'pagico' do
-  version '8.8.2225'
-  sha256 'f1f73bb56293e21514c7973bec6f519bdaaf9cf0d36986daa4ba26e1bb81778e'
+cask "pagico" do
+  version "9.10,20210401"
+  sha256 "62c191f301a628904fc5c016ea9a2b00b04e22a9f1b3c25f06661d82f0d37751"
 
-  url "https://www.pagico.com/downloads/Pagico_macOS_r#{version.patch}.dmg"
-  name 'Pagico'
-  homepage 'https://www.pagico.com/'
+  url "https://www.pagico.com/downloads/Pagico_macOS_r#{version.after_comma}.dmg"
+  name "Pagico"
+  homepage "https://www.pagico.com/"
 
-  depends_on macos: '>= :sierra'
+  livecheck do
+    url "https://www.pagico.com/api/pagico#{version.major}.mac.xml"
+    strategy :sparkle
+  end
 
-  app 'Pagico.app'
+  depends_on macos: ">= :sierra"
+
+  app "Pagico.app"
 end

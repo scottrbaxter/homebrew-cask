@@ -1,17 +1,23 @@
-cask 'snipaste' do
-  version '1.16.2-Beta'
-  sha256 '58ace40bbdd0a1193b729b4af2b445da02fb29ce0767494de615ba0da60a47f5'
+cask "snipaste" do
+  version "2.5.6-Beta"
+  sha256 "be7a86cd8212996ddd548b309b8e03d1c6433636fe278103a5d479a2677892f0"
 
-  # bitbucket.org/liule/snipaste was verified as official when first introduced to the cask
-  url "https://bitbucket.org/liule/snipaste/downloads/Snipaste-Mac-#{version}.tar.gz"
-  name 'Snipaste'
-  homepage 'https://www.snipaste.com/'
+  url "https://bitbucket.org/liule/snipaste/downloads/Snipaste-#{version}.dmg",
+      verified: "bitbucket.org/liule/snipaste/"
+  name "Snipaste"
+  desc "Snip or pin screenshots"
+  homepage "https://www.snipaste.com/"
+
+  livecheck do
+    url "https://www.snipaste.com/all_versions"
+    regex(/"mac_version"\s*:\s*"v?(.*?)"/i)
+  end
 
   auto_updates true
 
-  app 'Snipaste.app'
+  app "Snipaste.app"
 
-  uninstall quit: 'com.Snipaste'
+  uninstall quit: "com.Snipaste"
 
-  zap trash: '~/Library/Preferences/com.Snipaste.plist'
+  zap trash: "~/Library/Preferences/com.Snipaste.plist"
 end

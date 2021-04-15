@@ -1,22 +1,23 @@
-cask 'focus' do
-  version '1.8.6'
-  sha256 '58e212e2158ef9d26d432d7fb829265e21b32ef6bf743cd85de3d69e186c213b'
+cask "focus" do
+  version "1.11"
+  sha256 "4be805d35fc57d24debc0e4d0fd36b74d08c2f93d26c9daea7c8ac45019cb345"
 
-  url "https://heyfocus.com/releases/Focus-#{version}.zip"
-  appcast 'https://heyfocus.com/appcast.xml',
-          checkpoint: '250a501501d4e891c7ed828cf8f6f7f3aea2c8609052d0f6dd5919bb3d9892e6'
-  name 'Focus'
-  homepage 'https://heyfocus.com/'
+  url "https://heyfocus.com/uploads/Focus-v#{version}.zip"
+  name "Focus"
+  homepage "https://heyfocus.com/"
 
-  depends_on macos: '>= :mavericks'
+  livecheck do
+    url "https://heyfocus.com/focus.zip"
+    strategy :header_match
+  end
 
-  app 'Focus.app'
+  app "Focus.app"
 
-  uninstall quit: 'BradJasper.focus'
+  uninstall quit: "BradJasper.focus"
 
   zap trash: [
-               '~/Library/Caches/BradJasper.focus/',
-               '~/Library/Application Support/Focus/',
-               '~/Library/Preferences/BradJasper.focus.plist',
-             ]
+    "~/Library/Caches/BradJasper.focus/",
+    "~/Library/Application Support/Focus/",
+    "~/Library/Preferences/BradJasper.focus.plist",
+  ]
 end

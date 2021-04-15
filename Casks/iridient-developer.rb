@@ -1,12 +1,21 @@
-cask 'iridient-developer' do
-  version '3.2.1'
-  sha256 '43382713f0941e0a5a44f4bfc9a8b41f0fa0e1c8c1c761ef04e5e6350f367c37'
+cask "iridient-developer" do
+  version "3.6.0"
+  sha256 "e6078b71f880f5c75f6be9da8d7bca05d6a4377cb3cd225e3dd4a93323bc0411"
 
-  url "http://www.iridientdigital.com/downloads/IridientDeveloper_#{version.no_dots}.dmg"
-  appcast 'http://www.iridientdigital.com/products/rawdeveloper_history.html',
-          checkpoint: 'c39f874e22e9051235d7422f91fb51f276ab6d52e3109a90f01b71c2f254a1f3'
-  name 'Iridient Developer'
-  homepage 'http://www.iridientdigital.com/'
+  url "https://www.iridientdigital.com/downloads/IridientDeveloper_#{version.no_dots}_Universal.dmg"
+  name "Iridient Developer"
+  desc "Image processing application"
+  homepage "https://www.iridientdigital.com/"
 
-  app 'Iridient Developer.app'
+  livecheck do
+    url "https://www.iridientdigital.com/products/iridientdeveloper_download.html"
+    strategy :page_match do |page|
+      match = page.match(%r{href=.*?/IridientDeveloper_(\d+)(\d+)(\d+)_Universal\.dmg}i)
+      "#{match[1]}.#{match[2]}.#{match[3]}"
+    end
+  end
+
+  depends_on macos: ">= :mojave"
+
+  app "Iridient Developer.app"
 end

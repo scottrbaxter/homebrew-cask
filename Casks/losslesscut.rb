@@ -1,12 +1,16 @@
-cask 'losslesscut' do
-  version '1.9.0'
-  sha256 '4a67572e031b6f240718160df6c5e942f7b8187cd76b79aeaf90447528aca40a'
+cask "losslesscut" do
+  version "3.36.0"
+  sha256 "fbe73977bcf518647b88187e69a3f3f525c3664ed39a85fa5a03c6081ebccb95"
 
-  url "https://github.com/mifi/lossless-cut/releases/download/v#{version}/LosslessCut-darwin-x64.zip"
-  appcast 'https://github.com/mifi/lossless-cut/releases.atom',
-          checkpoint: '3a0d1ac2fe29edb13f3423762425921f124e03af7e7b51a9c79338eba3289d38'
-  name 'Loslesscut'
-  homepage 'https://github.com/mifi/lossless-cut'
+  url "https://github.com/mifi/lossless-cut/releases/download/v#{version}/LosslessCut-mac.dmg"
+  name "LosslessCut"
+  desc "Trimms video and audio files losslessly"
+  homepage "https://github.com/mifi/lossless-cut"
 
-  app 'LosslessCut-darwin-x64/LosslessCut.app'
+  app "LosslessCut.app"
+
+  zap trash: [
+    "~/Library/Application Support/LosslessCut",
+    "~/Library/Logs/LosslessCut",
+  ]
 end

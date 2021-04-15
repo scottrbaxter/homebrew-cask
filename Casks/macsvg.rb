@@ -1,18 +1,18 @@
-cask 'macsvg' do
-  version '1.0.1.0656'
-  sha256 '9d6aff1d3f4aa24ad1c16ec8e8f24e19a61bad0e17d139d85d97939ca1c8d5a5'
+cask "macsvg" do
+  version "1.1.7"
+  sha256 "a0dbf7636296accf0cee1df7635e8f2a379d32bca48f055030143e0b11091bc8"
 
-  # github.com/dsward2/macSVG was verified as official when first introduced to the cask
-  url "https://github.com/dsward2/macSVG/releases/download/#{version.major_minor_patch}/macSVG.#{version}.dmg"
-  appcast 'https://github.com/dsward2/macSVG/releases.atom',
-          checkpoint: 'b916ae46cba7c27f792c427f06ea14d772d1c99b65472a47d242dd904e08a3dc'
-  name 'macSVG'
-  homepage 'https://macsvg.org/'
+  url "https://github.com/dsward2/macSVG/releases/download/v#{version}/macSVG-v#{version}.zip",
+      verified: "github.com/dsward2/macSVG/"
+  name "macSVG"
+  homepage "https://macsvg.org/"
 
-  app 'macSVG.app'
+  depends_on macos: ">= :mojave"
+
+  app "macSVG.app"
 
   zap trash: [
-               '~/Library/Application Scripts/com.arkphone.macsvg',
-               '~/Library/Containers/com.arkphone.macsvg',
-             ]
+    "~/Library/Application Scripts/com.arkphone.macsvg",
+    "~/Library/Containers/com.arkphone.macsvg",
+  ]
 end

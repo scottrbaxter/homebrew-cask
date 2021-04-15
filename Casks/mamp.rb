@@ -1,21 +1,26 @@
-cask 'mamp' do
-  if MacOS.version <= :mavericks
-    version '3.5.2'
-    sha256 'b935d118b6e14d43cf2570be2a05166a15b824c3edc0ede98cc30e6ab5af3697'
-  else
-    version '4.4.1'
-    sha256 'e7a83227a60d782d4ad8cea675834bb97cdd06718dc42f5f5e03e9c8944cac06'
-  end
+cask "mamp" do
+  version "6.3"
+  sha256 "49cae98aee1a95d56a42750e8c76a43a5a3e227cbebf5f6d09fd94cdb095a3f9"
 
   url "https://downloads.mamp.info/MAMP-PRO/releases/#{version}/MAMP_MAMP_PRO_#{version}.pkg"
-  name 'MAMP'
-  homepage 'https://www.mamp.info/'
+  name "MAMP"
+  desc "Web development solution with Apache, Nginx, PHP & MySQL"
+  homepage "https://www.mamp.info/"
+
+  livecheck do
+    url "https://www.mamp.info/en/downloads/"
+    strategy :page_match
+    regex(%r{href=.*?/MAMP_MAMP_PRO_(\d+(?:\.\d+)*)\.pkg}i)
+  end
+
+  auto_updates true
+  depends_on macos: ">= :yosemite"
 
   pkg "MAMP_MAMP_PRO_#{version}.pkg"
 
   postflight do
-    set_ownership ['/Applications/MAMP', '/Applications/MAMP PRO']
+    set_ownership ["/Applications/MAMP", "/Applications/MAMP PRO"]
   end
 
-  uninstall pkgutil: 'de.appsolute.installer.(mamp|mampacticon|mampendinstall|mamppro).pkg'
+  uninstall pkgutil: "de.appsolute.installer.(mamp|mampacticon|mampendinstall|mamppro).pkg"
 end

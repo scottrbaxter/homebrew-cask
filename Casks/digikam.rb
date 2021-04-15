@@ -1,15 +1,26 @@
-cask 'digikam' do
-  version '5.8.0-01'
-  sha256 '55b29ed93f8e0fa0177234305a29d226e5a9d094409f9b626bc61237e1e04864'
+cask "digikam" do
+  version "7.2.0"
+  sha256 "a41b5f456b3f416921ed8361edc7a4cd35dfb29fcb8c5aeffd637b569ed6c35b"
 
-  # kde.org/stable/digikam was verified as official when first introduced to the cask
-  url "https://download.kde.org/stable/digikam/digiKam-#{version}-MacOS-x86-64.pkg"
-  appcast 'https://download.kde.org/stable/digikam/',
-          checkpoint: 'c993d10ca14d0588b4698375a60b5c3644621cccf9318514be10a740e36c69a7'
-  name 'digiKam'
-  homepage 'https://www.digikam.org/'
+  url "https://download.kde.org/stable/digikam/#{version}/digiKam-#{version}-MacOS-x86-64.pkg",
+      verified: "kde.org/stable/digikam/"
+  appcast "https://download.kde.org/stable/digikam/"
+  name "digiKam"
+  homepage "https://www.digikam.org/"
 
-  pkg "digikam-#{version}-MacOS-x86-64.pkg"
+  pkg "digiKam-#{version}-MacOS-x86-64.pkg"
 
-  uninstall pkgutil: 'org.freedesktop.digikam'
+  uninstall pkgutil: "org.kde.digikam",
+            delete:  [
+              "/Applications/digikam.app",
+              "/Applications/showfoto.app",
+            ]
+
+  zap trash: [
+    "~/Library/Application Support/digikam",
+    "~/Library/Caches/digikam",
+    "~/Library/Preferences/digikam.plist",
+    "~/Library/Preferences/digikamrc",
+    "~/Library/Saved Application State/digikam.savedState",
+  ]
 end

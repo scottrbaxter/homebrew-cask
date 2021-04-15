@@ -1,13 +1,22 @@
-cask 'intel-power-gadget' do
-  version '3.5.1,613985'
-  sha256 '0cc508919bf7a55686c070e7f3d41798d4f5b0fdb9a33e8d692fe8b391b45dfd'
+cask "intel-power-gadget" do
+  version "3.7.0,b7b1b3e1dffd9b20"
+  sha256 "4a1f6e720edca9577fd5fad7c0775f74d4495b20fd59a835a6f0f38460ccc3c1"
 
-  url "https://software.intel.com/file/#{version.after_comma}/download?#.dmg"
-  name 'Intel Power Gadget'
-  homepage 'https://software.intel.com/en-us/articles/intel-power-gadget-20'
+  url "https://software.intel.com/sites/landingpage/powergadget/updates/IntelPowerGadgetMac/#{version.after_comma}/Intel%20Power%20Gadget.dmg"
+  appcast "https://software.intel.com/sites/landingpage/powergadget/?app=IntelPowerGadgetMac"
+  name "Intel Power Gadget"
+  homepage "https://software.intel.com/content/www/us/en/develop/articles/intel-power-gadget.html"
 
-  pkg 'Install Intel Power Gadget.pkg'
+  auto_updates true
+  depends_on macos: ">= :high_sierra"
 
-  uninstall pkgutil: 'com.intel.pkg.PowerGadget.*',
-            kext:    'EnergyDriver'
+  pkg "Install Intel Power Gadget.pkg"
+
+  uninstall pkgutil: "com.intel.pkg.PowerGadget.*",
+            kext:    "com.intel.driver.EnergyDriver"
+
+  zap trash: [
+    "~/Library/Caches/com.intel.PowerGadget",
+    "~/Library/Preferences/com.intel.PowerGadget.plist",
+  ]
 end

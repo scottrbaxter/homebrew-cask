@@ -1,14 +1,35 @@
-cask 'jetbrains-toolbox' do
-  version '1.6.2914'
-  sha256 '566a7043491635228ae31b58dabbb085ae77671cfb4317afd0e0f48dc4706079'
+cask "jetbrains-toolbox" do
+  version "1.20,1.20.7940"
 
-  url "https://download.jetbrains.com/toolbox/jetbrains-toolbox-#{version}.dmg"
-  appcast 'https://data.services.jetbrains.com/products/releases?code=TBA&latest=true&type=release',
-          checkpoint: '899b32790d088c94c377a8716fc74847b55ff8061614328c9c895532b776b19d'
-  name 'JetBrains Toolbox'
-  homepage 'https://www.jetbrains.com/toolbox/app/'
+  if Hardware::CPU.intel?
+    url "https://download.jetbrains.com/toolbox/jetbrains-toolbox-#{version.after_comma}.dmg"
+    sha256 "9d8b0644b182cf5266836eb0506ac7b03199dc1f45eaf5e0d4c0d48d891ea79e"
+  else
+    url "https://download.jetbrains.com/toolbox/jetbrains-toolbox-#{version.after_comma}-arm64.dmg"
+    sha256 "550cc384e497cc3fc54c3e8864c81726696577a8c5c5aef263f9cdb66ebde15a"
+  end
+
+  name "JetBrains Toolbox"
+  desc "JetBrains tools manager"
+  homepage "https://www.jetbrains.com/toolbox/app/"
+
+  livecheck do
+    url "https://data.services.jetbrains.com/products/releases?code=TBA&latest=true&type=release"
+    strategy :page_match do |page|
+      version = page.match(/"version":"(\d+(?:\.\d+)*)/i)
+      build = page.match(/"build":"(\d+(?:\.\d+)*)/i)
+      "#{version[1]},#{build[1]}"
+    end
+  end
 
   auto_updates true
 
-  app 'JetBrains Toolbox.app'
+  app "JetBrains Toolbox.app"
+
+  zap trash: [
+    "~/Library/Saved Application State/com.jetbrains.toolbox.savedState",
+    "~/Library/Logs/JetBrains/Toolbox",
+    "~/Library/Preferences/com.jetbrains.toolbox.renderer.plist",
+    "~/Library/Application Support/JetBrains/Toolbox",
+  ]
 end

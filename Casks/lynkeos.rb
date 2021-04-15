@@ -1,12 +1,12 @@
-cask 'lynkeos' do
-  version '2.10'
-  sha256 'bd27055c51575555a1c8fe546cf057c57c0e45ea5d252510847277734dc550a4'
+cask "lynkeos" do
+  version "3.4"
+  sha256 "aba6783ad3ef5c4f8785f70f120787b0ee918296f0c9a66cf91977d5c207db22"
 
-  url "https://downloads.sourceforge.net/lynkeos/lynkeos/#{version}/Lynkeos-App-#{version.dots_to_hyphens}.zip"
-  appcast 'https://sourceforge.net/projects/lynkeos/rss?path=/lynkeos',
-          checkpoint: 'ffa5c27035903ecba29b5adb6929de8016eab5240eb7a77de979bea3738aff62'
-  name 'Lynkeos'
-  homepage 'http://lynkeos.sourceforge.net/'
+  url "https://downloads.sourceforge.net/lynkeos/lynkeos/#{version}/Lynkeos-App-#{version.dots_to_hyphens}.zip",
+      verified: "downloads.sourceforge.net/lynkeos/"
+  appcast "https://sourceforge.net/projects/lynkeos/rss?path=/lynkeos"
+  name "Lynkeos"
+  homepage "https://lynkeos.sourceforge.io/"
 
   app "Lynkeos-App-#{version.dots_to_hyphens}/Lynkeos.app"
 end

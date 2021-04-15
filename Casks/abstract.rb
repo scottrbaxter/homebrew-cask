@@ -1,23 +1,27 @@
-cask 'abstract' do
-  version '0.66.6'
-  sha256 'e8e8564ce7baf375d4f879f038c48507a160344094cac9ad09314c6f45e57c7f'
+cask "abstract" do
+  version "97.2.0"
+  sha256 "a083621f58a37c5f6a431d9ebc4d5a732f66a7aa64041913f69424b9b7f2074f"
 
-  # s3.amazonaws.com/propeller-internal-releases was verified as official when first introduced to the cask
-  url "https://s3.amazonaws.com/propeller-internal-releases/Abstract-#{version}.dmg"
-  name 'Abstract'
-  homepage 'https://www.goabstract.com/'
+  url "https://downloads.goabstract.com/mac/Abstract-#{version}.zip"
+  name "Abstract"
+  desc "Collaborative design tool with support for Sketch files"
+  homepage "https://www.goabstract.com/"
+
+  livecheck do
+    url "https://api.goabstract.com/releases/latest/download"
+    strategy :header_match
+  end
 
   auto_updates true
-  depends_on macos: '>= :mavericks'
 
-  app 'Abstract.app'
+  app "Abstract.app"
 
   zap trash: [
-               '~/Library/Application Support/Abstract',
-               '~/Library/Caches/com.elasticprojects.abstract-desktop',
-               '~/Library/Caches/com.elasticprojects.abstract-desktop.ShipIt',
-               '~/Library/Preferences/com.elasticprojects.abstract-desktop.helper.plist',
-               '~/Library/Preferences/com.elasticprojects.abstract-desktop.plist',
-               '~/Library/Saved Application State/com.elasticprojects.abstract-desktop.savedState',
-             ]
+    "~/Library/Application Support/Abstract",
+    "~/Library/Caches/com.elasticprojects.abstract-desktop",
+    "~/Library/Caches/com.elasticprojects.abstract-desktop.ShipIt",
+    "~/Library/Preferences/com.elasticprojects.abstract-desktop.helper.plist",
+    "~/Library/Preferences/com.elasticprojects.abstract-desktop.plist",
+    "~/Library/Saved Application State/com.elasticprojects.abstract-desktop.savedState",
+  ]
 end

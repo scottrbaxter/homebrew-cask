@@ -1,12 +1,10 @@
-cask 'qladdict' do
-  version '1.2.4'
-  sha256 '2af44d8392f75616c7852f37e627b674d561306328351331cb592ac93ea244cd'
+cask "qladdict" do
+  version "1.3.0"
+  sha256 "9342a65b103ab4f71b21f4094f0f9ad8c48b38e976fc4d10cf2995936531e551"
 
   url "https://github.com/tattali/QLAddict/releases/download/#{version}/QLAddict.qlgenerator.#{version}.zip"
-  appcast 'https://github.com/tattali/QLAddict/releases.atom',
-          checkpoint: '6a7c4a7082cbcd9b69eccc2587ca853c4c840e79b33f3ad698962df108cf75bb'
-  name 'QLAddict'
-  homepage 'https://github.com/tattali/QLAddict/'
+  name "QLAddict"
+  homepage "https://github.com/tattali/QLAddict/"
 
-  qlplugin 'QLAddict.qlgenerator'
+  qlplugin "QLAddict.qlgenerator"
 end

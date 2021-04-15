@@ -1,12 +1,14 @@
-cask 'commandq' do
-  version '1.0.4'
-  sha256 '1183a2baf3775bd47851c94636ebe41356e4b53fce1dd35b4b70b9298294a107'
+cask "commandq" do
+  version "2.0.6"
+  sha256 "91c639e497994245ab32e021538ef0af0af3291625087e8dbd1d8d555c109d77"
 
-  url "http://dl.clickontyler.com/commandq/commandq_#{version}.zip"
-  appcast 'https://shine.clickontyler.com/appcast.php?id=16',
-          checkpoint: '5e0f2d62c65b64c0fffa677040a4bd02213ed65c7f37908d055b900a4d40e646'
-  name 'CommandQ'
-  homepage 'https://clickontyler.com/commandq/'
+  url "https://download.clickontyler.com/commandq/commandq20_#{version.no_dots}.zip",
+      verified: "download.clickontyler.com/"
+  appcast "https://shine.clickontyler.com/appcast.php?id=43"
+  name "CommandQ"
+  homepage "https://commandqapp.com/"
 
-  app 'CommandQ.app'
+  depends_on macos: ">= :sierra"
+
+  app "CommandQ.app"
 end

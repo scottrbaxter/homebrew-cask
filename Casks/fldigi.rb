@@ -1,13 +1,25 @@
-cask 'fldigi' do
-  version '4.0.16'
-  sha256 '2105929d385a192f1e0168be1a6697234cf5998ce8902297ca8d1786b4b801e2'
+cask "fldigi" do
+  version "4.1.18"
+  sha256 "9bcf2843c67f1e3ce75eaeae6739fd14fb908bcdc1bd0e0b95b1aaf5ab8781de"
 
-  url "https://downloads.sourceforge.net/fldigi/fldigi/fldigi-#{version}.dmg"
-  appcast 'https://sourceforge.net/projects/fldigi/rss?path=/fldigi',
-          checkpoint: '8b9dfcbeab09ec48fa03cb4d5840b6b8451dd72456197732d4646e9f124a744a'
-  name 'fldigi'
-  homepage 'https://sourceforge.net/projects/fldigi/files/fldigi/'
+  url "https://downloads.sourceforge.net/fldigi/fldigi/fldigi-#{version}_x86_64.dmg"
+  name "fldigi"
+  desc "Ham radio digital modem application"
+  homepage "https://sourceforge.net/projects/fldigi/files/fldigi/"
 
-  app "fldigi-#{version}.app"
-  app 'flarq-4.3.6.app'
+  livecheck do
+    url "https://sourceforge.net/projects/fldigi/rss?path=/fldigi"
+    strategy :page_match
+    regex(/fldigi-(\d+(?:\.\d+)*)_x86_64\.dmg/i)
+  end
+
+  app "fldigi.app"
+  app "flarq.app"
+
+  preflight do
+    staged_path.glob("fldigi-*.app").first.rename(staged_path/"fldigi.app")
+    staged_path.glob("flarq-*.app").first.rename(staged_path/"flarq.app")
+  end
+
+  zap trash: "~/.fldigi"
 end

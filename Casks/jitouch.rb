@@ -1,21 +1,20 @@
-cask 'jitouch' do
+cask "jitouch" do
   version :latest
   sha256 :no_check
 
-  if MacOS.version <= :mountain_lion
-    url 'http://www.jitouch.com/jitouch_mountain_lion.zip'
-  elsif MacOS.version <= :mavericks
-    url 'http://www.jitouch.com/jitouch_mavericks.zip'
-  elsif MacOS.version <= :el_capitan
-    url 'http://www.jitouch.com/jitouch_el_capitan.zip'
+  if MacOS.version <= :el_capitan
+    url "https://www.jitouch.com/jitouch_el_capitan.zip"
+  elsif MacOS.version <= :sierra
+    url "https://www.jitouch.com/jitouch_sierra.zip"
   else
-    url 'http://www.jitouch.com/jitouch_sierra.zip'
+    url "https://www.jitouch.com/jitouch_mojave.zip"
   end
 
-  name 'jitouch'
-  homepage 'http://www.jitouch.com/'
+  name "jitouch"
+  desc "Multi-touch gestures editor"
+  homepage "https://www.jitouch.com/"
 
-  prefpane 'jitouch/Jitouch.prefPane'
+  prefpane "jitouch/Jitouch.prefPane"
 
-  zap trash: '~/Library/Preferences/com.jitouch.Jitouch.plist'
+  zap trash: "~/Library/Preferences/com.jitouch.Jitouch.plist"
 end

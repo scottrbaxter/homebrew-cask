@@ -1,16 +1,24 @@
-cask 'post-haste' do
-  version '2.6.1,2610'
-  sha256 '935b89c608765a144bc9f3c472a6960032904ee5cc09963fdbb93953a5428453'
+cask "post-haste" do
+  version "2.7.1,2710"
+  sha256 "596ca6321865adbc6ad83f401ae3058b57aecc5fd0c931a878817b071848d265"
 
   url "https://www.digitalrebellion.com/download/posthaste?version=#{version.after_comma}"
-  name 'Post Haste'
-  homepage 'https://www.digitalrebellion.com/posthaste/'
+  name "Post Haste"
+  homepage "https://www.digitalrebellion.com/posthaste/"
 
-  app 'Post Haste.app'
+  livecheck do
+    url "https://www.digitalrebellion.com/download/posthaste"
+    strategy :header_match do |headers|
+      match = headers["location"].match(/_((\d+)(\d+)(\d+)\d+)\.dmg/)
+      "#{match[2]}.#{match[3]}.#{match[4]},#{match[1]}"
+    end
+  end
+
+  app "Post Haste.app"
 
   zap trash: [
-               '~/Library/Application Support/Digital Rebellion/Post Haste/',
-               '~/Library/Preferences/com.digitalrebellion.PostHaste.plist',
-             ],
-      rmdir: '~/Library/Application Support/Digital Rebellion'
+    "~/Library/Application Support/Digital Rebellion/Post Haste/",
+    "~/Library/Preferences/com.digitalrebellion.PostHaste.plist",
+  ],
+      rmdir: "~/Library/Application Support/Digital Rebellion"
 end

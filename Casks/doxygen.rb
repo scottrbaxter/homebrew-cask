@@ -1,12 +1,16 @@
-cask 'doxygen' do
-  version '1.8.14'
-  sha256 '6df23153620cfce5d05362ca47be967de9af1b3b27c0de812cd936eb680d8559'
+cask "doxygen" do
+  version "1.9.1"
+  sha256 "df9c647f2d9cad1cd271f00a7662400b3f73e4569abfa231e350b5daaa97fe67"
 
-  url "https://ftp.stack.nl/pub/users/dimitri/Doxygen-#{version}.dmg"
-  appcast 'https://www.stack.nl/~dimitri/doxygen/manual/changelog.html',
-          checkpoint: 'e5b59bc2ba38954f95ed92fcc7b9ff441c5afa4032b0ec605c70837d28a3a202'
-  name 'Doxygen'
-  homepage 'https://www.stack.nl/~dimitri/doxygen/'
+  url "https://doxygen.nl/files/Doxygen-#{version}.dmg"
+  name "Doxygen"
+  homepage "https://www.doxygen.nl/"
 
-  app 'Doxygen.app'
+  livecheck do
+    url "https://www.doxygen.nl/download.html"
+    strategy :page_match
+    regex(%r{href=.*?/Doxygen-(\d+(?:\.\d+)*)\.dmg}i)
+  end
+
+  app "Doxygen.app"
 end

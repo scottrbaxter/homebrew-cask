@@ -1,12 +1,23 @@
-cask 'delicious-library' do
-  version '3.7.1'
-  sha256 '5b1bbee0f634ccfcb8d955e147f64be53e23b450ffa83627145dac88ee3d5e7f'
+cask "delicious-library" do
+  version "3.9.3"
+  sha256 "bd0243c806e044bffd8e568f99993440bf5302c9ff30027984bc817c69ae9931"
 
-  url "https://delicious-monster.com/downloads/DeliciousLibrary#{version.major}/v#{version}/DeliciousLibrary#{version.major}.zip"
-  appcast "https://www.delicious-monster.com/downloads/DeliciousLibrary#{version.major}.xml",
-          checkpoint: '92cff2a42d246d770b1a01a97d1333789e49acf823f0ad3cf45e9cd1c5114a86'
-  name 'Delicious Library'
-  homepage 'https://delicious-monster.com/'
+  url "https://www.delicious-monster.com/downloads/DeliciousLibrary#{version.major}/v#{version}/DeliciousLibrary#{version.major}.zip"
+  name "Delicious Library"
+  homepage "https://www.delicious-monster.com/"
+
+  livecheck do
+    url "https://www.delicious-monster.com/downloads/DeliciousLibrary#{version.major}.xml"
+    strategy :sparkle do |item|
+      item.version.delete_prefix("v")
+    end
+  end
 
   app "Delicious Library #{version.major}.app"
+
+  zap trash: [
+    "~/Library/Application Scripts/com.delicious-monster.library*",
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.delicious-monster.library*.sfl2",
+    "~/Library/Containers/com.delicious-monster.library*",
+  ]
 end

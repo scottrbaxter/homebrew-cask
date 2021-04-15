@@ -1,13 +1,26 @@
-cask 'aether' do
-  version '1.2.3'
-  sha256 '04ca7fbd693bda438436b46315616660ff123ec9d817d802c8c14dcb13711338'
+cask "aether" do
+  version "2.0.0-dev.15,2011262249.19338c93"
+  sha256 "87bb9f70525025dadb1d00328f37ee075fe3866044d092a9533e7df71653aca7"
 
-  # github.com/nehbit/aether-public was verified as official when first introduced to the cask
-  url "https://github.com/nehbit/aether-public/releases/download/v#{version}-OSX/Aether.#{version}.dmg"
-  appcast 'https://github.com/nehbit/aether-public/releases.atom',
-          checkpoint: 'cfd1eeab50243955ebb52c7710fddeb08d8cbbfef751d0108273ca58e3ccbd38'
-  name 'Aether'
-  homepage 'http://getaether.net/'
+  url "https://static.getaether.net/Releases/Aether-#{version.before_comma}/#{version.after_comma}/mac/Aether-#{version.before_comma}%2B#{version.after_comma}.dmg"
+  name "Aether"
+  desc "Peer-to-peer ephemeral public communities"
+  homepage "https://getaether.net/"
 
-  app 'Aether.app'
+  livecheck do
+    url "https://static.getaether.net/WebsiteReleaseLinks/Latest/LatestReleaseLinks.json"
+    strategy :page_match do |page|
+      match = page.match(%r{/Aether-(\d+(?:\.\d+)*-dev\.\d+)%2B(\d+\.[0-9a-f]+)\.dmg}i)
+      "#{match[1]},#{match[2]}"
+    end
+  end
+
+  app "Aether.app"
+
+  zap trash: [
+    "/Library/Logs/DiagnosticReports/aether-backend-mac-*.diag",
+    "~/Library/Application Support/Aether",
+    "~/Library/Preferences/com.aethertechnologies.Aether.plist",
+    "~/Library/Saved Application State/com.aethertechnologies.Aether.savedState",
+  ]
 end

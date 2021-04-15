@@ -1,19 +1,20 @@
-cask 'nagbar' do
-  version '1.3.3'
-  sha256 '51e5e4ac49e90c3a5609e29c4fb2a8b96a77d62e9e8d029156d0eb609a3bf041'
+cask "nagbar" do
+  version "1.3.7"
+  sha256 "9a4b256250d4527423efd16e90cc7d087bc6ca9306bdc5267a6441194e73a44b"
 
-  # github.com/volendavidov/NagBar was verified as official when first introduced to the cask
-  url "https://github.com/volendavidov/NagBar/releases/download/#{version}/NagBar.zip"
-  appcast 'https://github.com/volendavidov/NagBar/releases.atom',
-          checkpoint: 'd29cd11da75dd47389453a2f0871faba660b86fb2a549d3ee081d06a72bb264a'
-  name 'NagBar'
-  homepage 'https://sites.google.com/site/nagbarapp/home'
+  url "https://github.com/volendavidov/NagBar/releases/download/#{version}/NagBar.zip",
+      verified: "github.com/volendavidov/NagBar/"
+  name "NagBar"
+  desc "Status bar monitor for Nagios, Icinga/2 and Thruk"
+  homepage "https://sites.google.com/site/nagbarapp/home"
 
-  app 'NagBar.app'
+  depends_on macos: ">= :mojave"
+
+  app "NagBar.app"
 
   zap trash: [
-               '~/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.volendavidov.nagbar.sfl*',
-               '~/Caches/com.volendavidov.NagBar',
-               '~/Preferences/com.volendavidov.NagBar.plist',
-             ]
+    "~/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.volendavidov.nagbar.sfl*",
+    "~/Caches/com.volendavidov.NagBar",
+    "~/Preferences/com.volendavidov.NagBar.plist",
+  ]
 end

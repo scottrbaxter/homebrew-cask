@@ -1,11 +1,19 @@
-cask 'widelands' do
-  version '19'
-  sha256 'c2e44225236ef7e38d12c2e0daedd93f1e9a730b506df3ed74a010840d8f3da0'
+cask "widelands" do
+  version "21"
+  sha256 "d296642fc9b48e50e087f18b2c7f5697b6a4faf6c6289ab82b31edc0553b4526"
 
-  # launchpad.net/widelands was verified as official when first introduced to the cask
-  url "https://launchpad.net/widelands/build#{version}/build#{version}/+download/widelands-build#{version}-mac64.dmg"
-  name 'Widelands'
-  homepage 'https://wl.widelands.org/'
+  url "https://launchpad.net/widelands/build#{version}/build#{version}/+download/widelands_10.9_build-#{version}.dmg",
+      verified: "launchpad.net/widelands/"
+  name "Widelands"
+  homepage "https://www.widelands.org/"
 
-  app 'Widelands.app'
+  livecheck do
+    url :homepage
+    strategy :page_match
+    regex(%r{href=.*?/widelands_10\.9_build-(\d+)\.dmg}i)
+  end
+
+  app "Widelands.app"
+
+  zap trash: "~/.widelands"
 end

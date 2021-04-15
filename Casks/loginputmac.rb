@@ -1,17 +1,21 @@
-cask 'loginputmac' do
-  version '1.8'
-  sha256 '7780424e54aa2356bcb4aa9ad22c9933d6635e7dffe738440baf982c921bd0d6'
+cask "loginputmac" do
+  version "2.4.4,23511"
+  sha256 "d2f8d0a5aeb1508b76b88e3ce7eb4abd561a5d19f3d6648a6b7aef2d95d5301f"
 
-  # nzhm461a0.qnssl.com was verified as official when first introduced to the cask
-  url "https://nzhm461a0.qnssl.com/Installer.pkg#{version}.zip"
-  appcast 'https://im.logcg.com/appcast.xml',
-          checkpoint: '572d6eb014c4b3a9512370cf7c89d3c3c6015be4c2f31f01c40ba1f012d9914a'
-  name 'LoginputMac'
-  homepage 'https://im.logcg.com/loginputmac'
+  url "https://loginput-mac2.content-delivery.top/loginputmac#{version.major}_latest.pkg",
+      verified: "loginput-mac2.content-delivery.top/"
+  name "LoginputMac"
+  homepage "https://im.logcg.com/loginputmac#{version.major}"
+
+  livecheck do
+    url "https://im.logcg.com/appcast#{version.major}.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
 
-  pkg 'Installer.pkg'
+  pkg "loginputmac#{version.major}_latest.pkg"
 
-  uninstall pkgutil: 'com.logcg.pkg.LoginputMac'
+  uninstall pkgutil: "com.logcg.pkg.LoginputMac#{version.major}",
+            quit:    "com.logcg.inputmethod.LogInputMac#{version.major}"
 end

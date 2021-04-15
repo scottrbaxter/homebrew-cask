@@ -1,19 +1,23 @@
-cask 'a-better-finder-attributes' do
-  version '6.08'
-  sha256 '13a3871fb9c872dc9735e082a9d4bc0a16d9adea3d804f299f1a3e7b5c68adac'
+cask "a-better-finder-attributes" do
+  version "7.10"
+  sha256 "f16d2e5676134e194fec6c6850ed0f06a1ff55beb928f170393256c4903f105b"
 
-  url 'http://www.publicspace.net/download/ABFAX.dmg'
-  appcast "http://www.publicspace.net/app/signed_abfa#{version.major}.xml",
-          checkpoint: '4ffa88745adc34d01698ca9b356d0504540eb907ba710a3c1a00e45f66e473e2'
-  name 'A Better Finder Attributes'
-  homepage 'http://www.publicspace.net/ABetterFinderAttributes/'
+  url "https://www.publicspace.net/download/signedABFA#{version.major}.zip"
+  name "A Better Finder Attributes"
+  desc "File and photo tweaking tool"
+  homepage "https://www.publicspace.net/ABetterFinderAttributes/"
+
+  livecheck do
+    url "https://www.publicspace.net/app/signed_abfa#{version.major}.xml"
+    strategy :sparkle
+  end
 
   app "A Better Finder Attributes #{version.major}.app"
 
   zap trash: [
-               "~/Library/Caches/net.publicspace.abfa#{version.major}",
-               "~/Library/Cookies/net.publicspace.abfa#{version.major}.binarycookies",
-               "~/Library/Preferences/net.publicspace.abfa#{version.major}.plist",
-               "~/Library/Saved Application State/net.publicspace.abfa#{version.major}.savedState",
-             ]
+    "~/Library/Caches/net.publicspace.abfa#{version.major}",
+    "~/Library/Cookies/net.publicspace.abfa#{version.major}.binarycookies",
+    "~/Library/Preferences/net.publicspace.abfa#{version.major}.plist",
+    "~/Library/Saved Application State/net.publicspace.abfa#{version.major}.savedState",
+  ]
 end

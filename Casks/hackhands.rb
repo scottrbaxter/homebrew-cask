@@ -1,11 +1,11 @@
-cask 'hackhands' do
-  version '2.0.0'
-  sha256 '4c428f65ee63dac8ed6f122d4830cef5c76d6abb033d7344eef90ecebb7c7b74'
+cask "hackhands" do
+  version "2.0.2"
+  sha256 "f5eb24548d5897c17a75da12c527f122189667578775864009741074aeb53d1c"
 
-  # s.pluralsight.com/mentors/desktop was verified as official when first introduced to the cask
-  url "https://s.pluralsight.com/mentors/desktop/HackHands-#{version}.dmg"
-  name 'HackHands'
-  homepage 'https://hackhands.com/desktop/'
+  url "https://s.pluralsight.com/mentors/desktop/HackHands-#{version}.dmg",
+      verified: "s.pluralsight.com/mentors/desktop/"
+  name "HackHands"
+  homepage "https://hackhands.com/desktop/"
 
-  app 'HackHands.app'
+  app "HackHands.app"
 end

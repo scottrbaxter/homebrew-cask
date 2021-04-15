@@ -1,12 +1,28 @@
-cask 'spotmenu' do
-  version '1.8'
-  sha256 '06394ef8e6bc791fa2b3426dd9f58a7ac59af00b2cb0b50075c025f3bc1b58b0'
+cask "spotmenu" do
+  version "1.9"
+  sha256 "306fc07e2fa2987bd46eae15012808ab2341e47bc56c7b0ebef151752155fd6f"
 
   url "https://github.com/kmikiy/SpotMenu/releases/download/v#{version}/SpotMenu.zip"
-  appcast 'https://github.com/kmikiy/SpotMenu/releases.atom',
-          checkpoint: '81ddb8fb5ca9f1d25b33d5ae40a963ecf12420828a2dc1b7c807dab3a3156fdb'
-  name 'SpotMenu'
-  homepage 'https://github.com/kmikiy/SpotMenu'
+  name "SpotMenu"
+  desc "Spotify and iTunes in the menu bar"
+  homepage "https://github.com/kmikiy/SpotMenu"
 
-  app 'SpotMenu.app'
+  auto_updates true
+
+  app "SpotMenu.app"
+
+  uninstall quit:       [
+    "com.KMikiy.SpotMenu",
+  ],
+            login_item: [
+              "SpotMenu",
+            ]
+
+  zap trash: [
+    "~/Library/Application Scripts/com.KMikiy.SpotMenu.SpotMenuToday",
+    "~/Library/Application Support/com.KMikiy.SpotMenu",
+    "~/Library/Containers/com.KMikiy.SpotMenu.SpotMenuToday",
+    "~/Library/Group Containers/group.KMikiy.SpotMenu",
+    "~/Library/Preferences/com.KMikiy.SpotMenu.plist",
+  ]
 end

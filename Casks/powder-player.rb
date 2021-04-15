@@ -1,13 +1,11 @@
-cask 'powder-player' do
-  version '1.10'
-  sha256 'd673d6ce0037198b7df888a77eb970224ea07efd6b61f6a2f708f779ce0c73bf'
+cask "powder-player" do
+  version "1.60"
+  sha256 "66f532b975c12f3d5343e7589dcc6746e1a555416494bd8f6b80642464b7b66a"
 
-  # github.com/jaruba/PowderPlayer was verified as official when first introduced to the cask
-  url "https://github.com/jaruba/PowderPlayer/releases/download/v#{version}/PowderPlayer_v#{version}.dmg"
-  appcast 'https://github.com/jaruba/PowderPlayer/releases.atom',
-          checkpoint: '07ddaa5bd7ec516f4a8d99a3e6c4b1c93d9c7c93c455b3825e7f842cda7830b5'
-  name 'Powder Player'
-  homepage 'http://powder.media/'
+  url "https://github.com/jaruba/PowderPlayer/releases/download/v#{version}/PowderPlayer_v#{version}.dmg",
+      verified: "github.com/jaruba/PowderPlayer/"
+  name "Powder Player"
+  homepage "https://powder.media/"
 
-  app 'Powder Player.app'
+  app "Powder Player.app"
 end

@@ -1,12 +1,16 @@
-cask 'softraid' do
-  version '5.6.4'
-  sha256 'dff0902afa6630571ed6a162758019d69632e7bb97bdd7ec51073fea1c467450'
+cask "softraid" do
+  version "5.8.4"
+  sha256 "5d5384403cd2e6b32e62cfe70bddbb82ce1ef4db88b0b197f5e08764e9a586c5"
 
-  url "https://softraid.com/updates/SoftRAID%20#{version}.dmg"
-  appcast 'https://www.softraid.com/pages/support/download_latest_version.html',
-          checkpoint: '2831aac31291a90502e4d97bfbba73d68826868dd03794b525b2aa9f4c119332'
-  name 'SoftRAID'
-  homepage 'https://www.softraid.com/'
+  url "https://download.owcdigital.com/softraid/mac/#{version.major}/softraid/SoftRAID%20#{version}.dmg",
+      verified: "download.owcdigital.com/softraid/"
+  name "SoftRAID"
+  homepage "https://www.softraid.com/"
+
+  livecheck do
+    url "https://download.owcdigital.com/softraid5/mac"
+    strategy :header_match
+  end
 
   app "SoftRAID #{version}/SoftRAID #{version}.app"
 end

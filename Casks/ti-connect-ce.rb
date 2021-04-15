@@ -1,10 +1,17 @@
-cask 'ti-connect-ce' do
-  version '5.3.0.384'
-  sha256 '71a4253cd149031161815f031a51e6e77d394f0b5aae784f2d0ee45e70677a2e'
+cask "ti-connect-ce" do
+  version "5.6.0.2082,53A0FBD756C04C2A9B67856A0966CD82"
+  sha256 "f9fc77fbd4df8bc9bfcfdb66b9cbf2692ec3cee3839e7b2202414c8e5595ba64"
 
-  url "https://education.ti.com/download/en/ed-tech/CA9C74CAD02440A69FDC7189D7E1B6C2/735C70B6BDFB43C39260B4097465FF46/TIConnectCE-#{version}.dmg"
-  name 'TI Connect™ CE'
-  homepage 'https://education.ti.com/en/products/computer-software/ti-connect-ce-sw'
+  url "https://education.ti.com/download/en/ed-tech/68CEDD34FDC94622B4DBD173E6A0D8C3/#{version.after_comma}/TIConnectCE-#{version.before_comma}.dmg"
+  appcast "https://education.ti.com/en/software/details/en/68CEDD34FDC94622B4DBD173E6A0D8C3/swticonnectcesoftwareformacintosh"
+  name "TI Connect™ CE"
+  homepage "https://education.ti.com/en/products/computer-software/ti-connect-ce-sw"
 
-  app 'TI Connect CE.app'
+  app "TI Connect CE.app"
+
+  zap trash: [
+    "~/Library/Logs/Texas Instruments/TI Connect CE",
+    "~/Library/Preferences/com.ti.et.elg.tiConnect.TIConnectApplication.plist",
+    "~/Library/Saved Application State/com.ti.et.elg.tiConnect.TIConnectApplication.savedState",
+  ]
 end

@@ -1,13 +1,22 @@
-cask 'eclipse-php' do
-  version '4.7.2,oxygen:2'
-  sha256 '56aab2c6aea889b24882bcbc2b898ec3b6cd01b6f91fc90656fa82bdaa49c22e'
+cask "eclipse-php" do
+  version "4.19.0,2021-03:R"
+  sha256 "ab155da2498634d7841b47e56a97e2025fbc21351fbbcbddfcfa9444a1208e38"
 
   url "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/#{version.after_comma.before_colon}/#{version.after_colon}/eclipse-php-#{version.after_comma.before_colon}-#{version.after_colon}-macosx-cocoa-x86_64.dmg&r=1"
-  name 'Eclipse for PHP Developers'
-  homepage 'https://eclipse.org/'
+  name "Eclipse IDE for PHP Developers"
+  homepage "https://eclipse.org/"
 
-  depends_on macos: '>= :leopard'
+  livecheck do
+    url "https://www.eclipse.org/downloads/packages/"
+    strategy :page_match do |page|
+      page.scan(%r{href=.*?/downloads/packages/release/(\d+-\d+)}i).map do |release|
+        version_page = Net::HTTP.get(URI.parse("https://projects.eclipse.org/releases/#{release[0]}"))
+        version = version_page.scan(%r{href="/projects/eclipse/releases/(\d+(?:\.\d+)*)"}i)
+        "#{version[0][0]},#{release[0]}:R"
+      end
+    end
+  end
 
   # Renamed to avoid conflict with other Eclipse.
-  app 'Eclipse.app', target: 'Eclipse PHP.app'
+  app "Eclipse.app", target: "Eclipse PHP.app"
 end

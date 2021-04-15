@@ -1,12 +1,21 @@
-cask 'snapndrag' do
-  version '4.2.7'
-  sha256 'e53d5a3f596fea2c46eca52cee7f54e40ccb2cbb417ed26cc1e159fde08dac7f'
+cask "snapndrag" do
+  version "4.5.1"
+  sha256 "5f46c1e003bf4adad52e3e201d81d6ad26b4eef481106f1ef3799a11ed078a5a"
 
-  url "http://yellowmug.com/download/SnapNDrag_#{version}.dmg"
-  appcast 'http://yellowmug.com/snapndrag/appcast-1012.xml',
-          checkpoint: 'd5b63cfb058ed514c2579b6376a6cb3aa04c1ba05a48292c66e8556d4e19a53f'
-  name 'SnapNDrag'
-  homepage 'http://www.yellowmug.com/snapndrag/'
+  url "https://yellowmug.com/download/SnapNDrag_#{version}.dmg"
+  name "SnapNDrag"
+  desc "Screen capture application"
+  homepage "https://www.yellowmug.com/snapndrag/"
 
-  app 'SnapNDrag.app'
+  livecheck do
+    url "https://yellowmug.com/snapndrag/appcast-1014.xml"
+    strategy :sparkle
+  end
+
+  app "SnapNDrag.app"
+
+  zap trash: [
+    "~/Library/Application Support/com.yellowmug.SnapNDrag",
+    "~/Library/Preferences/com.yellowmug.SnapNDrag.plist",
+  ]
 end

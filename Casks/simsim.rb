@@ -1,18 +1,17 @@
-cask 'simsim' do
-  version '1.3.3'
-  sha256 '4c39334b1ed1791cd33a6366d2c6b349a7956f8c243d04a74d4fcf97c4cbea47'
+cask "simsim" do
+  version "1.4.4"
+  sha256 "7f6fc17b934df27c2034dedd8c34f764bf431d98a1a757cdcde8e47a029b4c3f"
 
-  url "https://github.com/dsmelov/simsim/releases/download/#{version}/SimSim_#{version}.dmg"
-  appcast 'https://github.com/dsmelov/simsim/releases.atom',
-          checkpoint: '0b8129ef11a6ef819d26b1485f4afd90444ba05189aa4bab86c199e605432571'
-  name 'SimSim'
-  homepage 'https://github.com/dsmelov/simsim/'
+  url "https://github.com/dsmelov/simsim/releases/download/#{version}/SimSim_#{version}.zip"
+  name "SimSim"
+  desc "Tool to explore iOS application folders in Terminal or Finder"
+  homepage "https://github.com/dsmelov/simsim/"
 
-  app 'SimSim.app'
+  depends_on macos: ">= :high_sierra"
 
-  uninstall quit:       'com.dsmelov.SimSim',
-            login_item: 'SimSim',
-            kext:       'com.dsmelov.SimSim'
+  app "SimSim.app"
 
-  zap trash: '~/Library/Preferences/com.dsmelov.SimSim.plist'
+  uninstall quit: "com.dsmelov.SimSim"
+
+  zap trash: "~/Library/Preferences/com.dsmelov.SimSim.plist"
 end

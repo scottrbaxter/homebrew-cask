@@ -1,67 +1,97 @@
-cask 'mactex' do
-  version '20170524'
-  sha256 '0caf76027c9e0534a0b636f2b880ace4a0463105a7ad5774ccacede761be8c2d'
+cask "mactex" do
+  version "2021.0328"
+  sha256 "e541257d70f911550341853709fc45d9fa9fcd4c93058382000ebb19b284833b"
 
-  # mirror.ctan.org/systems/mac/mactex was verified as official when first introduced to the cask
-  url "http://mirror.ctan.org/systems/mac/mactex/mactex-#{version}.pkg"
-  appcast 'https://www.tug.org/mactex/downloading.html',
-          checkpoint: '2dd3e7c71fe586512a5241f2b26c24f93af3510d2bda2f56da1a404098b894ee'
-  name 'MacTeX'
-  homepage 'https://www.tug.org/mactex/'
+  url "http://mirror.ctan.org/systems/mac/mactex/mactex-#{version.no_dots}.pkg",
+      verified: "mirror.ctan.org/systems/mac/mactex/"
+  name "MacTeX"
+  desc "Full TeX Live distribution with GUI applications"
+  homepage "https://www.tug.org/mactex/"
+
+  livecheck do
+    url "https://ctan.org/texarchive/systems/mac/mactex/"
+    strategy :page_match do |page|
+      match = page.match(/href=.*?mactex-(\d{4})(\d{2})(\d{2})\.pkg/)
+      "#{match[1]}.#{match[2]}#{match[3]}"
+    end
+  end
 
   conflicts_with cask: [
-                         'mactex-no-ghostscript',
-                         'basictex',
-                       ]
-  depends_on macos: '>= :yosemite'
+    "basictex",
+    "mactex-no-gui",
+  ]
+  depends_on formula: "ghostscript"
+  depends_on macos: ">= :mojave"
 
-  pkg "mactex-#{version}.pkg"
+  pkg "mactex-#{version.no_dots}.pkg",
+      choices: [
+        {
+          # Ghostscript
+          "choiceIdentifier" => "org.tug.mactex.ghostscript9.53.3",
+          "choiceAttribute"  => "selected",
+          "attributeSetting" => 0,
+        },
+        {
+          # Ghostscript Dynamic Library
+          "choiceIdentifier" => "org.tug.mactex.ghostscript9.53.3libgs",
+          "choiceAttribute"  => "selected",
+          "attributeSetting" => 0,
+        },
+        {
+          # GUI Applications
+          "choiceIdentifier" => "org.tug.mactex.gui#{version.major}",
+          "choiceAttribute"  => "selected",
+          "attributeSetting" => 1,
+        },
+        {
+          # TeXLive
+          "choiceIdentifier" => "org.tug.mactex.texlive#{version.major}",
+          "choiceAttribute"  => "selected",
+          "attributeSetting" => 1,
+        },
+      ]
 
   uninstall pkgutil: [
-                       'org.tug.mactex.ghostscript9.21',
-                       'org.tug.mactex.gui2017',
-                       'org.tug.mactex.texlive2017',
-                     ],
+    "org.tug.mactex.gui#{version.major}",
+    "org.tug.mactex.texlive#{version.major}",
+  ],
             delete:  [
-                       '/usr/local/texlive/2017',
-                       '/usr/local/share/ghostscript/9.21',
-                       '/Applications/TeX',
-                       '/Library/PreferencePanes/TeXDistPrefPane.prefPane',
-                       '/Library/TeX',
-                       '/etc/paths.d/TeX',
-                       '/etc/manpaths.d/TeX',
-                     ]
+              "/usr/local/texlive/#{version.major}",
+              "/Applications/TeX",
+              "/Library/TeX",
+              "/etc/paths.d/TeX",
+              "/etc/manpaths.d/TeX",
+            ]
 
   zap trash: [
-               '/usr/local/texlive/texmf-local',
-               '~/Library/texlive/2017',
-               # TexShop:
-               '~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/texshop.sfl*',
-               '~/Library/Application Support/TeXShop',
-               '~/Library/Caches/com.apple.helpd/SDMHelpData/Other/English/HelpSDMIndexFile/TeXShop Help*',
-               '~/Library/Caches/TeXShop',
-               '~/Library/Preferences/TeXShop.plist',
-               '~/Library/TeXShop',
-               # BibDesk:
-               '~/Library/Application Support/BibDesk',
-               '~/Library/Caches/com.apple.helpd/SDMHelpData/Other/English/HelpSDMIndexFile/edu.ucsd.cs.mmccrack.bibdesk.help*',
-               '~/Library/Caches/edu.ucsd.cs.mmccrack.bibdesk',
-               '~/Library/Cookies/edu.ucsd.cs.mmccrack.bibdesk.binarycookies',
-               '~/Library/Preferences/edu.ucsd.cs.mmccrack.bibdesk.plist',
-               # LaTeXiT:
-               '~/Library/Caches/fr.chachatelier.pierre.LaTeXiT',
-               '~/Library/Cookies/fr.chachatelier.pierre.LaTeXiT.binarycookies',
-               '~/Library/Preferences/fr.chachatelier.pierre.LaTeXiT.plist',
-               # TeX Live Utility:
-               '~/Library/Application Support/TeX Live Utility',
-               '~/Library/Caches/com.apple.helpd/SDMHelpData/Other/English/HelpSDMIndexFile/TeX Live Utility Help*',
-               # Excalibur:
-               '~/Library/Preferences/Excalibur Preferences',
-               '~/Library/Saved Application State/edu.bucknell.Excalibur.savedState',
-             ],
-      rmdir: [
-               '/usr/local/texlive',
-               '/usr/local/share/ghostscript',
-               '~/Library/texlive',
-             ]
+    "/usr/local/texlive/texmf-local",
+    # TexShop:
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/texshop.sfl*",
+    "~/Library/Application Support/TeXShop",
+    "~/Library/Caches/com.apple.helpd/Generated/TeXShop Help*",
+    "~/Library/Caches/TeXShop",
+    "~/Library/Preferences/TeXShop.plist",
+    "~/Library/TeXShop",
+    # BibDesk:
+    "~/Library/Application Support/BibDesk",
+    "~/Library/Caches/com.apple.helpd/Generated/edu.ucsd.cs.mmccrack.bibdesk.help*",
+    "~/Library/Caches/edu.ucsd.cs.mmccrack.bibdesk",
+    "~/Library/Cookies/edu.ucsd.cs.mmccrack.bibdesk.binarycookies",
+    "~/Library/Preferences/edu.ucsd.cs.mmccrack.bibdesk.plist",
+    # LaTeXiT:
+    "~/Library/Caches/fr.chachatelier.pierre.LaTeXiT",
+    "~/Library/Cookies/fr.chachatelier.pierre.LaTeXiT.binarycookies",
+    "~/Library/Preferences/fr.chachatelier.pierre.LaTeXiT.plist",
+    # TeX Live Utility:
+    "~/Library/Application Support/TeX Live Utility",
+    "~/Library/Caches/com.apple.helpd/Generated/TeX Live Utility Help*",
+  ],
+      rmdir: "/usr/local/texlive"
+
+  caveats <<~EOS
+    You must restart your terminal window for the installation of MacTex CLI tools to take effect.
+    Alternatively, Bash and Zsh users can run the command:
+
+      eval "$(/usr/libexec/path_helper)"
+  EOS
 end

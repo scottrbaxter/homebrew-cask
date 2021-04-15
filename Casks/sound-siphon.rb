@@ -1,17 +1,11 @@
-cask 'sound-siphon' do
-  version '2.0.6'
-  sha256 '1bb4aa47fd215fafaa085b71b66a7de615eee27650af1f78382224699cd7ede6'
+cask "sound-siphon" do
+  version "3.2.4,5876"
+  sha256 "c05ce45e0eb4950926ffdfdca6a49540e562f756475df68aed2d39db53156e3f"
 
-  # staticz.net was verified as official when first introduced to the cask
-  url "http://staticz.net/downloads/SoundSiphonInstaller_#{version}.dmg"
-  name 'SoundSiphon'
-  homepage 'https://staticz.com/soundsiphon/'
+  url "https://staticz.com/download/#{version.after_comma}/"
+  appcast "http://staticz.net/updates/soundsiphon#{version.major}.rss"
+  name "SoundSiphon"
+  homepage "https://staticz.com/soundsiphon/"
 
-  pkg 'Sound Siphon Installer.pkg'
-
-  uninstall pkgutil: 'com.staticz.installer.soundsiphon.*'
-
-  caveats <<~EOS
-    You need to restart your Mac before using #{token}.
-  EOS
+  app "Sound Siphon.app"
 end

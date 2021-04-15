@@ -1,14 +1,17 @@
-cask 'typeit4me' do
-  version '5.5.3b106'
-  sha256 '2d95b5b680b3ae89e8a4ed298fd41c72d65d5374f369be1bbb39c02a0e54f5e4'
+cask "typeit4me" do
+  version "6.3.2,239"
+  sha256 "5aeda373a3d4593077e5b86fd958140a6a252f484600ed5d7e1850046df9b77c"
 
-  url "http://ettoresoftware.com/download/TypeIt4Me#{version}.zip"
-  appcast 'http://ettoresoftware.com/download/TypeIt4MeAppcast.xml',
-          checkpoint: '2d6aa7866ec74708c78c0fd4cc75d95ffda5e32ba77f23fb0beaeede5727ba1a'
-  name 'TypeIt4Me'
-  homepage 'http://www.ettoresoftware.com/mac-apps/typeit4me/'
+  url "https://ettoresoftware.store/download/TypeIt4Me#{version.before_comma}b#{version.after_comma}.zip"
+  name "TypeIt4Me"
+  homepage "https://ettoresoftware.store/mac-apps/typeit4me/"
+
+  livecheck do
+    url "https://ettoresoftware.store/download/TypeIt4MeAppcastV2.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
 
-  app 'TypeIt4Me.app'
+  app "TypeIt4Meb#{version.after_comma}notarised.app", target: "TypeIt4Me.app"
 end

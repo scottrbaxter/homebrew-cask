@@ -1,22 +1,33 @@
-cask 'proxifier' do
-  version '2.21'
-  sha256 '139887d2f4468af222af2b8a1b806169918f359113547a918078792b47471540'
+cask "proxifier" do
+  if MacOS.version <= :catalina
+    version "2.26.2"
+    sha256 :no_check
+    url "https://www.proxifier.com/download/ProxifierMac.dmg"
 
-  url 'https://www.proxifier.com/distr/ProxifierMac.dmg'
-  appcast 'https://www.proxifier.com/mac/new.htm',
-          checkpoint: '602cadf245901c60c6fd178f80f5e0771ce290a1b03446f1d949ed310f7b97a2'
-  name 'Proxifier'
-  homepage 'https://www.proxifier.com/mac/'
+    appcast "https://www.proxifier.com/changelog/mac#{version.major}.html",
+            must_contain: version.major_minor
+  else
+    version "3.4.1"
+    sha256 "e06ad22b11416add6f94d66c28f101453a8a66a0a1f12ebd668e6744dca63279"
+    url "https://www.proxifier.com/download/ProxifierMac#{version.major}.dmg"
+    appcast "https://www.proxifier.com/changelog/mac.html",
+            must_contain: version.major_minor
+  end
 
-  auto_updates true
+  name "Proxifier"
+  homepage "https://www.proxifier.com/mac/"
 
-  app 'Proxifier.app'
+  app "Proxifier.app"
 
   zap trash: [
-               '~/Library/Application Support/Proxifier',
-               '~/Library/Caches/com.initex.proxifier.macosx',
-               '~/Library/Logs/Proxifier',
-               '~/Library/Preferences/com.initex.proxifier.macosx.plist',
-               '~/Library/Saved Application State/com.initex.proxifier.macosx.savedState',
-             ]
+    "~/Library/Application Scripts/com.initex.proxifier.v3.macos",
+    "~/Library/Application Support/Proxifier",
+    "~/Library/Caches/com.initex.proxifier.macosx",
+    "~/Library/Caches/com.apple.helpd/SDMHelpData/Other/English/HelpSDMIndexFile/Proxifier Help*",
+    "~/Library/Containers/com.initex.proxifier.v3.macos",
+    "~/Library/Group Containers/NXELXU5YLW.com.initex.proxifier.v3.macos",
+    "~/Library/Logs/Proxifier",
+    "~/Library/Preferences/com.initex.proxifier.macosx.plist",
+    "~/Library/Saved Application State/com.initex.proxifier.macosx.savedState",
+  ]
 end

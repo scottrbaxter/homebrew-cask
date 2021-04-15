@@ -1,13 +1,21 @@
-cask 'mweb' do
-  version '2.2.8'
-  sha256 '149c7abb50fec0a9fa37f0b891a5a563290db18fcbc0780f095d7673efa05c76'
+cask "mweb" do
+  version "3.4.4,1607678309"
+  sha256 "8ee686c3a54301a8809afbf6f38ea97cecdd805e8dd00a5e67d55f314304b942"
 
-  # dl.devmate.com/com.coderforart.MWeb was verified as official when first introduced to the cask
-  url 'https://dl.devmate.com/com.coderforart.MWeb/MWeb-ProMarkdownwriting%2CnotetakingandstaticbloggeneratorApp.dmg'
-  appcast 'https://updates.devmate.com/com.coderforart.MWeb.xml',
-          checkpoint: '651cc6d0abc923b562c36216f550a70d6ef0149ed1f091d6e53267322c497801'
-  name 'MWeb'
-  homepage 'http://www.mweb.im/'
+  url "https://dl.devmate.com/com.coderforart.MWeb#{version.major}/#{version.before_comma}/#{version.after_comma}/MWeb#{version.major}-ProMarkdownwriting,notetakingandstaticbloggeneratorApp-#{version.before_comma}.dmg",
+      verified: "dl.devmate.com/com.coderforart.MWeb#{version.major}/"
+  name "MWeb"
+  desc "Markdown writing, note taking, and static blog generator app"
+  homepage "https://www.mweb.im/"
 
-  app 'MWeb.app'
+  livecheck do
+    url "https://updates.devmate.com/com.coderforart.MWeb#{version.major}.xml"
+    strategy :sparkle do |item|
+      "#{item.short_version},#{item.url[%r{/(\d+)/MWeb}i, 1]}"
+    end
+  end
+
+  depends_on macos: ">= :sierra"
+
+  app "MWeb.app"
 end

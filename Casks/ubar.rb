@@ -1,21 +1,23 @@
-cask 'ubar' do
-  version '4.0.4'
-  sha256 'a8609cde9e128cfa29aabdbd067480e93e7e2e004a3af483891918164211cb1c'
+cask "ubar" do
+  version "4.1.7,417"
+  sha256 "03990e92a871b6a2bb7af840bceef59325eaad8678d31ba5ed256faa0beea745"
 
-  url "http://www.brawersoftware.com/downloads/ubar/ubar#{version.no_dots}.zip"
-  appcast "https://brawersoftware.com/appcasts/feeds/ubar/ubar#{version.major}.xml",
-          checkpoint: '46820c6898656f017fa37f691fa7a674c52de1575f1adb88959368703ec90530'
-  name 'uBar'
-  homepage 'https://brawersoftware.com/products/ubar'
+  url "https://www.brawersoftware.com/downloads/ubar/ubar#{version.after_comma}.zip"
+  name "uBar"
+  desc "Window manager and productivity tool"
+  homepage "https://brawersoftware.com/products/ubar"
 
-  depends_on macos: '>= :mavericks'
+  livecheck do
+    url "https://brawersoftware.com/appcasts/feeds/ubar/ubar#{version.major}.xml"
+    strategy :sparkle
+  end
 
-  app 'uBar.app'
+  app "uBar.app"
 
   zap trash: [
-               '~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/ca.brawer.ubar.sfl*',
-               '~/Library/Application Support/uBar',
-               '~/Library/Caches/ca.brawer.uBar',
-               '~/Library/Preferences/ca.brawer.uBar.plist',
-             ]
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/ca.brawer.ubar.sfl*",
+    "~/Library/Application Support/uBar",
+    "~/Library/Caches/ca.brawer.uBar",
+    "~/Library/Preferences/ca.brawer.uBar.plist",
+  ]
 end

@@ -1,20 +1,23 @@
-cask 'apple-events' do
-  version '0.9'
-  sha256 'eabc7839534216db1afbfeac21c07999e68700ed30272d99c7c7e370c6684424'
+cask "apple-events" do
+  version "1.6"
+  sha256 "00dee705888f2e7f8f036afe06bafb7d70042bd1eaa1bdf93146fddb63bc8e76"
 
   url "https://github.com/insidegui/AppleEvents/releases/download/#{version}/AppleEvents_v#{version}.zip"
-  appcast 'https://github.com/insidegui/AppleEvents/releases.atom',
-          checkpoint: 'd8972c470b53f92a238b7b84b5f7f53d496467f8ff89457d78ceb9532409c8d0'
-  name 'Apple Events'
-  homepage 'https://github.com/insidegui/AppleEvents'
+  name "Apple Events"
+  desc "Unofficial Apple Events app"
+  homepage "https://github.com/insidegui/AppleEvents"
 
   auto_updates true
 
-  app 'Apple Events.app'
+  app "Apple Events.app"
 
   zap trash: [
-               '~/Library/Application Support/br.com.guilhermerambo.Apple-Events',
-               '~/Library/Caches/br.com.guilhermerambo.Apple-Events',
-               '~/Library/Preferences/br.com.guilhermerambo.Apple-Events.plist',
-             ]
+    "~/Library/Application Support/br.com.guilhermerambo.Apple-Events",
+    "~/Library/Caches/br.com.guilhermerambo.Apple-Events",
+    "~/Library/Preferences/br.com.guilhermerambo.Apple-Events.plist",
+  ]
+
+  caveats do
+    discontinued
+  end
 end

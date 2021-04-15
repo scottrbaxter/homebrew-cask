@@ -1,10 +1,23 @@
-cask 'ringcentral' do
-  version :latest
+cask "ringcentral" do
+  version "21.1.10.2889"
   sha256 :no_check
 
-  url 'https://downloads.ringcentral.com/sp/RingCentralForMac'
-  name 'RingCentral for Mac'
-  homepage 'https://www.ringcentral.com/office/features/desktop-apps/overview.html'
+  url "https://app.ringcentral.com/downloads/RingCentral.pkg"
+  appcast "https://app.ringcentral.com/download/latest-mac.yml",
+          must_contain: version.major_minor_patch
+  name "RingCentral"
+  homepage "https://www.ringcentral.com/rcapp.html"
 
-  app 'RingCentral for Mac.app'
+  pkg "RingCentral.pkg"
+
+  uninstall delete:  "/Applications/RingCentral.app",
+            quit:    "RingCentral",
+            pkgutil: "com.ringcentral.glip"
+
+  zap trash: [
+    "~/Library/Application Support/RingCentral",
+    "~/Library/Logs/RingCentral",
+    "~/Library/Preferences/com.ringcentral.glip.plist",
+    "~/Library/Saved Application State/com.ringcentral.glip.savedState",
+  ]
 end

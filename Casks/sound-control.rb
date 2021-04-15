@@ -1,14 +1,20 @@
-cask 'sound-control' do
-  version '2.1.6,4297'
-  sha256 '33feccad185a1cc53ac5e8e89202484254ca2f737ebf3ea86a988296f93c44a9'
+cask "sound-control" do
+  version "2.5.0,5156"
+  sha256 "b8c2d91aa560248eda0938770c232d31b0b87a95872e4c4df2a6a1db7c514cfb"
 
   url "https://staticz.com/download/#{version.after_comma}/"
-  name 'Sound Control'
-  homepage 'https://staticz.com/soundcontrol/'
+  appcast "http://staticz.net/updates/soundcontrol.rss"
+  name "Sound Control"
+  homepage "https://staticz.com/soundcontrol/"
 
-  pkg 'Sound Control Installer.pkg'
+  auto_updates true
 
-  uninstall launchctl: 'com.staticz.soundcontrol.*',
-            quit:      'com.staticz.SoundControl',
-            pkgutil:   'com.staticz.installer.soundcontrol.*'
+  app "Sound Control.app"
+
+  uninstall launchctl: [
+    "com.staticz.soundsiphon.bridgedaemon",
+    "com.staticz.audio.soundsiphon.playeragent",
+    "com.static.soundsiphon.inputagent",
+  ],
+            quit:      "com.staticz.SoundControl"
 end

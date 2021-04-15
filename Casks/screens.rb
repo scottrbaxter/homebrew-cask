@@ -1,24 +1,30 @@
-cask 'screens' do
-  version '4.4.2,21486:1518473757'
-  sha256 '22a8aca1d9f783cb822872009b09c56d2e23c254c425a389fbf35b6c694cc976'
+cask "screens" do
+  version "4.8.6,1617724297"
+  sha256 "b5bdaff99750d230b545d4987c8ddd3d575f85b8599bd50277b45efcb072a403"
 
-  # dl.devmate.com/com.edovia.screens4.mac was verified as official when first introduced to the cask
-  url "https://dl.devmate.com/com.edovia.screens4.mac/#{version.after_comma.before_colon}/#{version.after_colon}/Screens#{version.major}-#{version.after_comma.before_colon}.zip"
-  appcast "https://updates.devmate.com/com.edovia.screens#{version.major}.mac.xml",
-          checkpoint: '3a950cd38ba0dc5f3de966ea3931af5b671b13cd2062b7c469119f39181e6650'
-  name 'Screens'
-  homepage 'https://edovia.com/screens-mac/'
+  url "https://updates.edovia.com/com.edovia.screens#{version.major}.mac/Screens_#{version.before_comma}b#{version.after_comma}.zip"
+  name "Screens"
+  desc "Remote access software focusing on usability"
+  homepage "https://edovia.com/screens-mac/"
+
+  livecheck do
+    url "https://updates.edovia.com/com.edovia.screens#{version.major}.mac/appcast.xml"
+    strategy :sparkle
+  end
+
+  auto_updates true
+  depends_on macos: ">= :sierra"
 
   app "Screens #{version.major}.app"
 
-  uninstall launchctl: 'com.edovia.screens.launcher',
+  uninstall launchctl: "com.edovia.screens.launcher",
             quit:      "com.edovia.screens#{version.major}.mac"
 
   zap trash: [
-               "~/Library/Application Scripts/com.edovia.screens#{version.major}.mac",
-               '~/Library/Application Scripts/com.edovia.screens.launcher',
-               "~/Library/Containers/com.edovia.screens#{version.major}.mac",
-               '~/Library/Containers/com.edovia.screens.launcher',
-               '~/Library/Logs/Screens',
-             ]
+    "~/Library/Application Scripts/com.edovia.screens#{version.major}.mac",
+    "~/Library/Application Scripts/com.edovia.screens.launcher",
+    "~/Library/Containers/com.edovia.screens#{version.major}.mac",
+    "~/Library/Containers/com.edovia.screens.launcher",
+    "~/Library/Logs/Screens",
+  ]
 end

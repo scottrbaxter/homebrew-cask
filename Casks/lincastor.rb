@@ -1,13 +1,18 @@
-cask 'lincastor' do
-  version '1.4'
-  sha256 'fbe3af69e932cebdd0ddb76460018a4cc9194d60bb9476c2a42c2ccf59bdbba2'
+cask "lincastor" do
+  version "3.7"
+  sha256 :no_check
 
-  # dropbox.com/s/43fuhic0mhvhb6f was verified as official when first introduced to the cask
-  url 'https://www.dropbox.com/s/43fuhic0mhvhb6f/LinCastor.zip?dl=1'
-  appcast 'https://onflapp.appspot.com/lincastor',
-          checkpoint: 'dc2c8150acb3ef4d786d65bf538edd9bdef45c0a4b2ec39fa8c1dd99ffaf3f42'
-  name 'LinCastor'
-  homepage 'https://onflapp.wordpress.com/lincastor/'
+  url "https://onflapp.github.io/blog/releases/lincastor/LinCastor.zip"
+  name "LinCastor"
+  desc "Choose a web browser when opening a link"
+  homepage "https://onflapp.github.io/blog/pages/LinCastorBrowser.html"
 
-  app 'LinCastor.app'
+  livecheck do
+    url "https://onflapp.github.io/blog/releases/lincastor/appcast.xml"
+    strategy :sparkle
+  end
+
+  depends_on macos: ">= :sierra"
+
+  app "LinCastor.app"
 end

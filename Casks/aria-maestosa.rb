@@ -1,12 +1,19 @@
-cask 'aria-maestosa' do
-  version '1.4.13c'
-  sha256 '59d77eb575ed6dcd4d3caeddac78dfe26f44c272e25e480e55733f15428d0946'
+cask "aria-maestosa" do
+  version "1.4.13"
+  sha256 "51e059957841d63b37af31297150b993034fc40b20fb84f006eb8fd0a75a349f"
 
-  url "https://downloads.sourceforge.net/ariamaestosa/AriaMaestosa-osx-#{version}.zip"
-  appcast 'https://sourceforge.net/projects/ariamaestosa/rss',
-          checkpoint: '4f4a6df18a56ca2469c1d07d9e97451988ecd9c79a5fdc9978b4510dfc3a827a'
-  name 'Aria Maestosa'
-  homepage 'http://ariamaestosa.sourceforge.net/'
+  url "https://downloads.sourceforge.net/ariamaestosa/AriaMaestosa-osx-64bits-#{version}.zip",
+      verified: "downloads.sourceforge.net/ariamaestosa/"
+  appcast "https://sourceforge.net/projects/ariamaestosa/rss"
+  name "Aria Maestosa"
+  homepage "https://ariamaestosa.sourceforge.io/"
 
-  app "AriaMaestosa-#{version}/Aria Maestosa.app"
+  app "Aria Maestosa.app"
+
+  zap trash: [
+    "~/Library/Preferences/AriaMaestosa",
+    "~/Library/Saved Application State/org.AriaMaestosa.savedState",
+    "~/Library/Autosave Information/org.AriaMaestosa.plist",
+    "~/Library/Application Support/Aria Maestosa",
+  ]
 end

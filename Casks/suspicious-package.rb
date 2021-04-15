@@ -1,24 +1,35 @@
-cask 'suspicious-package' do
-  version '3.3.1'
-  sha256 '49eee6dc930574b6d03534bea5820cdf47fd10c4f6b82be14afb8e1e76a06304'
+cask "suspicious-package" do
+  version "3.7,773"
+  sha256 :no_check
 
-  url 'http://www.mothersruin.com/software/downloads/SuspiciousPackage.dmg'
-  appcast 'http://www.mothersruin.com/software/SuspiciousPackage/data/SuspiciousPackageVersionInfo.plist',
-          checkpoint: 'eb576c7131af0571064bb963b63381ecadfe395b34a9663746e71beb7dd87ca8'
-  name 'Suspicious Package'
-  homepage 'http://www.mothersruin.com/software/SuspiciousPackage/'
+  url "https://www.mothersruin.com/software/downloads/SuspiciousPackage.dmg"
+  name "Suspicious Package"
+  desc "Application for inspecting installer packages"
+  homepage "https://www.mothersruin.com/software/SuspiciousPackage/"
 
-  auto_updates true
+  livecheck do
+    url "https://www.mothersruin.com/software/SuspiciousPackage/data/SuspiciousPackageVersionInfo.plist"
+    strategy :page_match do |page|
+      svs = page.match(/CFBundleShortVersionString.*?\n.*?(\d+(?:\.\d+)*)/i)
+      bv = page.match(/CFBundleVersion.*?\n.*?(\d+(?:\.\d+)*)/i)
+      "#{svs[1]},#{bv[1]}"
+    end
+  end
 
-  app 'Suspicious Package.app'
+  depends_on macos: ">= :mojave"
+
+  app "Suspicious Package.app"
   binary "#{appdir}/Suspicious Package.app/Contents/SharedSupport/spkg"
 
   zap trash: [
-               '~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.mothersruin.suspiciouspackageapp.sfl*',
-               '~/Library/Caches/com.mothersruin.SuspiciousPackageApp',
-               '~/Library/Caches/com.mothersruin.XPCService.UpdateChecker',
-               '~/Library/Preferences/com.mothersruin.SuspiciousPackage.plist',
-               '~/Library/Preferences/com.mothersruin.SuspiciousPackageApp.plist',
-               '~/Library/WebKit/com.mothersruin.SuspiciousPackageApp',
-             ]
+    "~/Library/Application Scripts/com.mothersruin.SuspiciousPackageApp.QLPreview",
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.mothersruin.suspiciouspackageapp.sfl*",
+    "~/Library/Caches/com.mothersruin.SuspiciousPackageApp",
+    "~/Library/Caches/com.mothersruin.XPCService.UpdateChecker",
+    "~/Library/Containers/com.mothersruin.SuspiciousPackageApp.QLPreview",
+    "~/Library/Preferences/com.mothersruin.SuspiciousPackage.plist",
+    "~/Library/Preferences/com.mothersruin.SuspiciousPackageApp.plist",
+    "~/Library/Saved Application State/com.mothersruin.SuspiciousPackageApp.savedState",
+    "~/Library/WebKit/com.mothersruin.SuspiciousPackageApp",
+  ]
 end

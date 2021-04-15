@@ -1,12 +1,25 @@
-cask 'pocket-casts' do
-  version '0.9.5'
-  sha256 'af22a56f8392a5265fb026005a8a242c8024da835826a1d677885eef266a2024'
+cask "pocket-casts" do
+  version "1.5,44"
+  sha256 :no_check
 
-  url 'https://static.pocketcasts.com/mac/PocketCasts.zip'
-  appcast 'https://static2.pocketcasts.com/mac/appcast.xml',
-          checkpoint: 'fe5c0164713ef586e7996fa33ff28555dd8e3c3ecb37a6acd1461b62393e4ff2'
-  name 'Pocket Casts'
-  homepage 'https://play.pocketcasts.com/'
+  url "https://static.pocketcasts.com/mac/PocketCasts.zip"
+  name "Pocket Casts"
+  desc "Podcast platform"
+  homepage "https://play.pocketcasts.com/"
 
-  app 'Pocket Casts.app'
+  livecheck do
+    url "https://static2.pocketcasts.com/mac/appcast.xml"
+    strategy :sparkle
+  end
+
+  auto_updates true
+  depends_on macos: ">= :sierra"
+
+  app "Pocket Casts.app"
+
+  zap trash: [
+    "~/Library/Application Support/au.com.shiftyjelly.PocketCasts",
+    "~/Library/Caches/au.com.shiftyjelly.PocketCasts",
+    "~/Library/Preferences/au.com.shiftyjelly.PocketCasts.plist",
+  ]
 end

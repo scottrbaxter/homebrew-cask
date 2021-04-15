@@ -1,12 +1,11 @@
-cask 'cajviewer' do
-  version :latest
+cask "cajviewer" do
+  version "2.0,10"
   sha256 :no_check
 
-  url 'http://cajviewer.cnki.net/download/CAJViewerMac.dmg'
-  name 'CAJViewer'
-  homepage 'http://cajviewer.cnki.net/download.html'
+  url "http://viewer.d.cnki.net/CAJ%E4%BA%91%E9%98%85%E8%AF%BB.dmg"
+  name "CAJViewer"
+  name "CAJ云阅读"
+  homepage "https://cajviewer.cnki.net/cajcloud/cajdownload.html"
 
-  pkg 'CAJViewerMac.pkg'
-
-  uninstall pkgutil: 'com.TTKN.CAJViewerMac'
+  app "CAJ云阅读.app"
 end

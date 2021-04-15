@@ -1,19 +1,27 @@
-cask 'musicbrainz-picard' do
-  version '1.4.2'
-  sha256 '003a50a5124cf0809da6f5fb5076dbe41222c6571609b499eb75d54e480d0307'
+cask "musicbrainz-picard" do
+  version "2.6"
+  sha256 "3058eef5a4d03f2962b0981aaa92b422bfe6a2a3c5c73cc22b474e6f1c3453c5"
 
-  url "http://ftp.musicbrainz.org/pub/musicbrainz/picard/MusicBrainz-Picard-#{version}.dmg"
-  appcast 'https://picard.musicbrainz.org/changelog/',
-          checkpoint: '7693e05f7c2c194a8ad62a063e785c49fbe03a41c91020d447e654295a31f10c'
-  name 'MusicBrainz Picard'
-  homepage 'https://picard.musicbrainz.org/'
+  url "https://musicbrainz.osuosl.org/pub/musicbrainz/picard/MusicBrainz-Picard-#{version}-macOS-10.14.dmg",
+      verified: "musicbrainz.osuosl.org/pub/"
+  name "MusicBrainz Picard"
+  desc "Music tagger"
+  homepage "https://picard.musicbrainz.org/"
 
-  app 'MusicBrainz Picard.app'
+  livecheck do
+    url "https://picard.musicbrainz.org/downloads/"
+    strategy :page_match
+    regex(%r{href=.*?/MusicBrainz-Picard-(\d+(?:\.\d+)*)-macOS-(?:\d+(?:\.\d+)*)\.dmg}i)
+  end
+
+  depends_on macos: ">= :sierra"
+
+  app "MusicBrainz Picard.app"
 
   zap trash: [
-               '~/.config/MusicBrainz',
-               '~/Library/Caches/MusicBrainz',
-               '~/Library/Preferences/org.musicbrainz.picard.plist',
-               '~/Library/Saved Application State/org.musicbrainz.picard.savedState',
-             ]
+    "~/.config/MusicBrainz",
+    "~/Library/Caches/MusicBrainz",
+    "~/Library/Preferences/org.musicbrainz.picard.plist",
+    "~/Library/Saved Application State/org.musicbrainz.picard.savedState",
+  ]
 end

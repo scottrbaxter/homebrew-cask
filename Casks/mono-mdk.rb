@@ -1,24 +1,31 @@
-cask 'mono-mdk' do
-  version '5.8.0.108'
-  sha256 '478e362c22c3f095ed2d28a53180e923b0bc1c9909cf6305cb5628798f6df6aa'
+cask "mono-mdk" do
+  version "6.12.0.122"
+  sha256 "e4b9964477a05474b6a182b0ca08701c7c56beedd4afb7a8f2ac4af5d26fb1fa"
 
   url "https://download.mono-project.com/archive/#{version.major_minor_patch}/macos-10-universal/MonoFramework-MDK-#{version}.macos10.xamarin.universal.pkg"
-  appcast 'https://xampubdl.blob.core.windows.net/static/installer_assets/v3/Mac/Universal/InstallationManifest.xml',
-          checkpoint: '542ba80a1f656ec9f0985528ec22648ea8036dff1f4c75e8a1c5a95de281b233'
-  name 'Mono'
-  homepage 'http://www.mono-project.com/'
+  name "Mono"
+  desc "Open source implementation of Microsoft's .NET Framework"
+  homepage "https://www.mono-project.com/"
+
+  livecheck do
+    url "https://www.mono-project.com/download/stable/"
+    strategy :page_match
+    regex(%r{href=.*?/MonoFramework-MDK-(\d+(?:\.\d+)*).macos10.xamarin.universal\.pkg}i)
+  end
+
+  conflicts_with cask: "homebrew/cask-versions/mono-mdk-for-visual-studio"
 
   pkg "MonoFramework-MDK-#{version}.macos10.xamarin.universal.pkg"
 
   uninstall delete:  [
-                       "/Library/Frameworks/Mono.framework/Versions/#{version.major_minor_patch}",
-                       '/private/etc/paths.d/mono-commands',
-                     ],
-            pkgutil: 'com.xamarin.mono-*',
+    "/Library/Frameworks/Mono.framework/Versions/#{version.major_minor_patch}",
+    "/private/etc/paths.d/mono-commands",
+  ],
+            pkgutil: "com.xamarin.mono-*",
             rmdir:   [
-                       '/Library/Frameworks/Mono.framework/Versions',
-                       '/Library/Frameworks/Mono.framework',
-                     ]
+              "/Library/Frameworks/Mono.framework/Versions",
+              "/Library/Frameworks/Mono.framework",
+            ]
 
   caveats <<~EOS
     Installing #{token} removes mono and mono dependant formula binaries in

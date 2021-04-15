@@ -1,21 +1,29 @@
-cask 'geekbench' do
-  if MacOS.version <= :mavericks
-    version '3.4.1'
-    sha256 '9f2730472bba9fd39554290f465d37c32792debc5b20c9840efd1f79d40ca94c'
-
-    # cdn.primatelabs.com was verified as official when first introduced to the cask
-    url "https://cdn.primatelabs.com/Geekbench-#{version}-Mac.zip"
+cask "geekbench" do
+  if MacOS.version <= :sierra
+    version "4.4.2"
+    sha256 "3c46e630a28a0752afd702fc1cd379edd2420001be22302c932e61751284c0cc"
   else
-    version '4.2.0'
-    sha256 '1143ac67411700d9e05457d54c3d4a6865a2b6905fe54e87457f80d8e872f9da'
-
-    url "https://cdn.geekbench.com/Geekbench-#{version}-Mac.dmg"
-    appcast "https://www.primatelabs.com/appcast/geekbench#{version.major}.xml",
-            checkpoint: 'b37cf6b02958684684337b8c15aacd2f08f2e592abcb6ac0711594838dac2f31'
+    version "5.4.0,503783"
+    sha256 "02b694aeaa99bd071a19ee3a3fc9dcf3497602fba9460baa1defade35fe46a2b"
   end
 
-  name 'Geekbench'
-  homepage 'https://www.geekbench.com/'
+  url "https://cdn.geekbench.com/Geekbench-#{version.before_comma}-Mac.zip"
+  name "Geekbench"
+  desc "Tool to measure the computer system's performance"
+  homepage "https://www.geekbench.com/"
+
+  livecheck do
+    url "https://www.primatelabs.com/appcast/geekbench#{version.major}.xml"
+    strategy :sparkle
+  end
+
+  auto_updates true
 
   app "Geekbench #{version.major}.app"
+
+  zap trash: [
+    "~/Library/Caches/com.primatelabs.Geekbench#{version.major}",
+    "~/Library/Preferences/com.primatelabs.Geekbench#{version.major}.plist",
+    "~/Library/Saved Application State/com.primeatelabs.Geekbench#{version.major}.savedState",
+  ]
 end

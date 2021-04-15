@@ -1,12 +1,26 @@
-cask 'gtkwave' do
-  version '3.3.87'
-  sha256 'e9e3cdfd06f76ed4de8b29d55a29f9b714a68a00501b13b4741078a506d1cc8a'
+cask "gtkwave" do
+  version "3.3.107"
+  sha256 "0024fa80f4566bc053d705200263c7e7d72f2ae111bf670dc6af90403540d3c7"
 
-  url "https://downloads.sourceforge.net/gtkwave/gtkwave-#{version}-osx-app/gtkwave.zip"
-  appcast 'https://sourceforge.net/projects/gtkwave/rss',
-          checkpoint: 'bea1232122ff24237497ea61cbfabc2900cc2590059eb32b66524bfbcd9515bf'
-  name 'GTKWave'
-  homepage 'http://gtkwave.sourceforge.net/'
+  url "https://downloads.sourceforge.net/gtkwave/gtkwave-#{version}-osx-app/gtkwave.zip",
+      verified: "downloads.sourceforge.net/gtkwave/"
+  appcast "https://sourceforge.net/projects/gtkwave/rss"
+  name "GTKWave"
+  desc "GTK+ based wave viewer"
+  homepage "https://gtkwave.sourceforge.io/"
 
-  app 'gtkwave.app'
+  app "gtkwave.app"
+  binary "#{appdir}/gtkwave.app/Contents/Resources/bin/gtkwave_bin_launcher.sh", target: "gtkwave"
+
+  zap trash: [
+    "~/Library/Application Support/CrashReporter/gtkwave-bin_*.plist",
+    "~/Library/Preferences/com.geda.gtkwave.plist",
+    "~/Library/Saved Application State/com.geda.gtkwave.savedState",
+  ]
+
+  caveats <<~EOS
+    You may need to install Perl’s Switch module to run #{token}’s command line tool.
+
+      https://ughe.github.io/2018/11/06/gtkwave-osx
+  EOS
 end

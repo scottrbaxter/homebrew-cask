@@ -1,15 +1,20 @@
-cask 'emby-server' do
-  version '3.2.70.0'
-  sha256 '5cad78024d4e9a4f6a396a5a670215665d91e009a0d1e27184d7ed6926666fdd'
+cask "emby-server" do
+  version "4.5.4.0"
+  sha256 "9c95e5bdfc98cb3ae9c44cf31e50128df96f73d6efe25ff8d632d51ae063c40c"
 
-  # github.com/MediaBrowser/Emby was verified as official when first introduced to the cask
-  url "https://github.com/MediaBrowser/Emby/releases/download/#{version}/embyserver-osx-x64-#{version}.zip"
-  appcast 'https://github.com/MediaBrowser/Emby/releases.atom',
-          checkpoint: 'e199120a28828be9b51304d873e1b1064230c57020712372cee673afcabed663'
-  name 'Emby Server'
-  homepage 'https://emby.media/'
+  url "https://github.com/MediaBrowser/Emby.Releases/releases/download/#{version}/embyserver-osx-x64-#{version}.zip",
+      verified: "github.com/MediaBrowser/Emby.Releases/"
+  name "Emby Server"
+  homepage "https://emby.media/"
 
-  app 'EmbyServer.app'
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
 
-  zap trash: '~/.config/emby-server'
+  depends_on macos: ">= :high_sierra"
+
+  app "EmbyServer.app"
+
+  zap trash: "~/.config/emby-server"
 end

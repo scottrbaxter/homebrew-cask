@@ -1,10 +1,17 @@
-cask 'mixxx' do
-  version '2.0.0'
-  sha256 '8ba833269d87c00fbb77d08594e30c1fcc78cfa10b92a6d52457bd8d39e52649'
+cask "mixxx" do
+  version "2.2.4"
+  sha256 "4baf38b866693ea1411c988ea7c1dcfabf9635179358191743109b7a27a0d4d3"
 
   url "https://downloads.mixxx.org/mixxx-#{version}/mixxx-#{version}-osxintel.dmg"
-  name 'Mixxx'
-  homepage 'https://www.mixxx.org/'
+  name "Mixxx"
+  desc "Open-source DJ software"
+  homepage "https://www.mixxx.org/"
 
-  app 'Mixxx.app'
+  livecheck do
+    url "https://www.mixxx.org/download/"
+    strategy :page_match
+    regex(%r{href=.*?/mixxx-(\d+(?:\.\d+)*)-osxintel\.dmg}i)
+  end
+
+  app "Mixxx.app"
 end

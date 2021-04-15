@@ -1,30 +1,32 @@
-cask 'ncar-ncl' do
-  version '6.4.0'
+cask "ncar-ncl" do
+  version "6.6.2"
 
-  if MacOS.version == :el_capitan
-    sha256 '2e1a2957dacd14835716f0f7309117a35e1f6255fa8569d0dc3038c42df9cbfd'
-    url 'https://www.earthsystemgrid.org/download/fileDownload.html?logicalFileId=1139ad88-fa02-11e6-a976-00c0f03d5b7c'
+  if MacOS.version <= :high_sierra
+    sha256 "4e937a6de4303a4928f0f42390d991b12a37659726d15b9da7e8072db74e1867"
+    url "https://www.earthsystemgrid.org/dataset/ncl.#{version.no_dots}.dap/file/ncl_ncarg-#{version}-MacOS_10.13_64bit_gnu710.tar.gz",
+        verified: "earthsystemgrid.org/dataset/ncl."
   else
-    sha256 '3db9396a6b33eff1a5d31b8e4d41eeac17f459a2740b614131fbbe943bc76a3c'
-    url 'https://www.earthsystemgrid.org/download/fileDownload.html?logicalFileId=0a459666-fa02-11e6-a976-00c0f03d5b7c'
+    sha256 "e2cd644f6b1bb41f55480b8818319e60c450998e31e5e489c69a5e84f3d1f359"
+    url "https://www.earthsystemgrid.org/dataset/ncl.#{version.no_dots}.dap/file/ncl_ncarg-#{version}-MacOS_10.14_64bit_gnu730.tar.gz",
+        verified: "earthsystemgrid.org/dataset/ncl."
   end
 
-  appcast 'https://www.ncl.ucar.edu/current_release.shtml',
-          checkpoint: '634aeb20f5c52736d0d800cf2a77abaa6c16685550a46e817590ef3dbd482d6b'
-  name 'NCAR Command Language'
-  name 'ncl'
-  homepage 'https://www.ncl.ucar.edu/'
+  appcast "https://www.ncl.ucar.edu/current_release.shtml"
+  name "NCAR Command Language"
+  name "ncl"
+  desc "Interpreted language for scientific data analysis and visualization"
+  homepage "https://www.ncl.ucar.edu/"
 
-  depends_on x11: true
-  depends_on formula: 'gcc'
-  depends_on macos: '>= :el_capitan'
+  depends_on cask: "xquartz"
+  depends_on formula: "gcc"
+  depends_on macos: ">= :high_sierra"
 
-  artifact 'include', target: "#{HOMEBREW_PREFIX}/ncl-#{version}/include"
-  artifact 'bin', target: "#{HOMEBREW_PREFIX}/ncl-#{version}/bin"
-  artifact 'lib', target: "#{HOMEBREW_PREFIX}/ncl-#{version}/lib"
+  artifact "include", target: "#{HOMEBREW_PREFIX}/ncl-#{version}/include"
+  artifact "bin", target: "#{HOMEBREW_PREFIX}/ncl-#{version}/bin"
+  artifact "lib", target: "#{HOMEBREW_PREFIX}/ncl-#{version}/lib"
 
   preflight do
-    system_command '/bin/mkdir', args: ['-p', "#{HOMEBREW_PREFIX}/ncl-#{version}"], sudo: true
+    system_command "/bin/mkdir", args: ["-p", "#{HOMEBREW_PREFIX}/ncl-#{version}"], sudo: true
   end
 
   uninstall delete: "#{HOMEBREW_PREFIX}/ncl-#{version}"

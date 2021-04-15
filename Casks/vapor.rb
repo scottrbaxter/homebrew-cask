@@ -1,12 +1,15 @@
-cask 'vapor' do
-  version '2.6.0'
-  sha256 '0608952d436550bb22d692cef43087c2ed3d96fa09b5b13eaaedf24143ddd5c6'
+cask "vapor" do
+  version "3.4.0"
+  sha256 "ebe3494eb45c098bdc3df0e4cb41a6699f7856147633d90388e99cb3b4221710"
 
-  url "https://www.vapor.ucar.edu/sites/default/files/attachments/vapor-#{version}-Darwin_x86_64.dmg"
-  name 'VAPOR'
-  homepage 'https://www.vapor.ucar.edu/'
+  url "https://github.com/NCAR/VAPOR/releases/download/#{version}/VAPOR3-#{version}-Darwin.dmg"
+  name "VAPOR"
+  homepage "https://github.com/NCAR/VAPOR"
 
-  pkg 'vapor.pkg'
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
 
-  uninstall pkgutil: 'edu.ucar.ncar.vapor.pkg'
+  app "vapor.app"
 end

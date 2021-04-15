@@ -1,12 +1,14 @@
-cask 'tikzit' do
-  version '1.1'
-  sha256 '7e00a64fe5c96963ae5b09f1f59698b8b487239c53eed01a3bf012cf024f0686'
+cask "tikzit" do
+  version "2.1.6"
+  sha256 "4c7e2de7f021805272505b5313890ec4bcd42e2a66c2de7af74a866e5c96a3ed"
 
-  url "https://downloads.sourceforge.net/tikzit/TikZiT-osx-#{version}.zip"
-  appcast 'http://tikzit.sourceforge.net/appcast/tikzit.xml',
-          checkpoint: '906cd45032179999523b58eb97a293bf63674ba2193b7932ea3930655e8e1516'
-  name 'TikZiT'
-  homepage 'http://tikzit.sourceforge.net/'
+  url "https://github.com/tikzit/tikzit/releases/download/v#{version}/tikzit-osx.dmg",
+      verified: "github.com/tikzit/tikzit/"
+  name "TikZiT"
+  desc "PGF/TikZ diagram editor"
+  homepage "https://tikzit.github.io/"
 
-  app 'TikZiT.app'
+  depends_on macos: ">= :sierra"
+
+  app "TikZiT.app"
 end

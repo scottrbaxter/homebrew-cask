@@ -1,42 +1,39 @@
-cask 'seamonkey' do
-  version '2.48'
+cask "seamonkey" do
+  version "2.53.5.1"
 
-  language 'de' do
-    sha256 'da2708b80251636955d802bb32de8a352a46df661337f23801fa3c0f847f40c5'
-    'de'
+  language "de" do
+    sha256 "4c14e1c717198f770069b102a43b38be09df789892302f1e5f0563d7f4e35079"
+    "de"
+  end
+  language "en-GB" do
+    sha256 "a3efa795ab6aed915b2fd47b2640db099b0299be82e5f2b5b667df3a3756690f"
+    "en-GB"
+  end
+  language "en-US", default: true do
+    sha256 "437c4127483d8db3c0cfcfe978f17d12345de7172e3b1fe712172f2a8cd03bce"
+    "en-US"
+  end
+  language "fr" do
+    sha256 "846580b1ada457df23f44e3976f3cca0c6e03d1c777e68b683ad6c039763e534"
+    "fr"
+  end
+  language "it" do
+    sha256 "7b57f8c76aafde48cb8ce48caf616495d24bfa8ce795af94043d7e495933a41b"
+    "it"
+  end
+  language "ru" do
+    sha256 "06639433277b3c4fbf08cded488168b4ed0c3121ed9f3b0ed09954d984a320e8"
+    "ru"
   end
 
-  language 'en-GB' do
-    sha256 'db5ed7989a2cac2c560dd8d3b5e231499a2cefbf944626eaf44b44445d1f5d1f'
-    'en-GB'
-  end
-
-  language 'en', default: true do
-    sha256 '53431df9cd50cb6b7442fa5496f57b4b5bca0e5e005c058401f8ca958ad96428'
-    'en-US'
-  end
-
-  language 'fr' do
-    sha256 '2ca2ec22cc28676721813d147355c2c0e3b3f9c97bba9fe00ef31bc642ee254f'
-    'fr'
-  end
-
-  language 'it' do
-    sha256 '717a3f87c37bb76a712dfa81a6483ae17e179b9e5daf644585838ea03e961ee2'
-    'it'
-  end
-
-  language 'ru' do
-    sha256 '44f30154148f6ae7754ea849e0fd93fe305eb9cf6ffdd9a42b1b57cab4b0048c'
-    'ru'
-  end
-
-  # mozilla.org/pub/seamonkey/releases was verified as official when first introduced to the cask
-  url "https://ftp.mozilla.org/pub/seamonkey/releases/#{version}/mac/#{language}/SeaMonkey%20#{version}.dmg"
-  name 'SeaMonkey'
-  homepage 'https://www.seamonkey-project.org/'
+  url "https://archive.mozilla.org/pub/seamonkey/releases/#{version}/mac/#{language}/seamonkey-#{version}.#{language}.mac.dmg",
+      verified: "mozilla.org/pub/seamonkey/releases/"
+  appcast "https://www.seamonkey-project.org/releases/"
+  name "SeaMonkey"
+  desc "Development of SeaMonkey Internet Application Suite"
+  homepage "https://www.seamonkey-project.org/"
 
   auto_updates true
 
-  app 'SeaMonkey.app'
+  app "SeaMonkey.app"
 end

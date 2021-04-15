@@ -1,10 +1,15 @@
-cask 'fman' do
-  version :latest
-  sha256 :no_check
+cask "fman" do
+  version "1.7.3"
+  sha256 "27e9aa2ffae66f448a45c025a1fb1b9e06903aab5d2f117b951612deeee09531"
 
-  url 'http://download.fman.io/fman.dmg'
-  name 'fman'
-  homepage 'https://fman.io/'
+  url "https://fman.io/updates/mac/#{version}.zip"
+  name "fman"
+  homepage "https://fman.io/"
 
-  app 'fman.app'
+  livecheck do
+    url "https://fman.io/updates/Appcast.xml"
+    strategy :sparkle
+  end
+
+  app "fman.app"
 end

@@ -1,10 +1,17 @@
-cask 'turtl' do
-  version '0.6.4'
-  sha256 '610741dc2a6387ee29518e31524eabb2c30d6862c2348664277b020942e55547'
+cask "turtl" do
+  version "0.7.2.6-sqlite-fix"
+  sha256 "90085ffb3b97a3c5e6d01313fda6df4f74c7fe1b61b7c1388e54554db79c9a1a"
 
-  url "https://turtlapp.com/releases/desktop/turtl-osx-#{version}.dmg"
-  name 'turtl'
-  homepage 'https://turtlapp.com/'
+  url "https://github.com/turtl/desktop/releases/download/v#{version}/turtl-osx.zip",
+      verified: "github.com/turtl/desktop/"
+  name "turtl"
+  homepage "https://turtlapp.com/"
 
-  app 'Turtl.app'
+  livecheck do
+    url :url
+    strategy :git
+    regex(/^v?(\d+(?:\.\d+)*.*)$/i)
+  end
+
+  app "Turtl.app"
 end

@@ -1,20 +1,22 @@
-cask 'textexpander' do
-  version '6.2.4'
-  sha256 '9cbd0455bc4f67f1240d80a78988c750943e70cf9e749c6dfb4c852a5828110b'
+cask "textexpander" do
+  version "6.8.3,683.2"
+  sha256 "4d71ff80978a44753456f84078ee72a22bdc3c0ab22eaa1209f954024db68301"
 
-  # cdn.textexpander.com/mac was verified as official when first introduced to the cask
-  url "https://cdn.textexpander.com/mac/TextExpander_#{version}.zip"
-  appcast "https://smilesoftware.com/appcast/TextExpander#{version.major}.xml",
-          checkpoint: 'c63a30d1119b5f61331a1de5038bfe1ee61fc72d32928d010d9f4998dede4c8c'
-  name 'TextExpander'
-  homepage 'https://smilesoftware.com/TextExpander'
+  url "https://cdn.textexpander.com/mac/#{version.after_comma}/TextExpander_#{version.before_comma}.zip",
+      verified: "cdn.textexpander.com/mac/"
+  name "TextExpander"
+  desc "Inserts pre-made snippets of text anywhere"
+  homepage "https://smilesoftware.com/TextExpander"
+
+  livecheck do
+    url "https://textexpander.com/appcast/TextExpander-macOS.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
-  accessibility_access true
+  depends_on macos: ">= :sierra"
 
-  app 'TextExpander.app'
+  app "TextExpander.app"
 
-  uninstall login_item: 'TextExpander'
-
-  zap trash: '~/Library/Application Support/TextExpander/'
+  zap trash: "~/Library/Application Support/TextExpander/"
 end

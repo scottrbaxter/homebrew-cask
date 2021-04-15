@@ -1,12 +1,19 @@
-cask 'bluegriffon' do
-  version '3.0.1'
-  sha256 'b1fd87e24890d9d7f227da4051e384e327e418c80112f94fe376985697f7f1d9'
+cask "bluegriffon" do
+  version "3.1"
+  sha256 "cf457ac89447c8a54e0fbc1c13b995286e9b9143cee104fe3f3777a80f540a35"
 
   url "http://bluegriffon.org/freshmeat/#{version}/bluegriffon-#{version}.mac-x86_64.dmg"
-  name 'BlueGriffon'
-  homepage 'http://bluegriffon.org/'
+  name "BlueGriffon"
+  desc "Web and EPUB editor"
+  homepage "http://bluegriffon.org/"
 
-  depends_on macos: '>= :mountain_lion'
+  livecheck do
+    url "http://bluegriffon.org/freshmeat/?C=M;O=D"
+    strategy :page_match
+    regex(%r{href=['"]?(\d+(?:\.\d+)*)/}i)
+  end
 
-  app 'BlueGriffon.app'
+  depends_on macos: ">= :yosemite"
+
+  app "BlueGriffon.app"
 end

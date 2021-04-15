@@ -1,23 +1,27 @@
-cask 'qbserve' do
-  version '1.73'
-  sha256 'bf804de6403e8803ae8e75a3cd3529a663920e609c5336980c3253d59be7eaf8'
+cask "qbserve" do
+  version "1.88"
+  sha256 "b5fe36245f5268b8a5a2a68848627fa6fcd9c7a8dbf05502f1eba8c9815d5adc"
 
   url "https://qotoqot.com/qbserve/app/Qbserve-#{version}.zip"
-  appcast 'https://qotoqot.com/qbserve/app/appcast.xml',
-          checkpoint: 'afafa62d4e4bc9f1c2cf26b1f574b52002c964cd1399bf0db0c99b434bd6deca'
-  name 'Qbserve'
-  homepage 'https://qotoqot.com/qbserve/'
+  name "Qbserve"
+  homepage "https://qotoqot.com/qbserve/"
 
-  accessibility_access true
-  depends_on macos: '>= :yosemite'
+  livecheck do
+    url :homepage
+    strategy :page_match
+    regex(%r{href=.*?/Qbserve-(\d+(?:\.\d+)*)\.zip}i)
+  end
 
-  app 'Qbserve.app'
+  auto_updates true
+  depends_on macos: ">= :yosemite"
+
+  app "Qbserve.app"
 
   zap trash: [
-               '~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.qotoqot.qbserve.sfl*',
-               '~/Library/Application Support/Qbserve',
-               '~/Library/Caches/com.QotoQot.Qbserve',
-               '~/Library/Containers/com.QotoQot.QbserveLogin',
-               '~/Library/Preferences/com.qotoqot.qbserve.plist',
-             ]
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.qotoqot.qbserve.sfl*",
+    "~/Library/Application Support/Qbserve",
+    "~/Library/Caches/com.QotoQot.Qbserve",
+    "~/Library/Containers/com.QotoQot.QbserveLogin",
+    "~/Library/Preferences/com.qotoqot.qbserve.plist",
+  ]
 end

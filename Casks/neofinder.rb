@@ -1,13 +1,17 @@
-cask 'neofinder' do
-  version '7.1.3'
-  sha256 '86fd8716f36bbae309355cf61f219335e68bfc1cda677e8c462f6f55a3a24a45'
+cask "neofinder" do
+  version "7.8"
+  sha256 "bccb4e0d3ad94dbfc4d353194b25409c292808e1208e956e754619b7d8b8c7b5"
 
-  # wfs-apps.de was verified as official when first introduced to the cask
-  url "https://www.wfs-apps.de/updates/neofinder.#{version}.zip"
-  appcast 'https://www.wfs-apps.de/updates/neofinder-appcast-64.xml',
-          checkpoint: '916ebab0a87a38ba361548d487c00427a7b45f222a0e470b1a94a038dd7db554'
-  name 'NeoFinder'
-  homepage 'https://www.cdfinder.de/'
+  url "https://www.wfs-apps.de/updates/neofinder.#{version}.zip",
+      verified: "wfs-apps.de/"
+  name "NeoFinder"
+  desc "Digital media asset manager"
+  homepage "https://www.cdfinder.de/"
 
-  app 'NeoFinder.app'
+  livecheck do
+    url "https://www.wfs-apps.de/updates/neofinder-appcast-64.xml"
+    strategy :sparkle
+  end
+
+  app "NeoFinder.app"
 end

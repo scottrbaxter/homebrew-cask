@@ -1,22 +1,35 @@
-cask 'launchcontrol' do
-  version '1.38.1'
-  sha256 'f47e15f9b4570be380fdb4370c88f33e1bc65423ce97da05f70b678ef34583b2'
+cask "launchcontrol" do
+  version "1.52,1484"
+  sha256 "9e37bf1425e13aac9f220a4cd4c08533ee85e2eeb70d1a9d2d3ce1079772bab0"
 
-  url "http://www.soma-zone.com/download/files/LaunchControl_#{version}.tar.bz2"
-  appcast 'http://www.soma-zone.com/LaunchControl/a/appcast.xml',
-          checkpoint: '134b4288f63b507ada2847562bd9992a094f202e28ab0d9fa7c94c6ee5119c61'
-  name 'LaunchControl'
-  homepage 'http://www.soma-zone.com/LaunchControl/'
+  url "https://www.soma-zone.com/download/files/LaunchControl-#{version.before_comma}.tar.bz2"
+  name "LaunchControl"
+  desc "Create, manage and debug system- and user services"
+  homepage "https://www.soma-zone.com/LaunchControl/"
+
+  livecheck do
+    url "https://www.soma-zone.com/LaunchControl/a/appcast_update.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
 
-  app 'LaunchControl.app'
+  app "LaunchControl.app"
 
-  uninstall delete:    '/Library/PrivilegedHelperTools/com.soma-zone.LaunchControl.Helper',
-            launchctl: 'com.soma-zone.LaunchControl.Helper'
+  uninstall delete:    "/Library/PrivilegedHelperTools/com.soma-zone.LaunchControl.Helper",
+            launchctl: "com.soma-zone.LaunchControl.Helper",
+            quit:      [
+              "com.soma-zone.JobWatch",
+              "com.soma-zone.LaunchControl",
+              "com.soma-zone.LicenseWindow",
+              "com.soma-zone.QuickLaunch",
+            ]
 
   zap trash: [
-               '~/Library/Caches/com.apple.helpd/Generated/com.soma-zone.LaunchControl.help*',
-               '~/Library/Preferences/com.soma-zone.LaunchControl.plist',
-             ]
+    "~/Library/Application Support/LaunchControl",
+    "~/Library/Caches/com.apple.helpd/Generated/com.soma-zone.LaunchControl.help*",
+    "~/Library/Caches/com.apple.helpd/Generated/LaunchControl Help*",
+    "~/Library/Caches/com.soma-zone.LaunchControl",
+    "~/Library/Preferences/com.soma-zone.LaunchControl.plist",
+  ]
 end

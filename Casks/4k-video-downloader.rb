@@ -1,12 +1,25 @@
-cask '4k-video-downloader' do
-  version '4.4.3.2265'
-  sha256 'ad8f4ee076a3af717603d07c43c2b98c614026374d86c7b78749d83f8ff00b34'
+cask "4k-video-downloader" do
+  version "4.15.1"
+  sha256 "de4f4c56a54e3f5a3da3b7f680e2c3394112ceb4232cc75b7c1552acd2bd560c"
 
   url "https://dl.4kdownload.com/app/4kvideodownloader_#{version.major_minor_patch}.dmg"
-  appcast 'https://www.4kdownload.com/download',
-          checkpoint: '9fe7bc8c844c6ae4dce09aa9b73cf8ad1a6a14fabccf4f18d577e36cebe56fe6'
-  name '4K Video Downloader'
-  homepage 'https://www.4kdownload.com/products/product-videodownloader'
+  name "4K Video Downloader"
+  desc "Free video downloader"
+  homepage "https://www.4kdownload.com/products/product-videodownloader"
 
-  app '4K Video Downloader.app'
+  livecheck do
+    url "https://www.4kdownload.com/download"
+    strategy :page_match
+    regex(%r{href=.*?/4kvideodownloader_(\d+(?:\.\d+)*)\.dmg}i)
+  end
+
+  depends_on macos: ">= :sierra"
+
+  app "4K Video Downloader.app"
+
+  zap trash: [
+    "~/Library/Application Support/4kdownload.com/4K Video Downloader",
+    "~/Library/Preferences/com.4kdownload.4K Video Downloader.plist",
+    "~/Library/Preferences/com.4kdownload.ApplicationDirectories.plist",
+  ]
 end

@@ -1,12 +1,10 @@
-cask 'chatwork' do
-  version :latest
+cask "chatwork" do
+  version "2.6.3.964"
   sha256 :no_check
 
-  url 'http://desktop-app.chatwork.com/installer/ChatWork.dmg'
-  name 'ChatWork'
-  homepage 'https://www.chatwork.com/'
+  url "https://desktop-app.chatwork.com/installer/ChatWork.dmg"
+  name "ChatWork"
+  homepage "https://www.chatwork.com/"
 
-  auto_updates true
-
-  app 'ChatWork.app'
+  app "ChatWork.app"
 end

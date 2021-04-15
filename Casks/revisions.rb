@@ -1,12 +1,16 @@
-cask 'revisions' do
-  version '3.0'
-  sha256 'e10572e35ee2421b6406cb599e8d4338d9cbc5d848378617362104f2069f14f1'
+cask "revisions" do
+  version "3.0.1"
+  sha256 "3ba2adf68b799444b0a72f37d885e205e037de48fa40ee5dfcb694f1995b4823"
 
   url "https://revisionsapp.com/downloads/revisions-#{version}.dmg"
-  appcast 'https://revisionsapp.com/releases',
-          checkpoint: 'cdfa5b665f80b2f3584914cdbe9b17441e692df4e3e3169f64b27f36b60a1dd3'
-  name 'Revisions'
-  homepage 'https://revisionsapp.com/'
+  name "Revisions"
+  homepage "https://revisionsapp.com/"
 
-  app 'Revisions.app'
+  livecheck do
+    url "https://revisionsapp.com/releases"
+    strategy :page_match
+    regex(%r{href=.*?/revisions-(\d+(?:\.\d+)*)\.dmg}i)
+  end
+
+  app "Revisions.app"
 end

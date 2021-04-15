@@ -1,10 +1,22 @@
-cask 'qcad' do
-  version '3.19.2'
-  sha256 '7b4c6207d070789f8dabadf4d0bcde813362097ba87d6db85b51d938af279575'
+cask "qcad" do
+  version "3.25.2"
 
-  url "https://www.qcad.org/archives/qcad/qcad-#{version}-trial-osx-10.9-10.13.dmg"
-  name 'QCAD'
-  homepage 'https://www.qcad.org/'
+  if MacOS.version <= :high_sierra
+    sha256 "33aff3060a27956cc33cd738bef3d385a7cc2a408a1662605422b99af5275750"
+    url "https://www.qcad.org/archives/qcad/qcad-#{version}-trial-macos-10.10-10.13.dmg"
+  else
+    sha256 "6f3ecfdcfd2411acb5477894a0725ddda8cc7027542e34946b7c33a6cbfd32df"
+    url "https://www.qcad.org/archives/qcad/qcad-#{version}-trial-macos-10.14-10.15.dmg"
+  end
 
-  app 'QCAD.app'
+  name "QCAD"
+  homepage "https://www.qcad.org/"
+
+  livecheck do
+    url "https://www.qcad.org/en/download"
+    strategy :page_match
+    regex(%r{href=.*?/qcad-(\d+(?:\.\d+)*)-trial-macos-10\.14-10\.15\.dmg}i)
+  end
+
+  app "QCAD.app"
 end

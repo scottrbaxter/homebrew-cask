@@ -1,17 +1,16 @@
-cask 'ui-browser' do
-  version '2.7.0'
-  sha256 '0974aaf84862600383a64ec7ddf95ee8f0d0c623f5d07479f624fee864034425'
+cask "ui-browser" do
+  version "3.0.2"
+  sha256 "a5695d3046a2230a0e56cbda68829802801d74afc39d4320161fef668b3a0376"
 
-  url "http://pfiddlesoft.com/uibrowser/downloads/UIBrowser#{version.no_dots}.dmg"
-  name 'UI Browser'
-  homepage 'http://pfiddlesoft.com/uibrowser/'
+  url "https://pfiddlesoft.com/uibrowser/downloads/UIBrowser#{version.no_dots}.dmg"
+  appcast "https://pfiddlesoft.com/uibrowser/index-downloads.html"
+  name "UI Browser"
+  homepage "https://pfiddlesoft.com/uibrowser/"
 
-  depends_on macos: '>= :lion'
-
-  app 'UI Browser.app'
+  app "UI Browser.app"
 
   zap trash: [
-               '~/Library/Caches/com.apple.helpd/Generated/com.pfiddlesoft.uibrowser.help*',
-               '~/Library/Preferences/com.pfiddlesoft.uibrowser.plist',
-             ]
+    "~/Library/Caches/com.apple.helpd/Generated/com.pfiddlesoft.uibrowser.help*",
+    "~/Library/Preferences/com.pfiddlesoft.uibrowser.plist",
+  ]
 end

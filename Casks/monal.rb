@@ -1,12 +1,18 @@
-cask 'monal' do
-  version '2b7'
-  sha256 '3a2ac928be431a27e73f0ff4237ed52e8375e4e995d8f6512d4c3cd3fa2c7673'
+cask "monal" do
+  version "5.0,716"
+  sha256 :no_check
 
-  url 'https://monal.im/Monal-OSX/Monal-OSX.zip'
-  appcast 'https://monal.im/Monal-OSX/appcast.xml',
-          checkpoint: 'c694282881493b66b7fda296ea1fdfc4ed142f5b8bf1bf94e686dba15d0e58c7'
-  name 'Monal'
-  homepage 'https://monal.im/'
+  url "https://monal.im/macOS/Monal-macOS.tar.gz"
+  name "Monal"
+  desc "Tool to securely connect to chat servers"
+  homepage "https://monal.im/"
 
-  app 'Monal.app'
+  livecheck do
+    url :url
+    strategy :extract_plist
+  end
+
+  depends_on macos: ">= :catalina"
+
+  app "Monal.app"
 end

@@ -1,12 +1,11 @@
-cask 'lazpaint' do
-  version '6.2'
-  sha256 '44f48aee359337f8d5a9fd3b3786f71251dc6b961486b30938a308197e28498e'
+cask "lazpaint" do
+  version "7.1.6"
+  sha256 "75088f275e71d6dbd7a76c6ba98083722f2f535fa7f7fa4f839b8f8650f1d862"
 
-  url "https://downloads.sourceforge.net/lazpaint/lazpaint#{version}_osx32.zip"
-  appcast 'https://sourceforge.net/projects/lazpaint/rss',
-          checkpoint: 'ce8c6ecb6dff3743d2833a86635bff3ecc4f53f181026fb34b7c159419c004e6'
-  name 'LazPaint'
-  homepage 'https://sourceforge.net/projects/lazpaint/'
+  url "https://github.com/bgrabitmap/lazpaint/releases/download/v#{version}/lazpaint#{version}_macos64.dmg",
+      verified: "github.com/bgrabitmap/lazpaint/"
+  name "LazPaint"
+  homepage "https://bgrabitmap.github.io/lazpaint/"
 
-  app 'LazPaint.app'
+  app "LazPaint.app"
 end

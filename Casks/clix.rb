@@ -1,10 +1,25 @@
-cask 'clix' do
-  version '2.1'
-  sha256 'a4f9d270792e9da698326924e4c899c7a5f13f157c7793b82187688f8c189008'
+cask "clix" do
+  version "2.4.0.0"
+  sha256 :no_check
 
-  url 'ftp://rixstep.com/CLIX.tar.bz2'
-  name 'CLIX'
-  homepage 'http://rixstep.com/4/0/clix/'
+  url "https://rixstep.com/4/0/clix//clix.zip"
+  name "CLIX"
+  homepage "https://rixstep.com/4/0/clix/"
 
-  app "CLIX#{version}/CLIX.app"
+  livecheck do
+    url :url
+    strategy :extract_plist do |items|
+      items["com.rixstep.CLIX"].version
+    end
+  end
+
+  app "CLIX/CLIX.app"
+
+  preflight do
+    set_permissions "#{staged_path}/CLIX/CLIX.app", "0755"
+  end
+
+  postflight do
+    set_permissions "#{appdir}/CLIX/CLIX.app", "0700"
+  end
 end

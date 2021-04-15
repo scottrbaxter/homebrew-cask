@@ -1,19 +1,21 @@
-cask 'soda-player' do
-  version '1.3.2'
-  sha256 'aaba823b2403f4fb60a2aa3356e5aec659bc850f25a097ad5b46cf1eccd0549d'
+cask "soda-player" do
+  version "1.4.2"
+  sha256 "8a11327336f0e79393e9c57f4fbb86513f50920559b7e1057627426b0654de76"
 
   url "https://releases.sodaplayer.com/mac/Soda%20Player%20#{version}.dmg"
-  name 'Soda Player'
-  homepage 'https://www.sodaplayer.com/'
+  appcast "https://www.sodaplayer.com"
+  name "Soda Player"
+  desc "Video player and streaming platform"
+  homepage "https://www.sodaplayer.com/"
 
   auto_updates true
 
-  app 'Soda Player.app'
+  app "Soda Player.app"
 
   zap trash: [
-               '~/Library/Application Support/Soda Player',
-               '~/Library/Preferences/com.sodaplayer.sodaplayer.plist',
-               '~/Library/Preferences/com.sodaplayer.sodaplayer-helper.plist',
-               '~/Library/Saved Application State/com.sodaplayer.sodaplayer.savedState',
-             ]
+    "~/Library/Application Support/Soda Player",
+    "~/Library/Preferences/com.sodaplayer.sodaplayer.plist",
+    "~/Library/Preferences/com.sodaplayer.sodaplayer-helper.plist",
+    "~/Library/Saved Application State/com.sodaplayer.sodaplayer.savedState",
+  ]
 end

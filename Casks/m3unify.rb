@@ -1,12 +1,17 @@
-cask 'm3unify' do
-  version '1.9.2'
-  sha256 '12881a7d4ec42f6cc43763513c5a68a9e1903f7e11cbd31aa272c42215499d2f'
+cask "m3unify" do
+  version "2.2.0,2200027"
+  sha256 "f46192615beff9572e1c0438a9f75bc73540352e1a7a85a4844e20aa10a3215d"
 
-  url "https://dougscripts.com/itunes/scrx/m3unifyv#{version.no_dots}.zip"
-  appcast 'https://dougscripts.com/itunes/itinfo/m3unify_appcast.xml',
-          checkpoint: 'c79e86fd0a547b87384537d8103b0a752e55b9b9294b2911531489b35afd1b5c'
-  name 'M3Unify'
-  homepage 'https://dougscripts.com/apps/m3unifyapp.php'
+  url "https://dougscripts.com/itunes/scrx/m3unifyv#{version.before_comma.no_dots}.zip"
+  name "M3Unify"
+  homepage "https://dougscripts.com/apps/m3unifyapp.php"
 
-  app 'M3Unify.app'
+  livecheck do
+    url "https://dougscripts.com/itunes/itinfo/m3unify_appcast.xml"
+    strategy :sparkle
+  end
+
+  depends_on macos: ">= :mojave"
+
+  app "M3Unify.app"
 end

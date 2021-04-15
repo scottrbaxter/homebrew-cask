@@ -1,14 +1,12 @@
-cask 'aquaskk' do
-  version '4.4.6'
-  sha256 'c6635e2f34672dfaa1ca3fc5f1eb831d21997c5baa278a8840e6358be4c6c563'
+cask "aquaskk" do
+  version "4.7.3"
+  sha256 "bf3300ceb8f5fd2433e244de0f43f1962073b5048f1536ef58e617f7c4785abd"
 
-  url "https://github.com/codefirst/aquaskk/releases/download/#{version}/AquaSKK.pkg"
-  appcast 'https://github.com/codefirst/aquaskk/releases.atom',
-          checkpoint: 'e88cfab393d7724d48ff5f0cc19433db68d921e65c1cdd83efc24c89f6e02106'
-  name 'AquaSKK'
-  homepage 'https://github.com/codefirst/aquaskk'
+  url "https://github.com/codefirst/aquaskk/releases/download/#{version}/AquaSKK-#{version}.pkg"
+  name "AquaSKK"
+  homepage "https://github.com/codefirst/aquaskk"
 
-  pkg 'AquaSKK.pkg'
+  pkg "AquaSKK-#{version}.pkg"
 
-  uninstall pkgutil: 'org.codefirst.aquaskk.pkg'
+  uninstall pkgutil: "org.codefirst.aquaskk.pkg"
 end

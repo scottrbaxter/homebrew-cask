@@ -1,14 +1,25 @@
-cask 'acorn' do
-  version '6.1'
-  sha256 '6539d8e80c41add48b984b9c2e0ad00408b742b8099bc1a0f7b9ac3a91025c0a'
+cask "acorn" do
+  version "7.0.2,15785"
+  sha256 "32fc1ee10bdcf701b5f9433198b49d8bbc38230cfa012bb371a3d4fb27018c2f"
 
-  url 'https://secure.flyingmeat.com/download/Acorn.zip'
-  appcast "https://www.flyingmeat.com/download/acorn#{version.major}update.xml",
-          checkpoint: '33088b8b94ae70810d42a5fa64f80def4f0c09e6f0fd3b8ddf1bc6a588af2c6a'
-  name 'Acorn'
-  homepage 'https://flyingmeat.com/acorn/'
+  url "https://flyingmeat.com/download/Acorn-#{version.before_comma}.zip"
+  name "Acorn"
+  desc "Image editor focused on simplicity"
+  homepage "https://flyingmeat.com/acorn/"
+
+  livecheck do
+    url "https://www.flyingmeat.com/download/acorn#{version.major}update.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
 
-  app 'Acorn.app'
+  app "Acorn.app"
+
+  zap trash: [
+    "~/Library/Application Support/Acorn",
+    "~/Library/Caches/com.flyingmeat.Acorn#{version.major}",
+    "~/Library/Preferences/com.flyingmeat.Acorn#{version.major}.plist",
+    "~/Library/Saved Application State/com.flyingmeat.Acorn#{version.major}.savedState",
+  ]
 end

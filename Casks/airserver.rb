@@ -1,12 +1,16 @@
-cask 'airserver' do
-  version '7.1.4'
-  sha256 '4dc33693c68fedc8bbd93b54e23da8879f744feb130451e4a5bb4b5b6f1a47d3'
+cask "airserver" do
+  version "7.2.6"
+  sha256 "fc7c7562654ffd47c46e4ffe0a8fc1565d0fa76297ad2e6105cab3c8ab125568"
 
-  url "http://dl.airserver.com/mac/AirServer-#{version}.dmg"
-  appcast 'https://www.airserver.com/downloads/mac/appcast.xml',
-          checkpoint: 'cd46aa957c9db53a884c0697f2845528d7e28bf126a45d2f74bf892bbb4edc5b'
-  name 'AirServer'
-  homepage 'https://www.airserver.com/'
+  url "https://dl.airserver.com/mac/AirServer-#{version}.dmg"
+  name "AirServer"
+  desc "Screen mirroring receiver"
+  homepage "https://www.airserver.com/"
 
-  app 'AirServer.app'
+  livecheck do
+    url "https://www.airserver.com/downloads/mac/appcast.xml"
+    strategy :sparkle
+  end
+
+  app "AirServer.app"
 end

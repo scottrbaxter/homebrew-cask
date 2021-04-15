@@ -1,15 +1,18 @@
-cask 'adobe-connect' do
-  version '9.7,982.437'
-  sha256 'd310bda05cac63fca5c90e7b3dae9b09accd7460e88e76482efed2bc763e6cfc'
+cask "adobe-connect" do
+  version "11,2021.3.27"
+  sha256 "fafd3769e3e26527f602ed28076afdda5927ac7504e805e99a4bbf80dcd5509d"
 
-  url "http://download.adobe.com/pub/connect/updaters/meeting/#{version.before_comma.dots_to_underscores}/AdobeConnect_#{version.after_comma}.dmg"
-  name 'Adobe Connect'
-  homepage 'http://www.adobe.com/products/adobeconnect.html'
+  url "https://download.adobe.com/pub/connect/updaters/meeting/#{version.before_comma}/AdobeConnect_#{version.after_comma.dots_to_underscores}.dmg"
+  name "Adobe Connect"
+  homepage "https://www.adobe.com/products/adobeconnect.html"
+
+  livecheck do
+    skip "No version information available"
+  end
 
   auto_updates true
-  depends_on macos: '>= :mavericks'
 
-  installer manual: 'AdobeConnectInstaller.app'
+  installer manual: "AdobeConnectInstaller.app"
 
-  uninstall delete: '/Applications/Adobe Connect'
+  uninstall delete: "/Applications/Adobe Connect"
 end

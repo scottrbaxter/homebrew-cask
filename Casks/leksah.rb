@@ -1,10 +1,17 @@
-cask 'leksah' do
-  version '0.15.2.0-ghc-7.10.3'
-  sha256 'f94fff34c37367ddd5081e9f8561f1579b2875840e80d647dd6d7af469c542bf'
+cask "leksah" do
+  version "0.16.2.2-ghc-8.0.2"
+  sha256 "4ab4e5245d85bfc55b6fc6f347f4abe86728bdef031d3c5e9fb40704e07cd2dc"
 
   url "http://www.leksah.org/packages/leksah-#{version}.dmg"
-  name 'Leksah'
-  homepage 'http://leksah.org/'
+  name "Leksah"
+  desc "Haskell IDE"
+  homepage "http://leksah.org/"
 
-  app 'Leksah.app'
+  livecheck do
+    url "http://www.leksah.org/packages/"
+    strategy :page_match
+    regex(/href=.*?leksah-(\d+(?:\.\d+)*-ghc-\d+(?:\.\d+)*)\.dmg/i)
+  end
+
+  app "Leksah.app"
 end

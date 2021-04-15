@@ -1,18 +1,25 @@
-cask 'startupizer' do
-  version '2.3.10,2058:1506439464'
-  sha256 'c9d469c263ac1ac866ea067214e2b20e0583bb0763e1180d0e4cdc311ae52318'
+cask "startupizer" do
+  version "2,2060:1527510167"
+  sha256 "56792a52fc91129f6f192cbbc0dbc6a7175d0699f2dab726baaf7d94f30ce150"
 
-  # dl.devmate.com/com.gentlebytes.Startupizer2 was verified as official when first introduced to the cask
-  url "https://dl.devmate.com/com.gentlebytes.Startupizer2/#{version.after_comma.before_colon}/#{version.after_colon}/Startupizer#{version.major}-#{version.after_comma.before_colon}.zip"
-  appcast "https://updates.devmate.com/com.gentlebytes.Startupizer#{version.major}.xml",
-          checkpoint: '2329c9571a65c4c5283f5d5d7c8b6553ad423a8c8a1f287ca35ec81b7d82a6d9'
+  url "https://dl.devmate.com/com.gentlebytes.Startupizer#{version.major}/#{version.after_comma.before_colon}/#{version.after_colon}/Startupizer#{version.major}-#{version.after_comma.before_colon}.zip",
+      verified: "dl.devmate.com/com.gentlebytes.Startupizer#{version.major}/"
   name "Startupizer#{version.major}"
-  homepage 'http://gentlebytes.com/startupizer/'
+  desc "Login items handler"
+  homepage "http://gentlebytes.com/startupizer/"
+
+  livecheck do
+    url "https://updates.devmate.com/com.gentlebytes.Startupizer#{version.major}.xml"
+    strategy :sparkle do |item|
+      match = item.url.match(%r{/(\d+)/Startupizer(\d+)-\d+\.zip}i)
+      "#{match[2]},#{item.version}:#{match[1]}"
+    end
+  end
 
   app "Startupizer#{version.major}.app"
 
   zap trash: [
-               "~/Library/Caches/com.gentlebytes.Startupizer#{version.major}",
-               "~/Library/Preferences/com.gentlebytes.Startupizer#{version.major}.plist",
-             ]
+    "~/Library/Caches/com.gentlebytes.Startupizer#{version.major}",
+    "~/Library/Preferences/com.gentlebytes.Startupizer#{version.major}.plist",
+  ]
 end

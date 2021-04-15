@@ -1,12 +1,18 @@
-cask 'receipts' do
-  version '1.6.3'
-  sha256 '314ffaba255ea79e214d1b2e75faf0c517806dd94742b0a31fda8fe7ffb4a492'
+cask "receipts" do
+  version "1.9.10-360"
+  sha256 "e1895c47301107edb505d458a2d8a07503757b374c687576c583744e85dc0ce4"
 
-  url "https://www.receipts-app.com/download/Receipts-#{version}.zip"
-  appcast 'https://www.receipts-app.com/updater.php',
-          checkpoint: 'b6fa5f3c18d74a111152539b72fd4177d7f7207997eb4253b48d81a4fe13b40b'
-  name 'Receipts'
-  homepage 'https://www.receipts-app.com/'
+  url "https://www.receipts-app.com/update/download/Receipts-#{version}.zip"
+  name "Receipts"
+  homepage "https://www.receipts-app.com/"
 
-  app 'Receipts.app'
+  livecheck do
+    url "https://www.receipts-app.com/updater.php"
+    strategy :page_match
+    regex(%r{href=.*?/Receipts-(\d+(?:\.\d+)*-\d+)\.zip}i)
+  end
+
+  depends_on macos: ">= :yosemite"
+
+  app "Receipts.app"
 end

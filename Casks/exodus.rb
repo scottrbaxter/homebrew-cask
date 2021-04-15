@@ -1,20 +1,26 @@
-cask 'exodus' do
-  version '1.44.1'
-  sha256 'fa1c2ff2df970a90776962695be19c2ccd42b9ff59cc4b7749873a231b0fda5c'
+cask "exodus" do
+  version "21.4.12"
+  sha256 "3e7db321a726cea5e4db61ed1b3687295e96fc5906138f9a74f97bea6d86d08b"
 
-  # exodusbin.azureedge.net was verified as official when first introduced to the cask
-  url "https://exodusbin.azureedge.net/releases/exodus-macos-#{version}.dmg"
-  appcast 'https://www.exodus.io/releases/',
-          checkpoint: '17ab627cb9e09f9f6a70da8fac5a51be69092a0d9f097ae2154d51373aec9764'
-  name 'Exodus'
-  homepage 'https://www.exodus.io/'
+  url "https://downloads.exodus.com/releases/exodus-macos-#{version}.dmg"
+  name "Exodus"
+  desc "Desktop wallet for cryptocurrency assets"
+  homepage "https://www.exodus.com/"
 
-  app 'Exodus.app'
+  livecheck do
+    url "https://www.exodus.com/releases/"
+    strategy :page_match
+    regex(/new\s*in.*?(\d+(?:\.\d+)*)/i)
+  end
+
+  auto_updates true
+
+  app "Exodus.app"
 
   zap trash: [
-               '~/Library/Application Support/Exodus',
-               '~/Library/Preferences/com.electron.exodus.helper.plist',
-               '~/Library/Preferences/com.electron.exodus.plist',
-               '~/Library/Saved Application State/com.electron.exodus.savedState',
-             ]
+    "~/Library/Application Support/Exodus",
+    "~/Library/Preferences/com.electron.exodus.helper.plist",
+    "~/Library/Preferences/com.electron.exodus.plist",
+    "~/Library/Saved Application State/com.electron.exodus.savedState",
+  ]
 end

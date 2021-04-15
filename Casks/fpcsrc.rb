@@ -1,15 +1,14 @@
-cask 'fpcsrc' do
-  version '3.0.2,20170228'
-  sha256 'ca3e47394e65c8a53a6bdb5f4f8551f54a036e8613865bca73b231b059be9bc8'
+cask "fpcsrc" do
+  version "3.2.0-2,2.0.10"
+  sha256 "8f85c873c3a224961a98fd24e97320a2134bbcc7f91c6d8153e53b36beb7fe74"
 
-  # sourceforge.net/lazarus was verified as official when first introduced to the cask
-  url "https://downloads.sourceforge.net/lazarus/fpc-src-#{version.before_comma}-macosx.dmg"
-  appcast 'https://sourceforge.net/projects/lazarus/rss',
-          checkpoint: '8ab02d40404440038034b43801b98c89c3c3e278a0a2a8bfedb5951223e47ab1'
-  name 'Free Pascal Compiler Source'
-  homepage 'https://www.freepascal.org/'
+  url "https://downloads.sourceforge.net/lazarus/Lazarus%20macOS%20x86-64/Lazarus%20#{version.after_comma}/fpc-src-#{version.before_comma}-laz.pkg",
+      verified: "sourceforge.net/lazarus/"
+  appcast "https://sourceforge.net/projects/lazarus/rss"
+  name "Free Pascal Compiler Source"
+  homepage "https://www.freepascal.org/"
 
-  pkg "fpcsrc-#{version.before_comma}-#{version.after_comma}.pkg"
+  pkg "fpc-src-#{version.before_comma}-laz.pkg"
 
-  uninstall pkgutil: 'org.freepascal.fpc.source'
+  uninstall pkgutil: "org.freepascal.fpc.source"
 end

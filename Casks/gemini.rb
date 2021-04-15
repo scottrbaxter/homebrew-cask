@@ -1,20 +1,29 @@
-cask 'gemini' do
-  version '2.4.2'
-  sha256 '10dfeb005e18c6ff1a121810f95a4b675557e04ce2811130174b101f6d43cd10'
+cask "gemini" do
+  version "2.8.6,376:1614607724"
+  sha256 "46075fc573c75fbaa9ec110faed9cd6e276794a044d1aca4db0487073665931d"
 
-  # dl.devmate.com/com.macpaw.site.Gemini was verified as official when first introduced to the cask
-  url "https://dl.devmate.com/com.macpaw.site.Gemini#{version.major}/Gemini#{version.major}.dmg"
-  appcast "https://updates.devmate.com/com.macpaw.site.Gemini#{version.major}.xml",
-          checkpoint: '26fa8d006940da3d115cfe70c33022e2c3337ea5088c696c58d6aa1dceb57b27'
-  name 'Gemini'
-  homepage 'https://macpaw.com/gemini'
+  url "https://dl.devmate.com/com.macpaw.site.Gemini#{version.major}/#{version.after_comma.before_colon}/#{version.after_colon}/Gemini#{version.major}-#{version.after_comma.before_colon}.zip",
+      verified: "dl.devmate.com/com.macpaw.site.Gemini"
+  name "Gemini"
+  desc "Disk space cleaner that finds and deletes duplicated and similar files"
+  homepage "https://macpaw.com/gemini"
+
+  livecheck do
+    url "https://updates.devmate.com/com.macpaw.site.Gemini#{version.major}.xml"
+    strategy :sparkle do |item|
+      "#{item.short_version},#{item.version}:#{item.url[%r{/(\d+)/Gemini.*?\.zip}i, 1]}"
+    end
+  end
 
   app "Gemini #{version.major}.app"
 
   zap trash: [
-               '~/Library/Application Support/Gemini 2',
-               '~/Library/Caches/com.macpaw.site.Gemini2',
-               '~/Library/Preferences/com.macpaw.site.Gemini2.plist',
-               '~/Library/Saved Application State/com.macpaw.site.Gemini2.savedState',
-             ]
+    "~/Library/Application Support/Gemini*",
+    "~/Library/Caches/com.macpaw.site.Gemini*",
+    "~/Library/Cookies/com.macpaw.site.Gemini*.binarycookies",
+    "~/Library/Logs/com.macpaw.site.Gemini*",
+    "~/Library/Preferences/com.macpaw.site.Gemini*",
+    "~/Library/Saved Application State/com.macpaw.site.Gemini*",
+    "/Users/Shared/Gemini #{version.major}",
+  ]
 end

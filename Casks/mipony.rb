@@ -1,12 +1,13 @@
-cask 'mipony' do
-  version :latest
+cask "mipony" do
+  version "1.7,9"
   sha256 :no_check
 
-  url 'http://www.mipony.net/downloadmac/'
-  name 'Mipony'
-  homepage 'http://www.mipony.net/'
+  url "https://download.mipony.net/downloads/mac/Mipony-Installer.pkg"
+  name "Mipony"
+  homepage "https://www.mipony.net/en/"
 
-  pkg 'Mipony-Installer.pkg', allow_untrusted: true
+  pkg "Mipony-Installer.pkg"
 
-  uninstall pkgutil: 'net.installer.mipony.*'
+  uninstall pkgutil: "net.installer.mipony.*",
+            quit:    "com.downloader.Mipony"
 end

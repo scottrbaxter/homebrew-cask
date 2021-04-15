@@ -1,17 +1,22 @@
-cask 'command-tab-plus' do
-  version :latest
+cask "command-tab-plus" do
+  version "1.130,380"
   sha256 :no_check
 
-  # dl.devmate.com was verified as official when first introduced to the cask
-  url 'https://dl.devmate.com/com.sergey-gerasimenko.Command-Tab/Command-Tab.zip'
-  name 'Command-Tab Plus'
-  homepage 'http://commandtab.noteifyapp.com/'
+  url "https://noteifyapp.com/download/Command-Tab%20Plus.dmg"
+  name "Command-Tab Plus"
+  desc "Keyboard-centric application and window switcher"
+  homepage "https://noteifyapp.com/command-tab-plus/"
 
-  app 'Command-Tab Plus.app'
+  livecheck do
+    url "https://macplus-software.com/downloads/Command-Tab.xml"
+    strategy :sparkle
+  end
+
+  app "Command-Tab Plus.app"
 
   zap trash: [
-               '/Users/Shared/Command-Tab Plus',
-               '~/Library/Application Support/Command-Tab Plus',
-               '~/Library/Caches/com.sergey-gerasimenko.Command-Tab',
-             ]
+    "/Users/Shared/Command-Tab Plus",
+    "~/Library/Application Support/Command-Tab Plus",
+    "~/Library/Caches/com.sergey-gerasimenko.Command-Tab",
+  ]
 end

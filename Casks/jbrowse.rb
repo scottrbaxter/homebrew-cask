@@ -1,10 +1,12 @@
-cask 'jbrowse' do
-  version '1.12.3'
-  sha256 '4b9c6ab17c7a00ffb8a60cac73774391a83b5a8833bcf2672172878ee81e08dc'
+cask "jbrowse" do
+  version "1.16.11"
+  sha256 "bb143112ed8a7ff16548d57d95faa91a5f33ab44d75db0c1790ba7bf27da0272"
 
-  url "https://jbrowse.org/releases/JBrowse-#{version}/JBrowse-#{version}-desktop-osx.zip"
-  name 'jbrowse'
-  homepage 'https://jbrowse.org/'
+  url "https://github.com/GMOD/jbrowse/releases/download/#{version}-release/JBrowse-#{version}-desktop-darwin-x64.zip",
+      verified: "github.com/GMOD/jbrowse/"
+  name "jbrowse"
+  desc "Genome browser"
+  homepage "https://jbrowse.org/"
 
-  app 'JBrowseDesktop-darwin-x64/JBrowseDesktop.app'
+  app "JBrowse-#{version}-desktop-darwin-x64/JBrowse-#{version}-desktop.app"
 end

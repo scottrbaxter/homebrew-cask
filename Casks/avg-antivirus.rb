@@ -1,17 +1,35 @@
-cask 'avg-antivirus' do
-  version :latest
+cask "avg-antivirus" do
+  version "4.0,2.0"
   sha256 :no_check
 
-  # avg.mac.avcdn.net/macosx was verified as official when first introduced to the cask
-  url 'http://avg.mac.avcdn.net/macosx/avg/avg_antivirus_for_mac_online.dmg'
-  name 'AVG Antivirus for Mac'
-  homepage 'https://www.avg.com/us-en/avg-antivirus-for-mac'
+  url "https://s-install.avcdn.net/mac-av/10_10/AAVG/avg_mac_security_online.dmg",
+      verified: "s-install.avcdn.net/mac-av/"
+  name "AVG Antivirus for Mac"
+  homepage "https://www.avg.com/us-en/avg-antivirus-for-mac"
 
-  pkg 'Install AVG AntiVirus.pkg'
+  livecheck do
+    url :url
+    strategy :extract_plist
+  end
 
-  uninstall pkgutil: [
-                       'com.avast.VpsPlugin',
-                       'com.avast.installer.AppClosePlugin',
-                       'com.avg.avg',
-                     ]
+  pkg "Install AVG AntiVirus.pkg"
+
+  uninstall script:    {
+    executable: "/Applications/AVGAntivirus.app/Contents/Backend/hub/uninstall.sh",
+    sudo:       true,
+  },
+            pkgutil:   "com.avg.pkg.hub",
+            launchctl: [
+              "com.avg.hub",
+              "com.avg.hub.schedule",
+              "com.avg.hub.xpc",
+            ]
+
+  zap trash: [
+    "/Library/Application Support/AVGAntivirus",
+    "/Library/Application Support/AVGHUB",
+    "~/Library/Application Support/AVGAntivirus",
+    "~/Library/Application Support/AVGHUB",
+    "~/Library/Logs/AVGHUB",
+  ]
 end

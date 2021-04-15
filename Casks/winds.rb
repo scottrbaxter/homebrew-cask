@@ -1,13 +1,24 @@
-cask 'winds' do
-  version '0.3.0'
-  sha256 'f3d97376a9f060c6d4c1b3f32383332cfa4a96c294aed760306111759adc292b'
+cask "winds" do
+  version "3.2.0"
+  sha256 "a7ce55d4082b043771683eb69a7c1f8c7b635e6f4fbc190bf8200fc733ed1576"
 
-  # github.com/GetStream/Winds was verified as official when first introduced to the cask
-  url "https://github.com/GetStream/Winds/releases/download/v#{version}/Winds.zip"
-  appcast 'https://github.com/GetStream/Winds/releases.atom',
-          checkpoint: 'df63ab6bd453c34e983d5390c3541121380cbabcfce684faf20cf3b722c4a04e'
-  name 'Winds'
-  homepage 'https://winds.getstream.io/'
+  url "https://s3.amazonaws.com/winds-2.0-releases/releases/Winds-#{version}.dmg",
+      verified: "s3.amazonaws.com/"
+  name "Winds"
+  desc "Open-source RSS & podcast app powered by Getstream.io"
+  homepage "https://getstream.io/winds/"
 
-  app 'Winds.app'
+  livecheck do
+    url "https://s3.amazonaws.com/winds-2.0-releases/latest.html"
+    regex(%r{href=.*?/Winds-(\d+(?:\.\d+)*)\.dmg}i)
+  end
+
+  app "Winds.app"
+
+  zap trash: [
+    "~/Library/Application Support/Winds",
+    "~/Library/Logs/Winds",
+    "~/Library/Preferences/io.getstream.winds.plist",
+    "~/Library/Saved Application State/io.getstream.winds.savedState",
+  ]
 end

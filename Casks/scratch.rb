@@ -1,24 +1,18 @@
-cask 'scratch' do
-  version '2.0,458.0.1'
-  sha256 '52c115cc8ab1df6e55b2e2b2e0662484c26b5e5713acd4cf63d03e8d24895e0f'
+cask "scratch" do
+  version "3.21.0"
+  sha256 "6b5fc41416ceb6669071c15b0c068688fdcb36fbe7b8638814c25c8081f9090a"
 
-  url "https://scratch.mit.edu/scratchr2/static/sa/Scratch-#{version.after_comma}.dmg"
-  appcast 'https://scratch.mit.edu/scratchr2/static/sa/version.xml',
-          checkpoint: '36a3f46c516aeb0230bfc4dac736d1c13ef9586967db08b821c1ad7f1db3c8ca'
-  name 'Scratch'
-  homepage 'https://scratch.mit.edu/download'
+  url "https://downloads.scratch.mit.edu/desktop/Scratch%20#{version}.dmg"
+  name "Scratch"
+  desc "Programs interactive stories, games, and animations"
+  homepage "https://scratch.mit.edu/download"
 
-  depends_on cask: 'adobe-air'
+  livecheck do
+    url "https://downloads.scratch.mit.edu/desktop/Scratch.dmg"
+    strategy :header_match
+  end
 
-  installer script: {
-                      executable: "Install Scratch #{version.major}.app/Contents/MacOS/Install Scratch #{version.major}",
-                      args:       ['-silent'],
-                      sudo:       true,
-                    }
+  depends_on macos: ">= :high_sierra"
 
-  uninstall script: {
-                      executable: Hbc::Container::Air::INSTALLER_PATHNAME,
-                      args:       ['-uninstall', '-silent', "/Applications/Scratch #{version.major}.app"],
-                      sudo:       true,
-                    }
+  app "Scratch #{version.major}.app"
 end

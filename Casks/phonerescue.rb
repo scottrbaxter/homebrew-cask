@@ -1,10 +1,11 @@
-cask 'phonerescue' do
-  version :latest
+cask "phonerescue" do
+  version "4.1.0"
   sha256 :no_check
 
-  url 'http://dl.imobie.com/phonerescue-mac.dmg'
-  name 'PhoneRescue'
-  homepage 'https://www.imobie.com/phonerescue/'
+  url "https://dl.imobie.com/phonerescue-for-ios.zip"
+  name "PhoneRescue"
+  desc "Data recovery tool"
+  homepage "https://www.imobie.com/phonerescue/"
 
-  app 'PhoneRescue.app'
+  app "PhoneRescue.app"
 end

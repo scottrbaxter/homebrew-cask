@@ -1,13 +1,28 @@
-cask 'epic-games' do
-  version '2.12.24-3321064'
-  sha256 'b1e37a5ff042fb5e13cd904d71acb14496bd65036612a726ff3b509947779c1d'
+cask "epic-games" do
+  version "12.1.1"
+  sha256 "eba69528aa4ecfcf5f8d1c3dd581434fe59bb567b6f82bfbe936c7952f56dfd3"
 
-  # epicgames.com was verified as official when first introduced to the cask
-  url "https://download.epicgames.com/Builds/UnrealEngineLauncher/Installers/EpicGamesLauncher-#{version}.dmg"
-  name 'Epic Games Launcher'
-  homepage 'https://www.unrealengine.com/what-is-unreal-engine-4'
+  url "https://epicgames-download1.akamaized.net/Builds/UnrealEngineLauncher/Installers/Mac/EpicInstaller-#{version}.dmg",
+      verified: "epicgames-download1.akamaized.net/"
+  name "Epic Games Launcher"
+  desc "Launcher for *Epic Games* games"
+  homepage "https://www.epicgames.com/"
 
-  app 'Epic Games Launcher.app'
+  livecheck do
+    url "https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg"
+    strategy :header_match
+  end
 
-  zap trash: '~/Library/Caches/com.epicgames.EpicGamesLauncher'
+  auto_updates true
+  depends_on macos: ">= :sierra"
+
+  app "Epic Games Launcher.app"
+
+  zap trash: [
+    "~/Library/Caches/com.epicgames.EpicGamesLauncher",
+    "~/Library/Application Support/Epic",
+    "~/Library/Cookies/com.epicgames.EpicGamesLauncher.binarycookies",
+    "~/Library/Logs/Unreal Engine/EpicGamesLauncher",
+    "~/Library/Preferences/Unreal Engine/EpicGamesLauncher",
+  ]
 end

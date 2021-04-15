@@ -1,24 +1,23 @@
-cask 'keka' do
-  version '1.0.13'
-  sha256 '4f24d0f88f7c4e0852c452f948ecc549df7ce44b7e529aadb51ef353a71e24c6'
+cask "keka" do
+  version "1.2.13"
+  sha256 "df8addd85122d274eabaa46ac810d5e746f94cc941380f86ef4f54ca981c1e92"
 
-  # github.com/aonez/Keka was verified as official when first introduced to the cask
-  url "https://github.com/aonez/Keka/releases/download/v#{version}/Keka-#{version}.dmg"
-  appcast 'https://github.com/aonez/Keka/releases.atom',
-          checkpoint: '0008beedbd97ca62d68af13b49fbedad5a68faacc194639f288a310251dde2cf'
-  name 'Keka'
-  homepage 'http://www.kekaosx.com/'
+  url "https://github.com/aonez/Keka/releases/download/v#{version}/Keka-#{version}.dmg",
+      verified: "github.com/aonez/Keka/"
+  name "Keka"
+  desc "File archiver"
+  homepage "https://www.keka.io/"
 
   auto_updates true
-  conflicts_with cask: 'keka-beta'
-  depends_on macos: '>= :lion'
+  conflicts_with cask: "homebrew/cask-versions/keka-beta"
 
-  app 'Keka.app'
+  app "Keka.app"
 
   zap trash: [
-               '~/Library/Application Support/Keka',
-               '~/Library/Caches/com.aone.keka',
-               '~/Library/Preferences/com.aone.keka.plist',
-               '~/Library/Saved Application State/com.aone.keka.savedState',
-             ]
+    "~/Library/Containers/com.aone.keka",
+    "~/Library/Application Support/Keka",
+    "~/Library/Caches/com.aone.keka",
+    "~/Library/Preferences/com.aone.keka.plist",
+    "~/Library/Saved Application State/com.aone.keka.savedState",
+  ]
 end

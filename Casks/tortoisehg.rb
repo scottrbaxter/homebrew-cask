@@ -1,11 +1,12 @@
-cask 'tortoisehg' do
-  version '4.5.0'
-  sha256 '0866e62f1cae87587a9d81b8699f446549e0352793375b1add7b51b3b6908b3a'
+cask "tortoisehg" do
+  version "5.6.1"
+  sha256 "6bd5106bbd34ee0e381f912fbfb0f66231808721cd73d226f4742f1e0d7c303d"
 
-  # bitbucket.org/tortoisehg/files/downloads was verified as official when first introduced to the cask
-  url "https://bitbucket.org/tortoisehg/files/downloads/TortoiseHg-#{version}-mac-x64-qt5.dmg"
-  name 'TortoiseHg'
-  homepage 'https://tortoisehg.bitbucket.io/'
+  url "https://www.mercurial-scm.org/release/tortoisehg/macos/TortoiseHg-#{version}-mac-x64-qt5.dmg",
+      verified: "mercurial-scm.org/release/tortoisehg/"
+  appcast "https://www.mercurial-scm.org/release/tortoisehg/macos/"
+  name "TortoiseHg"
+  homepage "https://tortoisehg.bitbucket.io/"
 
-  app 'TortoiseHg.app'
+  app "TortoiseHg.app"
 end

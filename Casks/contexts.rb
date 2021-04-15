@@ -1,20 +1,26 @@
-cask 'contexts' do
-  version '3.4.4'
-  sha256 '92b6ce49bc43639afcdfd9a679f19db4cf4f69e0b2900e96763165fb47268873'
+cask "contexts" do
+  version "3.8,380"
+  sha256 "c9ac6274012a062b679eb614848d2224dff4673fbc3953552debc7f5293f55e4"
 
-  url "https://contexts.co/releases/Contexts-#{version}.dmg"
-  appcast 'https://contexts.co/appcasts/stable.xml',
-          checkpoint: '21a0a7cd8403ee8921aba9486a0b7b701a5afd7104cc3d1739b61276a5e6f1f7'
-  name 'Contexts'
-  homepage 'https://contexts.co/'
+  url "https://contexts.co/releases/Contexts-#{version.before_comma}.dmg"
+  name "Contexts"
+  desc "Allows switching between application windows"
+  homepage "https://contexts.co/"
 
-  app 'Contexts.app'
+  livecheck do
+    url "https://contexts.co/appcasts/stable.xml"
+    strategy :sparkle
+  end
 
-  uninstall quit: 'com.contextsformac.Contexts'
+  app "Contexts.app"
+
+  uninstall quit: "com.contextsformac.Contexts"
 
   zap trash: [
-               '~/Library/Application Support/.com.contextsformac.Contexts.plist',
-               '~/Library/Caches/com.contextsformac.Contexts',
-               '~/Library/Preferences/com.contextsformac.Contexts.plist',
-             ]
+    "~/Library/Application Support/.com.contextsformac.Contexts.plist",
+    "~/Library/Application Support/com.contextsformac.Contexts",
+    "~/Library/Caches/com.contextsformac.Contexts",
+    "~/Library/Logs/Contexts",
+    "~/Library/Preferences/com.contextsformac.Contexts.plist",
+  ]
 end

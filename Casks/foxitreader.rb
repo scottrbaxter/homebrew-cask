@@ -1,12 +1,25 @@
-cask 'foxitreader' do
-  version '2.4.1.0609'
-  sha256 'a92e4c2af2f22381651f255603816704a265e961b485b7f4b95c50c7b8e66151'
+cask "foxitreader" do
+  version "4.1.3"
+  sha256 "88a68e664dd60b4934683283cef1ada7b372533d0bc34bffd6b9bfdf90625def"
 
-  url "https://cdn09.foxitsoftware.com/pub/foxit/reader/desktop/mac/#{version.major}.x/#{version.major_minor}/en_us/FoxitReader.#{version}.enu.setup.pkg"
-  name 'Foxit Reader'
-  homepage 'https://www.foxitsoftware.com/pdf-reader/'
+  url "https://cdn01.foxitsoftware.com/pub/foxit/reader/desktop/mac/#{version.major}.x/#{version.major_minor}/ML/FoxitReader#{version.no_dots}.L10N.Setup.pkg"
+  name "Foxit Reader"
+  desc "PDF reader"
+  homepage "https://www.foxitsoftware.com/pdf-reader/"
 
-  pkg "FoxitReader.#{version}.enu.setup.pkg"
+  livecheck do
+    url "https://www.foxitsoftware.com/downloads/latest.html?product=Foxit-Reader&platform=Mac-OS-X"
+    strategy :header_match do |headers|
+      match = headers["location"].match(%r{/(\d+(?:\.\d+)*)/ML/FoxitReader(\d+)\.L10N\.Setup\.pkg}i)
+      "#{match[1]}.#{match[2].delete_prefix(match[1].delete("."))}"
+    end
+  end
 
-  uninstall pkgutil: 'com.foxitsoftware.reader.pkg'
+  pkg "FoxitReader#{version.no_dots}.L10N.Setup.pkg"
+
+  uninstall pkgutil: [
+    "com.foxitsoftware.reader.pkg",
+    "com.foxit.pkg.reader",
+  ],
+            delete:  "/Applications/Foxit Reader.app"
 end

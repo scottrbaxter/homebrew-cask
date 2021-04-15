@@ -1,13 +1,18 @@
-cask 'virtualc64' do
-  # note: "64" is not a version number, but an intrinsic part of the product name
-  version '1.5.2'
-  sha256 '182c68c7cf60e124f737c688f77daa4f8d62ae2fcb9c637bdf9d74f6974f1ef8'
+cask "virtualc64" do
+  # NOTE: "64" is not a version number, but an intrinsic part of the product name
+  version "4.0.1"
+  sha256 "eb3467c08d66a5c80376bbe3dd1f63e99914cf9c9658d29548cfd130cc2058e4"
 
-  url "http://www.dirkwhoffmann.de/virtualc64/VirtualC64_#{version}.zip"
-  appcast 'http://dirkwhoffmann.de/virtualc64/VirtualC64Appcast.xml',
-          checkpoint: 'd04e817b06f25640e2b2ba25653b3ca8a59a04c39b74aed6a4778f30c92a3792'
-  name 'Virtual C64'
-  homepage 'http://www.dirkwhoffmann.de/virtualc64/'
+  url "https://github.com/dirkwhoffmann/virtualc64/releases/download/v#{version}/VirtualC64_#{version}.app.zip",
+      verified: "github.com/dirkwhoffmann/virtualc64/"
+  name "VirtualC64"
+  desc "Cycle-accurate C64 emulator"
+  homepage "https://dirkwhoffmann.github.io/virtualc64"
 
-  app 'VirtualC64.app'
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
+
+  app "VirtualC64_#{version}.app"
 end

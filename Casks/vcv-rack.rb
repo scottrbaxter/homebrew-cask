@@ -1,10 +1,17 @@
-cask 'vcv-rack' do
-  version '0.5.1'
-  sha256 '467394bea5fa001a797cfbba11e78a8c2a88e37cd3263380cd6d4498e4f9945b'
+cask "vcv-rack" do
+  version "1.1.6"
+  sha256 "79078ca77dff41beab2247cadf22d1a9d4112b3981f8a4084923b75519664a50"
 
-  url "https://vcvrack.com/downloads/Rack-#{version}-mac.dmg"
-  name 'VCV Rack'
-  homepage 'https://vcvrack.com/'
+  url "https://vcvrack.com/downloads/Rack-#{version}-mac.zip"
+  name "VCV Rack"
+  desc "Open-source virtual modular synthesizer"
+  homepage "https://vcvrack.com/"
 
-  app 'Rack.app'
+  livecheck do
+    url "https://vcvrack.com/Rack.html"
+    strategy :page_match
+    regex(%r{href=.*?/Rack-(\d+(?:\.\d+)*)-mac\.zip}i)
+  end
+
+  app "Rack.app"
 end

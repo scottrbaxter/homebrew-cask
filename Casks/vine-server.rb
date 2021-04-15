@@ -1,10 +1,26 @@
-cask 'vine-server' do
-  version '4.01'
-  sha256 '10e32d9594614b5169261b5b9bbeadb6f5adf2cc1c4bf2fdce68be3ccd7ca4a9'
+cask "vine-server" do
+  version "5.3.0"
+  sha256 "0b82154ebff425e2d6374ee00ba75f00ba2fd0342843b7760413450d5345c6ca"
 
-  url "http://www.testplant.com/downloads/Vine/VineServer#{version}.dmg"
-  name 'Vine Server'
-  homepage 'https://www.testplant.com/dlds/vine/'
+  url "https://github.com/stweil/OSXvnc/releases/download/V#{version.dots_to_underscores}/VineServer-#{version}.dmg"
+  name "Vine Server"
+  desc "VNC server"
+  homepage "https://github.com/stweil/OSXvnc/"
 
-  app 'Vine Server.app'
+  livecheck do
+    url :url
+    strategy :github_latest
+    regex(%r{href=.*?/VineServer-(\d+(?:\.\d+)*)\.dmg}i)
+  end
+
+  depends_on macos: ">= :sierra"
+
+  app "Vine Server.app"
+  binary "#{appdir}/Vine Server.app/Contents/MacOS/OSXvnc-server"
+  binary "#{appdir}/Vine Server.app/Contents/MacOS/storepasswd"
+  binary "#{appdir}/Vine Server.app/Contents/MacOS/Vine Server"
+
+  uninstall delete: "/Library/Application Support/VineServer"
+
+  zap trash: "~/Library/Preferences/de.uni-mannheim.VineServer.plist"
 end

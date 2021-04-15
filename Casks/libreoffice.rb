@@ -1,23 +1,23 @@
-cask 'libreoffice' do
-  version '6.0.1'
-  sha256 'b1ac5664c51fcaa21964771f438234f9ad5e57a70e70f9a68955034275ec2030'
+cask "libreoffice" do
+  version "7.1.2"
+  sha256 "ae7452186febc8d6f5121bb165a6f6b83e1ca2bac4b0c323bf84d60e0c0502a7"
 
-  # documentfoundation.org was verified as official when first introduced to the cask
-  url "https://download.documentfoundation.org/libreoffice/stable/#{version}/mac/x86_64/LibreOffice_#{version}_MacOS_x86-64.dmg"
-  appcast 'https://download.documentfoundation.org/libreoffice/stable/',
-          checkpoint: '35b9aa5600b2ca5de0ff0e75b9ee37511b8b82ccb4ade3daf2e00234315b90b8'
-  name 'LibreOffice'
-  homepage 'https://www.libreoffice.org/'
-  gpg "#{url}.asc", key_id: 'c2839ecad9408fbe9531c3e9f434a1efafeeaea3'
+  url "https://download.documentfoundation.org/libreoffice/stable/#{version}/mac/x86_64/LibreOffice_#{version}_MacOS_x86-64.dmg",
+      verified: "documentfoundation.org/"
+  name "LibreOffice"
+  desc "Office suite"
+  homepage "https://www.libreoffice.org/"
 
-  auto_updates true
-  conflicts_with cask: [
-                         'libreoffice-rc',
-                         'libreoffice-still',
-                       ]
-  depends_on macos: '>= :mavericks'
+  livecheck do
+    url "https://download.documentfoundation.org/libreoffice/stable/"
+    strategy :page_match
+    regex(%r{href="(\d+(?:\.\d+)*)/"}i)
+  end
 
-  app 'LibreOffice.app'
+  conflicts_with cask: "homebrew/cask-versions/libreoffice-still"
+  depends_on macos: ">= :yosemite"
+
+  app "LibreOffice.app"
   binary "#{appdir}/LibreOffice.app/Contents/MacOS/gengal"
   binary "#{appdir}/LibreOffice.app/Contents/MacOS/regmerge"
   binary "#{appdir}/LibreOffice.app/Contents/MacOS/regview"
@@ -28,9 +28,9 @@ cask 'libreoffice' do
   binary "#{appdir}/LibreOffice.app/Contents/MacOS/unopkg"
   binary "#{appdir}/LibreOffice.app/Contents/MacOS/uri-encode"
   binary "#{appdir}/LibreOffice.app/Contents/MacOS/xpdfimport"
-  # shim script (https://github.com/caskroom/homebrew-cask/issues/18809)
+  # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
   shimscript = "#{staged_path}/soffice.wrapper.sh"
-  binary shimscript, target: 'soffice'
+  binary shimscript, target: "soffice"
 
   preflight do
     IO.write shimscript, <<~EOS
@@ -40,9 +40,9 @@ cask 'libreoffice' do
   end
 
   zap trash: [
-               '~/Library/Application Support/LibreOffice',
-               '~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/org.libreoffice.script.sfl*',
-               '~/Library/Preferences/org.libreoffice.script.plist',
-               '~/Library/Saved Application State/org.libreoffice.script.savedState',
-             ]
+    "~/Library/Application Support/LibreOffice",
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/org.libreoffice.script.sfl*",
+    "~/Library/Preferences/org.libreoffice.script.plist",
+    "~/Library/Saved Application State/org.libreoffice.script.savedState",
+  ]
 end

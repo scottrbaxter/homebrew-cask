@@ -1,14 +1,22 @@
-cask 'appzapper' do
-  version '2.0.1'
-  sha256 'b7d0bdd05cf246a2f2ab18145b052824860cb74a6ae665fba9d403f6bb79fac4'
+cask "appzapper" do
+  version "2.0.3"
+  sha256 "bb541a89fd513c4fa95eeefe46ebac6b985ac6498a46da4e4622089a15ef6bcd"
 
-  url "https://www.appzapper.com/downloads/AppZapper#{version}.zip"
-  appcast "https://www.appzapper.com/az#{version.major}appcast.xml",
-          checkpoint: '726661c71d2e4be4a6905d6ca410674a146c1e7f3333155c415a958da4a8ef39'
-  name 'AppZapper'
-  homepage 'https://www.appzapper.com/'
+  url "https://appzapper.com/downloads/appzapper#{version.no_dots}.zip"
+  name "AppZapper"
+  desc "Tool to uninstall unwanted applications and their support files"
+  homepage "https://www.appzapper.com/"
+
+  livecheck do
+    url :homepage
+    strategy :page_match do |page|
+      match = page.match(%r{href=.*?/appzapper(\d+)(\d+)(\d+)\.zip}i)
+      "#{match[1]}.#{match[2]}.#{match[3]}"
+    end
+  end
 
   auto_updates true
+  depends_on macos: ">= :sierra"
 
-  app 'AppZapper.app'
+  app "AppZapper.app"
 end

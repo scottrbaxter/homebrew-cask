@@ -1,24 +1,30 @@
-cask 'kubernetic' do
-  version '0.8.0'
-  sha256 'a37048b7a6f44ea7c6bda904dd26cef139c88b410f4b2c597d44c5e684e7d428'
+cask "kubernetic" do
+  version "3.1.0"
+  sha256 "aabfb1497d3d3407adc0040c8af83b189cf395d74021c508653d5d9385ed4132"
 
-  # s3-eu-west-1.amazonaws.com/kubernetic was verified as official when first introduced to the cask
-  url "https://s3-eu-west-1.amazonaws.com/kubernetic/Kubernetic-#{version}.dmg"
-  name 'Kubernetic'
-  homepage 'https://kubernetic.com/'
+  url "https://kubernetic.s3.amazonaws.com/Kubernetic-#{version}.dmg",
+      verified: "kubernetic.s3.amazonaws.com/"
+  name "Kubernetic"
+  desc "Kubernetes desktop client"
+  homepage "https://kubernetic.com/"
 
-  app 'Kubernetic.app'
+  livecheck do
+    url "https://kubernetic.s3.amazonaws.com/latest-mac.yml"
+    strategy :electron_builder
+  end
+
+  app "Kubernetic.app"
 
   uninstall signal: [
-                      ['TERM', 'com.kubernetic.desktop.helper'],
-                      ['TERM', 'com.kubernetic.desktop'],
-                    ]
+    ["TERM", "com.kubernetic.desktop.helper"],
+    ["TERM", "com.kubernetic.desktop"],
+  ]
 
   zap trash: [
-               '~/.kubernetic',
-               '~/Library/Application Support/Kubernetic',
-               '~/Library/Logs/Kubernetic',
-               '~/Library/Preferences/com.kubernetic.desktop.*',
-               '~/Library/Saved Application State/com.kubernetic.desktop.*',
-             ]
+    "~/.kubernetic",
+    "~/Library/Application Support/Kubernetic",
+    "~/Library/Logs/Kubernetic",
+    "~/Library/Preferences/com.kubernetic.desktop.*",
+    "~/Library/Saved Application State/com.kubernetic.desktop.*",
+  ]
 end

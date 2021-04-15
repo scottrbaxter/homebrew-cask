@@ -1,36 +1,40 @@
-cask 'forklift' do
-  version '3.1.2'
-  sha256 'de8e9d0d0f4b20e9724b7ac5405b715cb39aa019bf4d7251a80c2c7f9df01a71'
+cask "forklift" do
+  version "3.5.1,213"
+  sha256 "96ca82fda4aeea7de8dd75a6b0e45d7c11fed8544a70b03c7b9649bf06811864"
 
-  url "https://download.binarynights.com/ForkLift#{version}.zip"
-  appcast "https://updates.binarynights.com/ForkLift#{version.major}/update.xml",
-          checkpoint: '6e08d1434132e0257ca71889e4d73cac298c6c5cbacd30f96f31034e4cb8ac07'
-  name 'ForkLift'
-  homepage 'https://binarynights.com/forklift/'
+  url "https://download.binarynights.com/ForkLift#{version.before_comma}.zip"
+  name "ForkLift"
+  desc "Finder replacement and FTP, SFTP, WebDAV and Amazon s3 client"
+  homepage "https://binarynights.com/"
+
+  livecheck do
+    url "https://updates.binarynights.com/ForkLift#{version.major}/update.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
-  depends_on macos: '>= :el_capitan'
+  depends_on macos: ">= :el_capitan"
 
-  app 'ForkLift.app'
+  app "ForkLift.app"
 
-  uninstall delete:    '/Library/PrivilegedHelperTools/com.binarynights.ForkLiftHelper',
+  uninstall delete:    "/Library/PrivilegedHelperTools/com.binarynights.ForkLiftHelper",
             launchctl: [
-                         'com.binarynights.ForkLiftHelper',
-                         'com.binarynights.ForkLiftMini',
-                       ],
+              "com.binarynights.ForkLiftHelper",
+              "com.binarynights.ForkLiftMini",
+            ],
             quit:      [
-                         "com.binarynights.ForkLift-#{version.major}",
-                         'com.binarynights.ForkLiftMini',
-                       ]
+              "com.binarynights.ForkLift-#{version.major}",
+              "com.binarynights.ForkLiftMini",
+            ]
 
   zap trash: [
-               '~/Library/Application Support/ForkLift',
-               "~/Library/Caches/com.binarynights.ForkLift-#{version.major}",
-               "~/Library/Cookies/com.binarynights.ForkLift-#{version.major}.binarycookies",
-               '~/Library/Logs/ForkLift',
-               '~/Library/Logs/ForkLiftMini',
-               "~/Library/Preferences/com.binarynights.ForkLift-#{version.major}.plist",
-               '~/Library/Preferences/com.binarynights.ForkLiftMini.plist',
-               "~/Library/Saved Application State/com.binarynights.ForkLift-#{version.major}.savedState",
-             ]
+    "~/Library/Application Support/ForkLift",
+    "~/Library/Caches/com.binarynights.ForkLift-#{version.major}",
+    "~/Library/Cookies/com.binarynights.ForkLift-#{version.major}.binarycookies",
+    "~/Library/Logs/ForkLift",
+    "~/Library/Logs/ForkLiftMini",
+    "~/Library/Preferences/com.binarynights.ForkLift-#{version.major}.plist",
+    "~/Library/Preferences/com.binarynights.ForkLiftMini.plist",
+    "~/Library/Saved Application State/com.binarynights.ForkLift-#{version.major}.savedState",
+  ]
 end

@@ -1,19 +1,21 @@
-cask 'webrecorder-player' do
-  version '1.0.9'
-  sha256 '4583299762d426eea22ef9b4c3a4985992e7da00cc39f5e6df64215b0d461c66'
+cask "webrecorder-player" do
+  version "1.8.0"
+  sha256 "c7ecc7b19c31814a15a1dc5bff41ac899b239877d5968b057b0946b250aedd3a"
 
-  url "https://github.com/webrecorder/webrecorderplayer-electron/releases/download/v#{version}/webrecorderplayer-electron-osx-#{version}.dmg"
-  appcast 'https://github.com/webrecorder/webrecorderplayer-electron/releases.atom',
-          checkpoint: '070af3a0f8992330d3d311108754786c22480bc09f7cd02283bba6d338d9fc55'
-  name 'Webrecorder Player'
-  homepage 'https://github.com/webrecorder/webrecorderplayer-electron'
+  url "https://github.com/webrecorder/webrecorder-player/releases/download/v#{version}/webrecorder-player-#{version}.dmg"
+  name "Webrecorder Player"
+  homepage "https://github.com/webrecorder/webrecorder-player/"
 
-  app 'Webrecorder Player.app'
+  app "Webrecorder Player.app"
 
   zap trash: [
-               '~/Library/Application Support/Webrecorder Player',
-               '~/Library/Preferences/org.webrecorder.webrecorderplayer.helper.plist',
-               '~/Library/Preferences/org.webrecorder.webrecorderplayer.plist',
-               '~/Library/Saved Application State/org.webrecorder.webrecorderplayer.savedState',
-             ]
+    "~/Library/Application Support/Webrecorder Player",
+    "~/Library/Preferences/org.webrecorder.webrecorderplayer.helper.plist",
+    "~/Library/Preferences/org.webrecorder.webrecorderplayer.plist",
+    "~/Library/Saved Application State/org.webrecorder.webrecorderplayer.savedState",
+  ]
+
+  caveats do
+    discontinued
+  end
 end

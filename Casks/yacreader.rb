@@ -1,12 +1,18 @@
-cask 'yacreader' do
-  version '8.5.0'
-  sha256 '13bfd484fb1e6e1ff29e9e2e63e2485fa9415f4f2d5186a5fc90c45cef394ef2'
+cask "yacreader" do
+  version "9.7.1.2009123"
+  sha256 "068dbed581b8098d2eb36d32a8a16966eb588519d8b64ae592a2383d91bb36ec"
 
-  # bitbucket.org/luisangelsm/yacreader was verified as official when first introduced to the cask
-  url "https://bitbucket.org/luisangelsm/yacreader/downloads/YACReader-#{version}-MacOSX-Intel.dmg"
-  name 'YACReader'
-  homepage 'http://www.yacreader.com/'
+  url "https://github.com/YACReader/yacreader/releases/download/#{version.major_minor_patch}/YACReader-#{version}.MacOSX-Intel.dmg",
+      verified: "github.com/YACReader/yacreader/"
+  name "YACReader"
+  homepage "https://www.yacreader.com/"
 
-  app 'YACReader.app'
-  app 'YACReaderLibrary.app'
+  livecheck do
+    url "https://github.com/YACReader/yacreader/releases/latest"
+    strategy :page_match
+    regex(%r{href=.*?/YACReader-(\d+(?:\.\d+)*)\.MacOSX-Intel\.dmg}i)
+  end
+
+  app "YACReader.app"
+  app "YACReaderLibrary.app"
 end

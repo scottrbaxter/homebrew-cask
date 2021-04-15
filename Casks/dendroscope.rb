@@ -1,23 +1,29 @@
-cask 'dendroscope' do
-  version '3.5.7'
-  sha256 '9da20a38eff7588c19cb7521fc10fea0a1d3bfe038e1c11774018659ac0d7eca'
+cask "dendroscope" do
+  version "3.7.5"
+  sha256 "f6faadf0381ef68a13d8f0414eb9147fc4159effa943bf4a5983c5044af710be"
 
-  # ab.inf.uni-tuebingen.de/data/software/dendroscope3 was verified as official when first introduced to the cask
-  url "http://ab.inf.uni-tuebingen.de/data/software/dendroscope3/download/Dendroscope_macos_#{version.dots_to_underscores}.dmg"
-  appcast 'http://dendroscope.org/',
-          checkpoint: '55916803e86c3829aeb42795a4c79ce823376aa4a0e3b15bcd917a2bdf935cc4'
-  name 'Dendroscope'
-  homepage 'http://dendroscope.org/'
+  url "https://software-ab.informatik.uni-tuebingen.de/download/dendroscope/Dendroscope_macos_#{version.dots_to_underscores}.dmg"
+  name "Dendroscope"
+  desc "Interactive viewer for rooted phylogenetic trees and networks"
+  homepage "https://www.wsi.uni-tuebingen.de/lehrstuehle/algorithms-in-bioinformatics/software/dendroscope/"
 
-  app 'Dendroscope.app'
-
-  preflight do
-    system_command "#{staged_path}/Dendroscope Installer.app/Contents/MacOS/JavaApplicationStub", args: ['-q', '-dir', staged_path.to_s]
+  livecheck do
+    url "https://software-ab.informatik.uni-tuebingen.de/download/dendroscope3/welcome.html"
+    strategy :page_match do |page|
+      v = page[/href=.*?Dendroscope_macos_(\d+(?:_\d+)*)\.dmg/i, 1]
+      v.tr("_", ".")
+    end
   end
 
-  uninstall_preflight do
-    system_command "#{staged_path}/Dendroscope Uninstaller.app/Contents/MacOS/JavaApplicationStub", args: ['-q']
-  end
+  installer script: {
+    executable: "Dendroscope Installer.app/Contents/MacOS/JavaApplicationStub",
+    args:       ["-q"],
+  }
+
+  uninstall script: {
+    executable: "#{appdir}/Dendroscope/Dendroscope Uninstaller.app/Contents/MacOS/JavaApplicationStub",
+    args:       ["-q"],
+  }
 
   caveats do
     depends_on_java

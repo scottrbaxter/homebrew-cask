@@ -1,12 +1,11 @@
-cask 'pretzel' do
-  version '0.0.18'
-  sha256 'fe5d9bc77531b56f0b7a072fde26ba5788a4a5ab85c41c2f5242d306067f18d1'
+cask "pretzel" do
+  version "2.2.0"
+  sha256 "41fb95ee6f1fa25baff19dd649266c8f18138e112107e0527935d588d3c8b791"
 
   url "https://download.pretzel.rocks/Pretzel-#{version}-mac.zip"
-  appcast 'https://download.pretzel.rocks/latest-mac.json',
-          checkpoint: '9fe404e57f4f357d8d68bf892ca47ca335f4e6fddbdc844d6bd5f9da70e8d5cf'
-  name 'Pretzel'
-  homepage 'https://www.pretzel.rocks/'
+  appcast "https://download.pretzel.rocks/latest-mac.json"
+  name "Pretzel"
+  homepage "https://www.pretzel.rocks/"
 
-  app 'Pretzel.app'
+  app "Pretzel.app"
 end

@@ -1,16 +1,22 @@
-cask '1password-cli' do
-  version '0.3'
-  sha256 '342663c3870a4e869e7217b58bf091037e9cb9d88444edcab67ce90fe328a848'
+cask "1password-cli" do
+  version "1.8.0"
+  sha256 "6decb453be4e507336b004a0169befcee7dc9918198ae6fa33d0b55d8e8acc5f"
 
-  # cache.agilebits.com/dist/1P/op/pkg was verified as official when first introduced to the cask
-  url "https://cache.agilebits.com/dist/1P/op/pkg/v#{version}/op_darwin_amd64_v#{version}.zip"
-  appcast 'https://app-updates.agilebits.com/product_history/CLI',
-          checkpoint: '2d2962df502821be5724bf5e1289e2a6725cbbbc4c1a215c27bd23150f257481'
-  name '1Password CLI'
-  homepage 'https://support.1password.com/command-line/'
-  gpg 'op.sig', key_url: 'https://keybase.io/1password/pgp_keys.asc'
+  url "https://cache.agilebits.com/dist/1P/op/pkg/v#{version}/op_darwin_amd64_v#{version}.pkg",
+      verified: "cache.agilebits.com/dist/1P/op/pkg/"
+  name "1Password CLI"
+  desc "Command-line helper for the 1Password password manager"
+  homepage "https://support.1password.com/command-line/"
 
-  binary 'op'
+  livecheck do
+    url "https://app-updates.agilebits.com/product_history/CLI"
+    strategy :page_match
+    regex(%r{href=.*?/op_darwin_amd64_v?(\d+(?:\.\d+)*)\.pkg}i)
+  end
 
-  zap trash: '~/.op'
+  pkg "op_darwin_amd64_v#{version}.pkg"
+
+  uninstall pkgutil: "com.1password.op"
+
+  zap trash: "~/.op"
 end

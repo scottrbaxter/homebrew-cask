@@ -1,14 +1,19 @@
-cask 'robofont' do
-  version '1.8.4,1706131209'
-  sha256 '2a594edfe6fd376a84b7aabc1734e75afb4e9f0a1df9e07afdfb1afebd7f2322'
+cask "robofont" do
+  version "3.4,2004281315"
+  sha256 :no_check
 
-  url "http://robofont.com/downloads/RoboFont_#{version.after_comma}.dmg"
-  appcast 'http://doc.robofont.com/version-history/',
-          checkpoint: '4c873452fed5d8b3ba9e9d533bd6f5395d520a77dca0284bcd8af7becae27136'
-  name 'RoboFont'
-  homepage 'https://doc.robofont.com/'
+  url "https://static.typemytype.com/robofont/RoboFont.dmg",
+      verified: "static.typemytype.com/robofont/"
+  name "RoboFont"
+  homepage "https://robofont.com/"
 
-  depends_on macos: '>= :mavericks'
+  livecheck do
+    url "https://doc.robofont.com/appcast.xml"
+    strategy :page_match do |page|
+      match = page.match(/Version\s(\d+(?:\.\d+)*)\s\(build\s(\d+(?:\.\d+)*)\)/i)
+      "#{match[1]},#{match[2]}"
+    end
+  end
 
-  app 'RoboFont.app'
+  app "RoboFont.app"
 end

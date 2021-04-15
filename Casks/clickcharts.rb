@@ -1,11 +1,15 @@
-cask 'clickcharts' do
-  version :latest
+cask "clickcharts" do
+  version "5.80"
   sha256 :no_check
 
-  url 'http://www.nchsoftware.com/chart/clickchartspmaci.zip',
+  url "https://www.nchsoftware.com/chart/clickchartspmaci.zip",
       user_agent: :fake
-  name 'ClickCharts'
-  homepage 'http://www.nchsoftware.com/'
+  name "ClickCharts"
+  homepage "https://www.nchsoftware.com/"
 
-  app 'ClickCharts.app'
+  livecheck do
+    skip "unversioned URL"
+  end
+
+  app "ClickCharts.app"
 end

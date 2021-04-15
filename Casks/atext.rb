@@ -1,22 +1,28 @@
-cask 'atext' do
-  version '2.22.3'
-  sha256 '553957237e7dbbcc25208ba030f2efc1ce428efef93766b12141ba665f528edd'
+cask "atext" do
+  version "2.37.1,106"
+  sha256 :no_check
 
-  url 'https://www.trankynam.com/atext/downloads/aText.dmg'
-  appcast 'https://www.trankynam.com/atext/aText-Appcast.xml',
-          checkpoint: '01816bad0f3226f4d9941b5c889f7042717486b5aeb5e3847b8538d90ea939a9'
-  name 'aText'
-  homepage 'https://www.trankynam.com/atext/'
+  url "https://www.trankynam.com/atext/downloads/aText.dmg"
+  name "aText"
+  desc "Tool to replace abbreviations while typing"
+  homepage "https://www.trankynam.com/atext/"
 
-  app 'aText.app'
+  livecheck do
+    url "https://www.trankynam.com/atext/aText-Appcast.xml"
+    strategy :sparkle
+  end
+
+  auto_updates true
+
+  app "aText.app"
 
   zap trash: [
-               '~/Library/Application Scripts/com.trankynam.aText',
-               '~/Library/Application Support/com.trankynam.aText',
-               '~/Library/Caches/com.trankynam.aText',
-               '~/Library/Containers/com.trankynam.aText',
-               '~/Library/Cookies/com.trankynam.aText.binarycookies',
-               '~/Library/Preferences/com.trankynam.aText.plist',
-               '~/Library/Saved Application State/com.trankynam.aText.savedState',
-             ]
+    "~/Library/Application Scripts/com.trankynam.aText",
+    "~/Library/Application Support/com.trankynam.aText",
+    "~/Library/Caches/com.trankynam.aText",
+    "~/Library/Containers/com.trankynam.aText",
+    "~/Library/Cookies/com.trankynam.aText.binarycookies",
+    "~/Library/Preferences/com.trankynam.aText.plist",
+    "~/Library/Saved Application State/com.trankynam.aText.savedState",
+  ]
 end

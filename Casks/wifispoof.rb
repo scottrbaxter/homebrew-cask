@@ -1,15 +1,18 @@
-cask 'wifispoof' do
-  version '3.0.6'
-  sha256 'a384c8ff6754252fe1b4ff008ee161f260ee9d819b9f1df12c47e884d79d7e9f'
+cask "wifispoof" do
+  version "3.5.6"
+  sha256 "a4a09e170b0f20eb4816c94e9512c08c18236f35bfc644f2af1224c9ce0bd0cb"
 
-  # sweetpproductions.com/products was verified as official when first introduced to the cask
-  url "https://sweetpproductions.com/products/wifispoof#{version.major}/WiFiSpoof#{version.major}.dmg"
-  appcast 'https://sweetpproductions.com/products/wifispoof3/appcast.xml',
-          checkpoint: '6b566d4e65e3254a51a32577dd7e51b111a65b4eb45fec2686ba926b1ab930fd'
-  name 'WiFiSpoof'
-  homepage 'https://wifispoof.com/'
+  url "https://sweetpproductions.com/products/wifispoof#{version.major}/WiFiSpoof#{version.major}.dmg",
+      verified: "sweetpproductions.com/products/"
+  name "WiFiSpoof"
+  homepage "https://wifispoof.com/"
+
+  livecheck do
+    url "https://sweetpproductions.com/products/wifispoof#{version.major}/appcast.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
 
-  app 'WiFiSpoof.app'
+  app "WiFiSpoof.app"
 end

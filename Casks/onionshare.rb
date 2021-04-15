@@ -1,16 +1,16 @@
-cask 'onionshare' do
-  version '1.2'
-  sha256 '1a9b0d5019a2b664535b4219b87caaaf676b0430b9816e86df2993bdaf9fb8ff'
+cask "onionshare" do
+  version "2.3.1"
+  sha256 "5de2cb81c87a13bc27cd71061c8c1a1f5dde25efe3e1f6b4ddb02ca0a343323f"
 
-  # github.com/micahflee/onionshare was verified as official when first introduced to the cask
-  url "https://github.com/micahflee/onionshare/releases/download/v#{version}/OnionShare.pkg"
-  appcast 'https://github.com/micahflee/onionshare/releases.atom',
-          checkpoint: '97ede8041dcfcf92e58aec8f4cca01ed036dcd191790bde56efaf333ca7b16f5'
-  name 'OnionShare'
-  homepage 'https://onionshare.org/'
-  gpg "#{url}.sig", key_url: 'https://onionshare.org/signing-key.asc'
+  url "https://onionshare.org/dist/#{version}/OnionShare-#{version}.dmg"
+  name "OnionShare"
+  desc "Securely and anonymously share files, host websites, and chat with friends"
+  homepage "https://onionshare.org/"
 
-  pkg 'OnionShare.pkg'
+  livecheck do
+    url "https://onionshare.org/latest-version.txt"
+    regex(/(\d+(?:\.\d+)*)/)
+  end
 
-  uninstall pkgutil: 'com.micahflee.onionshare'
+  app "OnionShare.app"
 end

@@ -1,28 +1,32 @@
-cask 'postgres' do
-  version '2.1.2'
-  sha256 '3fca874dfb9472bee547b82a40b0b3cca3a20df07349bf166aea372dd4a633f8'
+cask "postgres" do
+  version "2.4.2"
+  sha256 "4ea80659448cb98edd16a53e664672a558a1b64d5c960393dd72456da6772231"
 
-  # github.com/PostgresApp/PostgresApp was verified as official when first introduced to the cask
-  url "https://github.com/PostgresApp/PostgresApp/releases/download/v#{version}/Postgres-#{version}.dmg"
-  appcast 'https://github.com/PostgresApp/PostgresApp/releases.atom',
-          checkpoint: '4225e77dc16360db31fa3757ebd705a733e40c84de494f5e0b76e48763582bf5'
-  name 'Postgres'
-  homepage 'https://postgresapp.com/'
+  url "https://github.com/PostgresApp/PostgresApp/releases/download/v#{version}/Postgres-#{version}-9.5-9.6-10-11-12-13.dmg",
+      verified: "github.com/PostgresApp/PostgresApp/"
+  name "Postgres"
+  homepage "https://postgresapp.com/"
+
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
 
   auto_updates true
+  depends_on macos: ">= :sierra"
 
-  app 'Postgres.app'
+  app "Postgres.app"
 
   uninstall launchctl: "com.postgresapp.Postgres#{version.major}LoginHelper",
             quit:      [
-                         "com.postgresapp.Postgres#{version.major}",
-                         "com.postgresapp.Postgres#{version.major}MenuHelper",
-                       ]
+              "com.postgresapp.Postgres#{version.major}",
+              "com.postgresapp.Postgres#{version.major}MenuHelper",
+            ]
 
   zap trash: [
-               '~/Library/Application Support/Postgres',
-               "~/Library/Caches/com.postgresapp.Postgres#{version.major}",
-               "~/Library/Cookies/com.postgresapp.Postgres#{version.major}.binarycookies",
-               "~/Library/Preferences/com.postgresapp.Postgres#{version.major}.plist",
-             ]
+    "~/Library/Application Support/Postgres",
+    "~/Library/Caches/com.postgresapp.Postgres#{version.major}",
+    "~/Library/Cookies/com.postgresapp.Postgres#{version.major}.binarycookies",
+    "~/Library/Preferences/com.postgresapp.Postgres#{version.major}.plist",
+  ]
 end

@@ -1,13 +1,16 @@
-cask 'fuse' do
-  version '1.1.0.13808'
-  sha256 '2ca9a5e60d2d504935a13ac6618b06df045aabc2d33ed50bec8ce5fd7768d598'
+cask "fuse" do
+  version "1.9.0"
+  sha256 "31e737086d546176f436a2792baca604487f529008a21c424610baec25146a20"
 
-  # fuse-dl.azureedge.net was verified as official when first introduced to the cask
-  url "https://fuse-dl.azureedge.net/releaseartifacts/fuse_osx_#{version.dots_to_underscores}.pkg"
-  name 'Fuse Fusetools'
-  homepage 'https://www.fusetools.com/'
+  url "https://github.com/fuse-open/fuse-studio/releases/download/#{version}/fuse_osx_#{version.dots_to_underscores}.pkg",
+      verified: "github.com/fuse-open/fuse-studio/"
+  name "Fuse Studio"
+  name "Fuse Open"
+  name "Fuse Fusetools"
+  desc "Visual desktop tool suite for working with the Fuse framework"
+  homepage "https://fuse-open.github.io/"
 
   pkg "fuse_osx_#{version.dots_to_underscores}.pkg"
 
-  uninstall pkgutil: 'com.fusetools.fuse'
+  uninstall pkgutil: "com.fusetools.fuse"
 end

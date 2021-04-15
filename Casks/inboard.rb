@@ -1,12 +1,18 @@
-cask 'inboard' do
-  version '1.1.2-341'
-  sha256 'eaf186666385222d2edc713b38007760fd02717d33b2fd187d2abcae5ff76d6f'
+cask "inboard" do
+  version "1.1.5,431"
+  sha256 "b7ec8f738aaf3f0a707fbfc432bfd58b5fe6bb6b880e80102e37c71492966a5b"
 
-  url "https://inboardapp.com/trial/Inboard-#{version}.zip"
-  appcast 'https://inboardapp.com/appcast.xml',
-          checkpoint: 'ceeeb50e46a7a6902136a5659a614140c854827f1abc76c23938053056efb563'
-  name 'Inboard'
-  homepage 'https://inboardapp.com/'
+  url "https://inboardapp.com/trial/Inboard-#{version.before_comma}-#{version.after_comma}.zip"
+  name "Inboard"
+  desc "App to organize screenshots and photos"
+  homepage "https://inboardapp.com/"
 
-  app 'Inboard.app'
+  livecheck do
+    url "https://inboardapp.com/appcast.xml"
+    strategy :sparkle
+  end
+
+  depends_on macos: ">= :high_sierra"
+
+  app "Inboard.app"
 end

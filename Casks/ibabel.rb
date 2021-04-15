@@ -1,10 +1,10 @@
-cask 'ibabel' do
-  version :latest
+cask "ibabel" do
+  version "3.6"
   sha256 :no_check
 
-  url 'http://macinchem.org/ibabel/ibabel3_files/iBabel.zip'
-  name 'iBabel'
-  homepage 'https://www.macinchem.org/ibabel/ibabel3.php'
+  url "https://macinchem.org/ibabel/iBabel.zip"
+  name "iBabel"
+  homepage "https://www.macinchem.org/ibabel/"
 
-  app 'iBabel.app'
+  app "iBabel.app"
 end

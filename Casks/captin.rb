@@ -1,21 +1,25 @@
-cask 'captin' do
-  version '1.0.11,82:1516943455'
-  sha256 'c09431aef7ceb8b4c2eb0c758cd47af27673a29e302d5f143be583046b5ea938'
+cask "captin" do
+  version "1.1.2,137:1614351875"
+  sha256 "62da27c0a81e2b4666e97ed749707f7f4734504c325f46cf9aa5422421dcd858"
 
-  # dl.devmate.com/com.100hps.captin was verified as official when first introduced to the cask
-  url "https://dl.devmate.com/com.100hps.captin/#{version.after_comma.before_colon}/#{version.after_colon}/Captin-#{version.after_comma.before_colon}.dmg"
-  appcast 'https://updates.devmate.com/com.100hps.captin.xml',
-          checkpoint: '564e94f5e771ded9fb43db2380936cdc69d21d482cd0f8142c794ae550bdce3d'
-  name 'Captin'
-  homepage 'http://captin.strikingly.com/'
+  url "https://dl.devmate.com/com.100hps.captin/#{version.after_comma.before_colon}/#{version.after_colon}/Captin-#{version.after_comma.before_colon}.dmg",
+      verified: "dl.devmate.com/com.100hps.captin/"
+  name "Captin"
+  homepage "http://captin.strikingly.com/"
 
-  app 'Captin.app'
+  livecheck do
+    url "https://updates.devmate.com/com.100hps.captin.xml"
+    strategy :sparkle do |item|
+      "#{item.short_version},#{item.version}:#{item.url[%r{/(\d+)/Captin-\d+\.dmg}i, 1]}"
+    end
+  end
 
-  uninstall login_item: 'Captin',
-            quit:       'com.100hps.captin'
+  app "Captin.app"
+
+  uninstall quit: "com.100hps.captin"
 
   zap trash: [
-               '~/Library/Caches/com.100hps.captin',
-               '~/Library/Preferences/com.100hps.captin.plist',
-             ]
+    "~/Library/Caches/com.100hps.captin",
+    "~/Library/Preferences/com.100hps.captin.plist",
+  ]
 end

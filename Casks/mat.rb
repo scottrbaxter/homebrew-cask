@@ -1,10 +1,16 @@
-cask 'mat' do
-  version '1.7.0.20170613'
-  sha256 '71b0a9f6fa2e77ed1db618768f2240a7bdd512327ca1c45fdbed415beea07327'
+cask "mat" do
+  version "1.11.0.20201202"
+  sha256 "01929115ddd07e4d03a01a7b76433a3fd675642ca41c622f9040daec8dbaec79"
 
-  url "http://www.eclipse.org/downloads/download.php?r=1&file=/mat/#{version.major_minor}/rcp/MemoryAnalyzer-#{version}-macosx.cocoa.x86_64.zip"
-  name 'Eclipse Memory Analyzer'
-  homepage 'https://www.eclipse.org/mat/'
+  url "https://download.eclipse.org/mat/#{version.major_minor_patch}/rcp/MemoryAnalyzer-#{version}-macosx.cocoa.x86_64.dmg"
+  name "Eclipse Memory Analyzer"
+  desc "Java heap analyzer"
+  homepage "https://www.eclipse.org/mat/"
 
-  app 'mat.app'
+  livecheck do
+    url "https://www.eclipse.org/mat/downloads.php"
+    regex(/href=.*?MemoryAnalyzer-(\d+(?:\.\d+)*).*?\.dmg/i)
+  end
+
+  app "mat.app"
 end

@@ -1,16 +1,20 @@
-cask 'pd' do
-  version '0.48-0'
-  sha256 'a58b039b928e082df36b12c711c5373fe2e64a8015403166c15ef72696d6179a'
+cask "pd" do
+  version "0.51-4"
+  sha256 "2dd4c637d8637eefc928e7a06586cb911a21eae72f1abb3a0649a90f7eff20f7"
 
   url "http://msp.ucsd.edu/Software/pd-#{version}.mac.tar.gz"
-  appcast 'http://msp.ucsd.edu/software.html',
-          checkpoint: 'a527e66ce475915b9ecc2b37b777daecb5288b040dc5c2a13d7004ec138cb375'
-  name 'Pd'
-  homepage 'http://msp.ucsd.edu/software.html'
+  name "Pd"
+  homepage "http://msp.ucsd.edu/software.html"
+
+  livecheck do
+    url "http://msp.ucsd.edu/software.html"
+    strategy :page_match
+    regex(%r{href=.*?/pd-(\d+(?:\.\d+)*-\d+)\.mac\.tar\.gz}i)
+  end
 
   app "Pd-#{version}.app"
 
   postflight do
-    set_permissions "#{appdir}/Pd-#{version}.app", 'u+w'
+    set_permissions "#{appdir}/Pd-#{version}.app", "u+w"
   end
 end

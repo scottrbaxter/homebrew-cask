@@ -1,10 +1,16 @@
-cask 'kiwix' do
-  version '0.9'
-  sha256 '98e677aee3c106c6ec5b16791d3be7c22274b3b32cc44a9cce1eeca6275b7bcc'
+cask "kiwix" do
+  version "2.1.2"
+  sha256 "831d3aa0bff98f5cdde9137b9393eb292a8b22f688d59db5fed35341fc65e6f2"
 
-  url "http://download.kiwix.org/bin/#{version}/kiwix-#{version}.dmg"
-  name 'Kiwix'
-  homepage 'http://www.kiwix.org/'
+  url "https://download.kiwix.org/release/kiwix-desktop-macos/kiwix-desktop-macos_#{version}.dmg"
+  name "Kiwix"
+  desc "App providing offline access to Wikipedia and many other web sites"
+  homepage "https://www.kiwix.org/"
 
-  app 'Kiwix.app'
+  livecheck do
+    url "https://download.kiwix.org/release/kiwix-desktop-macos/kiwix-desktop-macos.dmg"
+    strategy :header_match
+  end
+
+  app "Kiwix.app"
 end

@@ -1,17 +1,24 @@
-cask 'sloth' do
-  version '2.1'
-  sha256 '9f55d880ff8b054245b4d8c8f175da45a17831f9c7744c4ffad241c61f24f62e'
+cask "sloth" do
+  version "3.1,282"
+  sha256 "de6d97f2c63107e209f52f10f74ebe329e3a8c86ac578c188a9e36b790ed5e52"
 
-  url "https://sveinbjorn.org/files/software/sloth/sloth-#{version}.zip"
-  appcast 'https://sveinbjorn.org/files/appcasts/SlothAppcast.xml',
-          checkpoint: '9645898b8502aebd19427ef24549d211f6cb72ff5f7a3fe64099b9351620940d'
-  name 'Sloth'
-  homepage 'https://sveinbjorn.org/sloth'
+  url "https://sveinbjorn.org/files/software/sloth/sloth-#{version.before_comma}.zip"
+  name "Sloth"
+  desc "Displays all open files and sockets in use by all running processes"
+  homepage "https://sveinbjorn.org/sloth"
 
-  app 'Sloth.app'
+  livecheck do
+    url "https://sveinbjorn.org/files/appcasts/SlothAppcast.xml"
+    strategy :sparkle
+  end
+
+  auto_updates true
+
+  app "Sloth.app"
 
   zap trash: [
-               '~/Library/Preferences/org.sveinbjorn.Sloth.plist',
-               '~/Library/Saved Application State/org.sveinbjorn.Sloth.savedState',
-             ]
+    "~/Library/Caches/org.sveinbjorn.Sloth",
+    "~/Library/Preferences/org.sveinbjorn.Sloth.plist",
+    "~/Library/Saved Application State/org.sveinbjorn.Sloth.savedState",
+  ]
 end

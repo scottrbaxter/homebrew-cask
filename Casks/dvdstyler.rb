@@ -1,15 +1,14 @@
-cask 'dvdstyler' do
-  version '3.0.3'
-  sha256 'c7e603a09e8455464d047ebb89b1aa2e4d81c49ade7bb38ed546170cf056b5a6'
+cask "dvdstyler" do
+  version "3.1"
+  sha256 "c66d291db8b2dbe9af21b8e210983198b930b02fef1b51866c365bb2493376c5"
 
-  # sourceforge.net/dvdstyler was verified as official when first introduced to the cask
-  url "https://downloads.sourceforge.net/dvdstyler/DVDStyler-#{version}-MacOSX.dmg"
-  appcast 'https://sourceforge.net/projects/dvdstyler/rss',
-          checkpoint: 'f5dcdcddef5bfa8da5cb8c688cd58e432d2cb5742b3193f99d9a34043c831eee'
-  name 'DVDStyler'
-  homepage 'https://www.dvdstyler.org/'
+  url "https://downloads.sourceforge.net/dvdstyler/DVDStyler-#{version}-MacOSX.dmg",
+      verified: "sourceforge.net/dvdstyler/"
+  appcast "https://sourceforge.net/projects/dvdstyler/rss"
+  name "DVDStyler"
+  homepage "https://www.dvdstyler.org/"
 
-  depends_on macos: '>= :yosemite'
+  depends_on macos: ">= :yosemite"
 
-  app 'DVDStyler.app'
+  app "DVDStyler.app"
 end

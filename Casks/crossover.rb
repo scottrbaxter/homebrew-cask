@@ -1,12 +1,28 @@
-cask 'crossover' do
-  version '17.1.0'
-  sha256 'a6c8dd002180f5289fe0df649bc821571e0703ef4a24cc4b2cf4dcda0f99fd86'
+cask "crossover" do
+  version "20.0.4.33196"
+  sha256 "739a977881e2b7969cf9aa044214da2747a798869c65bd383dbdf1aa269903dc"
 
-  url "https://media.codeweavers.com/pub/crossover/cxmac/demo/crossover-#{version}.zip"
-  appcast 'https://www.codeweavers.com/xml/versions/cxmac.xml',
-          checkpoint: '571c67245e2181a0a0cff8bb71559de8537ede2a25b36ae93501def4dd96bc91'
-  name 'CrossOver'
-  homepage 'https://www.codeweavers.com/products/crossover-mac/'
+  url "https://media.codeweavers.com/pub/crossover/cxmac/demo/crossover-#{version.major_minor_patch}.zip"
+  name "CrossOver"
+  desc "Tool to run Windows software"
+  homepage "https://www.codeweavers.com/products/crossover-mac/"
 
-  app 'CrossOver.app'
+  livecheck do
+    url "https://www.codeweavers.com/xml/versions/cxmac.xml"
+    strategy :sparkle
+  end
+
+  app "CrossOver.app"
+
+  zap trash: [
+    "~/Library/Application Support/CrossOver",
+    "~/Library/Caches/Cleanup At Startup/CrossOver CD Helper.app",
+    "~/Library/Caches/com.apple.helpd/Generated/CrossOver Help*",
+    "~/Library/Caches/com.codeweavers.CrossOver",
+    "~/Library/Cookies/com.codeweavers.CrossOver.binarycookies",
+    "~/Library/HTTPStorages/com.codeweavers.CrossOver.binarycookies",
+    "~/Library/Logs/CrossOver",
+    "~/Library/Saved Application State/com.codeweavers.CrossOverHelper*",
+    "~/Library/Preferences/com.codeweavers.*",
+  ]
 end

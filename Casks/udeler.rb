@@ -1,12 +1,11 @@
-cask 'udeler' do
-  version '1.3.2'
-  sha256 '00ea11e1fd6604130762951b0d50960e870c0ebe002ce814ea3dfd083e8e677f'
+cask "udeler" do
+  version "1.8.2"
+  sha256 "5a2b65b7e5d4db864a0895a72b7fc76626ed4c2c0204abe50b84c0b6f81f6d7f"
 
-  url "https://github.com/FaisalUmair/udemy-downloader-gui/releases/download/v#{version}/Udeler-#{version}-mac.zip"
-  appcast 'https://github.com/FaisalUmair/udemy-downloader-gui/releases.atom',
-          checkpoint: '5b74cac7bb5f8c984b8bc6a42ffacb5608521e224795e06b356f6405da186a03'
-  name 'Udeler'
-  homepage 'https://github.com/FaisalUmair/udemy-downloader-gui/'
+  url "https://github.com/FaisalUmair/udemy-downloader-gui/releases/download/v#{version}/Udeler-#{version}-mac.dmg"
+  name "Udeler"
+  desc "Desktop application for downloading Udemy Courses"
+  homepage "https://github.com/FaisalUmair/udemy-downloader-gui/"
 
-  app 'Udeler.app'
+  app "Udeler.app"
 end

@@ -1,13 +1,14 @@
-cask 'tibco-jaspersoft-studio' do
-  version '6.5.1'
-  sha256 '7570083b595e3843979821ef916e31ee1d742d215f4ad6ec93b806a2bbf64983'
+cask "tibco-jaspersoft-studio" do
+  version "6.16.0"
+  sha256 "5cf493f88c4ac424cd5b022106e0703c141373531b0d4f1b8b9e00c20032095e"
 
-  # sourceforge.net/jasperstudio was verified as official when first introduced to the cask
-  url "https://downloads.sourceforge.net/jasperstudio/JaspersoftStudio-#{version}/TIB_js-studiocomm_#{version}.final_macosx_x86_64.dmg"
-  appcast 'https://sourceforge.net/projects/jasperstudio/rss',
-          checkpoint: 'f8eaf9535f217344dc786f5b49cb181e81591b2e39ace640defcad17a6361524'
-  name 'TIBCO Jaspersoft Studio'
-  homepage 'https://community.jaspersoft.com/project/jaspersoft-studio'
+  url "https://downloads.sourceforge.net/jasperstudio/JaspersoftStudio-#{version}/TIB_js-studiocomm_#{version}_macosx_x86_64.dmg",
+      verified: "sourceforge.net/jasperstudio/"
+  appcast "https://sourceforge.net/projects/jasperstudio/rss"
+  name "TIBCO Jaspersoft Studio"
+  homepage "https://community.jaspersoft.com/project/jaspersoft-studio"
 
-  app "TIBCO Jaspersoft Studio #{version}.final.app"
+  auto_updates true
+
+  app "TIBCO Jaspersoft Studio #{version}.app"
 end

@@ -1,23 +1,33 @@
-cask 'copyq' do
-  version '3.1.2'
-  sha256 '6bf987314f4f7628b30dc62d77e301647b51ba23d7cf825e23d4cd525157db59'
+cask "copyq" do
+  version "3.13.0"
+  sha256 "07c12f91649d512616d9eef9a9492d7041f31620a4fbeeae1baae0d5b73c3461"
 
-  # github.com/hluk/CopyQ was verified as official when first introduced to the cask
-  url "https://github.com/hluk/CopyQ/releases/download/v#{version}/CopyQ.dmg"
-  appcast 'https://github.com/hluk/CopyQ/releases.atom',
-          checkpoint: '6d34b7f05320fc7bc54b3c2bf51353d7e63890ff1bd3043733218cc7d8e1345a'
-  name 'CopyQ'
-  homepage 'https://hluk.github.io/CopyQ/'
+  url "https://github.com/hluk/CopyQ/releases/download/v#{version}/CopyQ.dmg",
+      verified: "github.com/hluk/CopyQ/"
+  name "CopyQ"
+  desc "Clipboard manager with advanced features"
+  homepage "https://hluk.github.io/CopyQ/"
 
-  app 'CopyQ.app'
-  # shim script (https://github.com/caskroom/homebrew-cask/issues/18809)
+  app "CopyQ.app"
+  # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
   shimscript = "#{staged_path}/copyq.wrapper.sh"
-  binary shimscript, target: 'copyq'
+  binary shimscript, target: "copyq"
 
   preflight do
     IO.write shimscript, <<~EOS
       #!/bin/bash
-      exec '#{appdir}/CopyQ.app/Contents/MacOS/copyq' "$@"
+      exec '#{appdir}/CopyQ.app/Contents/MacOS/CopyQ' "$@"
     EOS
+  end
+
+  zap trash: [
+    "~/.config/copyq",
+    "~/Library/Application Support/copyq",
+    "~/Library/Application Support/copyq.log",
+    "~/Library/Preferences/com.copyq.copyq.plist",
+  ]
+
+  caveats do
+    unsigned_accessibility
   end
 end

@@ -1,37 +1,45 @@
-cask 'anaconda' do
-  version '5.0.1'
-  sha256 'f438a0af923bc1edc7bca53f496c59a668d1a08b48c768f443ad7f5ea2b8b3f8'
+cask "anaconda" do
+  version "2020.11"
+  sha256 "ec11e325c792a6f49dbdbe5e641991d0a29788689176d7e54da97def9532c762"
 
-  # repo.continuum.io/archive was verified as official when first introduced to the cask
-  url "https://repo.continuum.io/archive/Anaconda3-#{version}-MacOSX-x86_64.sh"
-  name 'Continuum Analytics Anaconda'
-  homepage 'https://www.anaconda.com/what-is-anaconda/'
+  url "https://repo.anaconda.com/archive/Anaconda3-#{version}-MacOSX-x86_64.sh"
+  name "Continuum Analytics Anaconda"
+  desc "Distribution of the Python and R programming languages for scientific computing"
+  homepage "https://www.anaconda.com/"
 
-  depends_on macos: '>= :lion'
+  livecheck do
+    url "https://www.anaconda.com/products/individual"
+    strategy :page_match
+    regex(/href=.*?Anaconda3-(\d+(?:\.\d+)*)-MacOSX-x86_64\.sh/i)
+  end
+
+  auto_updates true
   container type: :naked
 
   installer script: {
-                      executable: "Anaconda3-#{version}-MacOSX-x86_64.sh",
-                      args:       ['-b', '-p', "#{HOMEBREW_PREFIX}/anaconda3"],
-                      sudo:       true,
-                    }
+    executable: "Anaconda3-#{version}-MacOSX-x86_64.sh",
+    args:       ["-b", "-p", "#{HOMEBREW_PREFIX}/anaconda3"],
+    sudo:       true,
+  }
 
   postflight do
     set_ownership "#{HOMEBREW_PREFIX}/anaconda3"
   end
 
   uninstall delete: [
-                      "#{HOMEBREW_PREFIX}/anaconda3",
-                      '/Applications/Anaconda-Navigator.app',
-                    ]
+    "#{HOMEBREW_PREFIX}/anaconda3",
+    "/Applications/Anaconda-Navigator.app",
+  ]
 
   zap trash: [
-               '~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.continuum.io.sfl*',
-               '~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.continuum.python.sfl*',
-             ]
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.continuum.io.sfl*",
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.continuum.python.sfl*",
+    "~/.anaconda",
+    "~/.conda",
+    "~/.condarc",
+  ]
 
   caveats do
-    path_environment_variable "#{HOMEBREW_PREFIX}/anaconda3/bin"
     files_in_usr_local
   end
 end

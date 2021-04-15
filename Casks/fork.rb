@@ -1,21 +1,34 @@
-cask 'fork' do
-  version '1.0.63.3'
-  sha256 'c263e62225c15c3b2409f016facfa7e23cd3188a4255ad8ca65f09c9495d60b5'
+cask "fork" do
+  version "2.6.1"
+  sha256 "1a425a0b3191aa7de281291e0db4fd8658eb7add760882bce79a7b448b119c18"
 
-  url 'https://git-fork.com/update/files/Fork.dmg'
-  appcast 'https://git-fork.com/update/feed.xml',
-          checkpoint: '8523064bbe376feef2ab6e31a060f380e04da907fdc217f44ebd4e104a6c346f'
-  name 'Fork'
-  homepage 'https://git-fork.com/'
+  url "https://forkapp.ams3.cdn.digitaloceanspaces.com/mac/Fork-#{version}.dmg",
+      verified: "forkapp.ams3.cdn.digitaloceanspaces.com/mac/"
+  name "Fork"
+  desc "GIT client"
+  homepage "https://git-fork.com/"
+
+  livecheck do
+    url "https://git-fork.com/update/feed.xml"
+    strategy :sparkle do |item|
+      item.url[%r{/Fork-(\d+(?:\.\d+)*)\.dmg}i, 1]
+    end
+  end
 
   auto_updates true
 
-  app 'Fork.app'
+  app "Fork.app"
+  binary "#{appdir}/Fork.app/Contents/Resources/fork_cli", target: "fork"
 
   zap trash: [
-               '~/Library/Application Support/com.DanPristupov.Fork',
-               '~/Library/Caches/com.DanPristupov.Fork',
-               '~/Library/Preferences/com.DanPristupov.Fork.plist',
-               '~/Library/Saved Application State/com.DanPristupov.Fork.savedState',
-             ]
+    "~/Library/Application Support/Fork",
+    "~/Library/Application Support/com.DanPristupov.Fork",
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.danpristupov.fork.sfl2",
+    "~/Library/Caches/com.DanPristupov.Fork",
+    "~/Library/Cookies/com.DanPristupov.Fork.binarycookies",
+    "~/Library/Logs/Fork.log",
+    "~/Library/Preferences/com.DanPristupov.Fork.plist",
+    "~/Library/Saved Application State/com.DanPristupov.Fork.savedState",
+    "~/Library/WebKit/com.DanPristupov.Fork",
+  ]
 end

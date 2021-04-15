@@ -1,13 +1,13 @@
-cask 'snowflake-snowsql' do
-  version '1.1.22'
-  sha256 '212c0bdb9648fdc106756db41185da451c4d07b6b93b739cb0134f50862eac63'
+cask "snowflake-snowsql" do
+  version "1.2.10"
+  sha256 "7e29e84dc2c9cef94a4d2877f3074ee74bc41442584dd8efd6970483f87288db"
 
-  # s3-us-west-2.amazonaws.com/sfc-snowsql-updates/bootstrap was verified as official when first introduced to the cask
-  url "https://s3-us-west-2.amazonaws.com/sfc-snowsql-updates/bootstrap/#{version.major_minor}/darwin_x86_64/snowsql-#{version}-darwin_x86_64.pkg"
-  name 'SnowSQL'
-  homepage 'https://www.snowflake.net/'
+  url "https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/#{version.major_minor}/darwin_x86_64/snowsql-#{version}-darwin_x86_64.pkg",
+      verified: "sfc-repo.snowflakecomputing.com/"
+  name "SnowSQL"
+  homepage "https://snowflake.com/"
 
   pkg "snowsql-#{version}-darwin_x86_64.pkg"
 
-  uninstall pkgutil: 'net.snowflake.snowsql'
+  uninstall pkgutil: "net.snowflake.snowsql"
 end

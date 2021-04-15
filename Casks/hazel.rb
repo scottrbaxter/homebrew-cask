@@ -1,21 +1,32 @@
-cask 'hazel' do
-  version '4.2.2'
-  sha256 'aa5f4979b04d1edcf7c27a1ef20573c8dbae29f7eb016ff87b56dc2347edac15'
+cask "hazel" do
+  version "5.0.6"
+  sha256 "c5b6bdec84eb8111a402d323419f52e64a7bf72f6c1e8e95bd22d38da0728779"
 
-  # s3.amazonaws.com/Noodlesoft was verified as official when first introduced to the cask
-  url "https://s3.amazonaws.com/Noodlesoft/Hazel-#{version}.dmg"
-  appcast 'https://www.noodlesoft.com/Products/Hazel/generate-appcast.php',
-          checkpoint: '07bd36dd4a36d8ceadc4662814e5161da5e3a7263d6d184a04a546bc115b32d8'
-  name 'Hazel'
-  homepage 'https://www.noodlesoft.com/'
+  url "https://s3.amazonaws.com/Noodlesoft/Hazel-#{version}.dmg",
+      verified: "s3.amazonaws.com/Noodlesoft/"
+  name "Hazel"
+  desc "Automated organization"
+  homepage "https://www.noodlesoft.com/"
 
-  prefpane 'Install Hazel.app/Contents/Resources/Hazel.prefPane'
+  livecheck do
+    url "https://www.noodlesoft.com/Products/Hazel/generate-appcast.php"
+    strategy :sparkle
+  end
 
-  uninstall quit: 'com.noodlesoft.HazelHelper'
+  auto_updates true
+
+  app "Hazel.app"
+
+  uninstall quit: "86Z3GCJ4MF.com.noodlesoft.HazelHelper"
 
   zap trash: [
-               '~/Library/Application Support/Hazel',
-               '~/Library/Preferences/com.noodlesoft.Hazel.plist',
-               '~/Library/Preferences/com.noodlesoft.HazelHelper.plist',
-             ]
+    "~/Library/Logs/Hazel",
+    "~/Library/Application Support/Hazel",
+    "~/Library/Caches/com.noodlesoft.HazelHelper",
+    "~/Library/Preferences/com.noodlesoft.Hazel.plist",
+    "~/Library/Preferences/com.noodlesoft.HazelHelper.plist",
+    "~/Library/Preferences/86Z3GCJ4MF.com.noodlesoft.HazelHelper.plist",
+    "~/Library/Saved Application State/com.noodlesoft.Hazel.savedState",
+    "/Applications/Hazel.app/Contents/Library/LoginItems/86Z3GCJ4MF.com.noodlesoft.HazelHelper.app",
+  ]
 end

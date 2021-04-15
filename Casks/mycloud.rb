@@ -1,23 +1,24 @@
-cask 'mycloud' do
-  version '18.2.17'
-  sha256 'b464f8f6bd99b79bd54b304d8a17220726ca949f5ed9b33659c956f6ca9c26c6'
+cask "mycloud" do
+  version :latest
+  sha256 :no_check
 
-  # download-syncclient-mac.prod.mdl.swisscom.ch was verified as official when first introduced to the cask
-  url "https://download-syncclient-mac.prod.mdl.swisscom.ch/mac/myCloudDesktop-installer-#{version}.dmg"
-  name 'Swisscom myCloud Desktop'
-  homepage 'https://desktop.mycloud.ch/'
+  url "https://desktop-client-installer-server-mac.prod.mdl.swisscom.ch/myCloud%20Desktop%20installer.pkg",
+      verified: "desktop-client-installer-server-mac.prod.mdl.swisscom.ch/"
+  name "Swisscom myCloud Desktop"
+  desc "Swiss cloud storage desktop app"
+  homepage "https://desktop.mycloud.ch/"
 
-  container nested: 'myCloudDesktop-installer.app/Contents/Resources/app/application.zip'
+  # pkg cannot be installed automatically
+  installer manual: "myCloud Desktop installer.pkg"
 
-  app 'myCloudDesktop.app'
-
-  uninstall login_item: 'myCloudDesktop',
-            quit:       'ch.swisscom.mycloud.desktop.finder',
-            signal:     ['TERM', 'ch.swisscom.mycloud.desktop']
+  uninstall pkgutil:    "com.github.tornaia.desktop-client",
+            login_item: "myCloudDesktop",
+            quit:       "ch.swisscom.mycloud.desktop.finder",
+            signal:     ["TERM", "ch.swisscom.mycloud.desktop"]
 
   zap trash: [
-               '~/Library/Application Support/myCloudDesktop',
-               '~/Library/Preferences/ch.swisscom.mycloud.desktop.plist',
-               '~/Library/Preferences/ch.swisscom.mycloud.desktop.helper.plist',
-             ]
+    "~/Library/Application Support/myCloudDesktop",
+    "~/Library/Preferences/ch.swisscom.mycloud.desktop.plist",
+    "~/Library/Preferences/ch.swisscom.mycloud.desktop.helper.plist",
+  ]
 end

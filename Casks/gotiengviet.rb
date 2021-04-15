@@ -1,14 +1,15 @@
-cask 'gotiengviet' do
-  version :latest
+cask "gotiengviet" do
+  version "2.2,30"
   sha256 :no_check
 
-  url 'https://www.trankynam.com/gotv/downloads/GoTiengViet.dmg'
-  name 'GoTiengViet'
-  homepage 'https://www.trankynam.com/gotv/'
+  url "https://www.trankynam.com/gotv/downloads/GoTiengViet.dmg"
+  name "GoTiengViet"
+  homepage "https://www.trankynam.com/gotv/"
 
-  accessibility_access true
+  livecheck do
+    url "https://www.trankynam.com/gotv/macos/GoTiengVietMacOSX-Appcast.xml"
+    strategy :sparkle
+  end
 
-  app 'GoTiengViet.app'
-
-  uninstall login_item: 'GoTiengViet'
+  app "GoTiengViet.app"
 end

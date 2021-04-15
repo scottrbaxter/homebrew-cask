@@ -1,15 +1,19 @@
-cask 'blocs' do
-  version '2.4.5'
-  sha256 '32c85caf6e9f66727d37515ba3063808e31821b9635b8ed77a92e163fbbcadca'
+cask "blocs" do
+  version "4.1.1,411"
+  sha256 :no_check
 
-  # uistore.io was verified as official when first introduced to the cask
-  url "http://downloads.uistore.io/blocs/version-#{version.major}/Blocs.zip"
-  appcast "https://uistore.io/blocs/#{version.major}.0/info.xml",
-          checkpoint: '1155f6b4128f243fd46d2822a470acb91f0d8f9049bc8db8e9e7a78813bdcd2d'
-  name 'Blocs'
-  homepage 'https://blocsapp.com/'
+  url "https://blocsapp.com/download/Blocs.zip"
+  name "Blocs"
+  desc "Visual web design software"
+  homepage "https://blocsapp.com/"
+
+  livecheck do
+    url "https://blocsapp.com/update/v#{version.major}/info.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
+  container nested: "Blocs/Blocs-#{version.major}.dmg"
 
-  app 'Blocs.app'
+  app "Blocs.app"
 end

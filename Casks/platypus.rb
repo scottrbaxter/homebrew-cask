@@ -1,14 +1,25 @@
-cask 'platypus' do
-  version '5.2'
-  sha256 '09d6511a62a6965b0d69c7e92455ead70853c299bf1649ea52ba00e528cb34f4'
+cask "platypus" do
+  version "5.3,1113"
+  sha256 "efc66e943e6327896d0c1b82b0c1798c9ea17cffa03581e4949541c30d9833b0"
 
-  url "https://sveinbjorn.org/files/software/platypus/platypus#{version}.zip"
-  appcast 'https://www.sveinbjorn.org/files/appcasts/PlatypusAppcast.xml',
-          checkpoint: 'c9bfacb33465209fdafa9087f049b6888e31947af3a885645ca04234aecd2d58'
-  name 'Platypus'
-  homepage 'https://sveinbjorn.org/platypus'
+  url "https://sveinbjorn.org/files/software/platypus/platypus#{version.before_comma}.zip"
+  name "Platypus"
+  desc "Tool to create native applications from command-line scripts"
+  homepage "https://sveinbjorn.org/platypus"
+
+  livecheck do
+    url "https://www.sveinbjorn.org/files/appcasts/PlatypusAppcast.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
 
-  app "Platypus-#{version}/Platypus.app"
+  app "Platypus.app"
+
+  zap trash: [
+    "~/Library/Application Support/Platypus",
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/org.sveinbjorn.platypus.sfl2",
+    "~/Library/Caches/org.sveinbjorn.Platypus",
+    "~/Library/Preferences/org.sveinbjorn.Platypus.plist",
+  ]
 end

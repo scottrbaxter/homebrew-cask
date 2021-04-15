@@ -1,23 +1,25 @@
-cask 'astropad-studio' do
-  version '1.8.0'
-  sha256 '98e78f9fd35faf6bd5752208b64c2a6901bc3205b3053cf278f6842dba0a0c64'
+cask "astropad-studio" do
+  version "3.6.0,3204"
+  sha256 "4819188b06497bc9f9353baf891eae73f9434718ccae21e812fa8ffd41ef0dd5"
 
-  url "https://astropad.com/downloads/AstropadStudio-#{version}.zip"
-  appcast 'https://astropad.com/downloads/studio-sparkle.xml',
-          checkpoint: '090dac3584529d17a93fd97500e876efd50200092509eba327d2dceebd0424df'
-  name 'Astropad Studio'
-  homepage 'https://astropad.com/'
+  url "https://s3.amazonaws.com/astropad.com/downloads/AstropadStudio-#{version.before_comma}.dmg",
+      verified: "s3.amazonaws.com/astropad.com/"
+  name "Astropad Studio"
+  homepage "https://astropad.com/"
 
-  depends_on macos: '>= :mavericks'
+  livecheck do
+    url "https://s3.amazonaws.com/astropad.com/downloads/studio-sparkle.xml"
+    strategy :sparkle
+  end
 
-  app 'Astropad Studio.app'
+  app "Astropad Studio.app"
 
-  uninstall quit: 'com.astro-hq.AstropadStudioMac'
+  uninstall quit: "com.astro-hq.AstropadStudioMac"
 
   zap trash: [
-               '~/Library/Caches/Astropad',
-               '~/Library/Caches/com.astro-hq.AstropadStudioMac',
-               '~/Library/Preferences/com.astro-hq.AstropadStudioMac.plist',
-               '~/Library/Saved Application State/com.astro-hq.AstropadStudioMac.savedState',
-             ]
+    "~/Library/Caches/Astropad",
+    "~/Library/Caches/com.astro-hq.AstropadStudioMac",
+    "~/Library/Preferences/com.astro-hq.AstropadStudioMac.plist",
+    "~/Library/Saved Application State/com.astro-hq.AstropadStudioMac.savedState",
+  ]
 end

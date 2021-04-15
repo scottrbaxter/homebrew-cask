@@ -1,13 +1,26 @@
-cask 'workflowy' do
-  version '1.0.12'
-  sha256 '1174ef8ca59abaedef5fe2247b9339c38a10ad1dac8102b983d10deb3ee687e1'
+cask "workflowy" do
+  version "1.3.5-16569"
+  sha256 "1192f41c23710535751da2e9c1e1f80b4de82f44ea1ada7d019054bc9f3bd7f8"
 
-  # github.com/workflowy/desktop was verified as official when first introduced to the cask
-  url "https://github.com/workflowy/desktop/releases/download/v#{version}/WorkFlowy.dmg"
-  appcast 'https://github.com/workflowy/desktop/releases.atom',
-          checkpoint: '045ffb0d3ce9bff488943ecff1eba5595ee6bd75af018b19482ea366c9824739'
-  name 'WorkFlowy'
-  homepage 'https://workflowy.com/downloads/mac/'
+  url "https://github.com/workflowy/desktop/releases/download/v#{version}/WorkFlowy.zip",
+      verified: "github.com/workflowy/desktop/"
+  name "WorkFlowy"
+  desc "Notetaking tool"
+  homepage "https://workflowy.com/downloads/mac/"
 
-  app 'WorkFlowy.app'
+  livecheck do
+    url :url
+    strategy :git
+    regex(/^v?(\d+(?:\.\d+)*-\d+)$/i)
+  end
+
+  auto_updates true
+
+  app "WorkFlowy.app"
+
+  zap trash: [
+    "~/Library/Application Support/WorkFlowy",
+    "~/Library/Preferences/com.workflowy.desktop.plist",
+    "~/Library/Saved Application State/com.workflowy.desktop.savedState",
+  ]
 end

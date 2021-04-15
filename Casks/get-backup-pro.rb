@@ -1,13 +1,19 @@
-cask 'get-backup-pro' do
-  version '3.4.2'
-  sha256 '01d7e4bd623ed7b079ec8bf0c38a418675e50de8396dfc3a453270c7a33dceeb'
+cask "get-backup-pro" do
+  version "3.6.3,1549"
+  sha256 "f09258be4998f7855a74162dc265f53481185474be44b1c9d1691d56644fb026"
 
-  # belightsoft.s3.amazonaws.com/updates was verified as official when first introduced to the cask
-  url "https://belightsoft.s3.amazonaws.com/updates/Get+Backup+Pro+#{version.major}.zip"
-  appcast "https://www.belightsoft.com/download/updates/appcast_getbackup_pro#{version.major}.xml",
-          checkpoint: 'd7762347d2ff3c6995fbf00ad36c7409126faad67706ccb17911bb6a55eeebaa'
+  url "https://belightsoft.s3.amazonaws.com/updates/Get+Backup+Pro+#{version.major}.zip",
+      verified: "belightsoft.s3.amazonaws.com/updates/"
   name "Get Backup Pro #{version.major}"
-  homepage 'https://www.belightsoft.com/products/getbackup/'
+  desc "Backup software with folder synchronization"
+  homepage "https://www.belightsoft.com/products/getbackup/"
+
+  livecheck do
+    url "https://www.belightsoft.com/download/updates/appcast_getbackup_pro#{version.major}.xml"
+    strategy :sparkle
+  end
+
+  auto_updates true
 
   app "Get Backup Pro #{version.major}.app"
 end

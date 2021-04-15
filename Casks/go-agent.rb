@@ -1,13 +1,19 @@
-cask 'go-agent' do
-  version '18.1.0-5937'
-  sha256 '5edb389977cf9630078e1ff0dd716ca824fdc55af07f3c69194e4c3616d740e5'
+cask "go-agent" do
+  version "21.2.0-12498"
+  sha256 "6ab72f40f6205de1cc5861ce10bffceb0f9ce49580b399f9b214df93f31a2e1f"
 
-  # download.gocd.io/binaries was verified as official when first introduced to the cask
-  url "https://download.gocd.io/binaries/#{version}/osx/go-agent-#{version}-osx.zip"
-  appcast 'https://github.com/gocd/gocd/releases.atom',
-          checkpoint: '379c3238931056d4232f6422ef965db0a870b6aad8b2ccee09df16f584bb7155'
-  name 'Go Agent'
-  homepage 'https://www.gocd.org/'
+  url "https://download.gocd.io/binaries/#{version}/osx/go-agent-#{version}-osx.zip",
+      verified: "download.gocd.io/binaries/"
+  name "Go Agent"
+  name "GoCD Agent"
+  desc "Agent for the Go Continuous Delivery platform"
+  homepage "https://www.gocd.org/"
 
-  app 'Go Agent.app'
+  livecheck do
+    url "https://download.gocd.org/releases.json"
+    strategy :page_match
+    regex(/go-agent-(\d+(?:\.\d+)*-\d+)-osx\.zip/i)
+  end
+
+  binary "go-agent-#{version.split("-").first}/bin/go-agent"
 end

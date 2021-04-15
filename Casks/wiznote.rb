@@ -1,10 +1,15 @@
-cask 'wiznote' do
-  version '2.5.8,2018-01-12'
-  sha256 '5428cf52af8544c741009d9b56fc0264b53aa4bd7b6ee8b8a08160fa9a546d3b'
+cask "wiznote" do
+  version "2020-08-20"
+  sha256 "043c8bf25233d711bbeb2354808dae79c431373cd9989ccdeb46ed8292b1db55"
 
-  url "https://get.wiz.cn/wiznote-macos-#{version.after_comma}.dmg"
-  name 'WizNote'
-  homepage 'https://www.wiz.cn/wiznote-mac.html'
+  url "https://get.wiz.cn/wiznote-macos-#{version}.dmg"
+  name "WizNote"
+  homepage "https://www.wiz.cn/wiznote-mac.html"
 
-  app 'WizNote.app'
+  livecheck do
+    url "https://url.wiz.cn/u/mac"
+    strategy :header_match
+  end
+
+  app "WizNote.app"
 end

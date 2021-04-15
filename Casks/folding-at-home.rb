@@ -1,19 +1,26 @@
-cask 'folding-at-home' do
-  version '7.4.4'
-  sha256 'c0de525eef498c2c4befc0b719ffd50d8fe4494ced64ee3bc4d60e8b919306a0'
+cask "folding-at-home" do
+  version "7.6.21"
+  sha256 "c6a559f46e25aa7a9e67227affbccfef77527f663da80be6c55a4f7e7e29866f"
 
-  url "https://fah.stanford.edu/file-releases/public/release/fah-installer/osx-10.6.4-64bit/v#{version.sub(%r{\.\d+$}, '')}/fah-installer_#{version}_x86_64.mpkg.zip"
-  appcast "https://folding.stanford.edu/download/releases.py?series=#{version.major_minor}&release=public&platform=MacIntel",
-          checkpoint: '3d1ba1efbfeeb186c5d289116b8864d1f7619ed971b517e4026d0073a5a2f335'
-  name 'Folding@home'
-  homepage 'https://folding.stanford.edu/'
+  url "https://download.foldingathome.org/releases/public/release/fah-installer/osx-10.11-64bit/v#{version.major_minor}/fah-installer_#{version}_x86_64.mpkg.zip"
+  name "Folding@home"
+  desc "Graphical interface control for Folding"
+  homepage "https://foldingathome.org/"
 
-  pkg "fah-installer_#{version}_x86_64.pkg"
+  livecheck do
+    url "https://download.foldingathome.org/releases/public/release/fah-installer/osx-10.11-64bit/v#{version.major_minor}/"
+    strategy :page_match
+    regex(/href=.*?fah-installer_(\d+(?:\.\d+)*)_x86_64.mpkg\.zip/i)
+  end
 
-  uninstall pkgutil:   'edu.stanford.folding.*',
-            launchctl: 'edu.stanford.folding.fahclient',
+  pkg "fah-installer_#{version}_x86_64-b.pkg"
+
+  uninstall pkgutil:   "org.foldingathome.*",
+            launchctl: "org.foldingathome.fahclient",
             quit:      [
-                         'edu.stanford.folding.fahviewer',
-                         'edu.stanford.folding.fahcontrol',
-                       ]
+              "org.foldingathome.fahviewer",
+              "org.foldingathome.fahcontrol",
+            ]
+
+  zap trash: "/Library/Application Support/FAHClient"
 end

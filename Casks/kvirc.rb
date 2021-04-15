@@ -1,16 +1,24 @@
-cask 'kvirc' do
-  version '4.2.0'
-  sha256 'bb450b5abc2012cfc6c3f2cce3c8b13239acad4553cdd73d48f8d47dd8cf61c2'
+cask "kvirc" do
+  version "5.0.0"
+  sha256 "d0793ab8a14de5388bc36f99945191120ec3349ab3f2c24f76f4dd11ab9b4874"
 
-  url "ftp://ftp.kvirc.de/pub/kvirc/#{version}/binary/osx/KVIrc-#{version}-Equilibrium.dmg"
-  name 'KVIrc'
-  homepage 'http://www.kvirc.de/'
+  url "ftp://ftp.kvirc.net/pub/kvirc/#{version}/binary/macosx/KVIrc-#{version}.dmg"
+  name "KVIrc"
+  desc "IRC Client"
+  homepage "http://kvirc.net/"
 
-  app 'KVIrc.app'
+  livecheck do
+    url "https://github.com/kvirc/KVIrc"
+    strategy :git
+  end
+
+  depends_on macos: ">= :high_sierra"
+
+  app "KVIrc.app"
 
   zap trash: [
-               '~/Library/Preferences/com.kvirc.kvirc.plist',
-               '~/Library/Saved Application State/com.kvirc.kvirc.savedState',
-               '~/.kvirc*.rc',
-             ]
+    "~/Library/Preferences/com.kvirc.kvirc.plist",
+    "~/Library/Saved Application State/com.kvirc.kvirc.savedState",
+    "~/.kvirc*.rc",
+  ]
 end

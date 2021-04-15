@@ -1,13 +1,18 @@
-cask 'cctalk' do
-  version '0.9.9-557,2018-02-02'
-  sha256 '4fe38a5e8c2ff53bf8c085f3611d1fe123fe24bb8418446ba508bc5a2fe54df0'
+cask "cctalk" do
+  version "7.8.2.1"
+  sha256 "04c954ceec52f05943cfbe76ec05ec79a1410f868062ff4d0f6bdc758cd23807"
 
-  # f1.ct.hjfile.cn was verified as official when first introduced to the cask
-  url "http://f1.ct.hjfile.cn/api/AutoUpdate/newupdate/in/mac/cctalk/archive/#{version.before_comma.hyphens_to_dots}/CCtalk-#{version.before_comma}-xianghu-#{version.after_comma}.dmg"
-  appcast 'http://f1.ct.hjfile.cn/api/AutoUpdate/newupdate/out/mac/cctalk/update/info.xml',
-          checkpoint: '1449ce4124eb0188df7fb53f51e0444f8ede414bdbb2e0092f670951f5d544b2'
-  name 'CCtalk'
-  homepage 'https://www.cctalk.com/download/'
+  url "https://cc.hjfile.cn/cc/CCtalk.#{version}/8/1/103/CCtalk.#{version}.dmg",
+      verified: "cc.hjfile.cn/"
+  name "CCtalk"
+  homepage "https://www.cctalk.com/download/"
 
-  app 'CCtalk.app'
+  livecheck do
+    url "https://www.cctalk.com/webapi/basic/v1.1/version/down?apptype=1&terminalType=8&versionType=103"
+    strategy :header_match
+  end
+
+  depends_on macos: ">= :yosemite"
+
+  app "CCtalk.app"
 end

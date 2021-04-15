@@ -1,13 +1,19 @@
-cask 'osculator' do
-  version '3.1.1-7-g064b670,8f8c7fe3-196c-44c2-8b93-e7507b749fdf'
-  sha256 '960bc3536cbf27fd0307d8e08d5d855f0f796f14b2016df4e6835818ffac2817'
+cask "osculator" do
+  version "3.4.3-11-g8d8b1d0c,9c7ed436-cd8e-4c4f-bc69-29b56674467f"
+  sha256 "29e226f1a9d6cdfa8bf94f56ae91cd58399674a9463f8fb1bbcd8c875244378b"
 
-  # distribution.wildora.net was verified as official when first introduced to the cask
-  url "https://distribution.wildora.net/products/osculator-v#{version.major}/revisions/#{version.after_comma}/osculator-#{version.before_comma}.dmg"
-  appcast 'https://osculator.net/downloadthanks.php?stable',
-          checkpoint: 'f05f25b4bdc6e493e45619036b4037e5fb2918a61803b7cfd27912b10dba8843'
-  name 'OSCulator'
-  homepage 'https://osculator.net/'
+  url "https://distribution.wildora.net/products/osculator-v#{version.major}/revisions/#{version.after_comma}/osculator-#{version.before_comma}.dmg",
+      verified: "https://distribution.wildora.net/products/"
+  appcast "https://backend.wildora.net/v1/products/osculator-v#{version.major}/revisions.rss"
+  name "Osculator"
+  desc "Connect MIDI and OSC Controllers"
+  homepage "https://osculator.net/"
 
-  app 'OSCulator ƒ/OSCulator.app'
+  app "Osculator.app"
+
+  zap trash: [
+    "~/Library/Application Support/net.osculator.OSCulator",
+    "~/Library/Caches/net.osculator.OSCulator",
+    "~/Library/Preferences/net.osculator.OSCulator.plist",
+  ]
 end

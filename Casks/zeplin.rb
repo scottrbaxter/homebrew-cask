@@ -1,20 +1,25 @@
-cask 'zeplin' do
-  version :latest
+cask "zeplin" do
+  version "3.18,1160"
   sha256 :no_check
 
-  # downloads can be found at https://zeplin.io/support.html#download
-  # zpl.io was verified as official when first introduced to the cask
-  url 'https://zpl.io/download'
-  name 'Zeplin'
-  homepage 'https://zeplin.io/'
+  url "https://api.zeplin.io/urls/download-mac"
+  name "Zeplin"
+  desc "Share, organize and collaborate on designs"
+  homepage "https://zeplin.io/"
+
+  livecheck do
+    url "https://api.appcenter.ms/v0.1/public/sparkle/apps/8926efff-e734-b6d3-03d0-9f41d90c34fc"
+    strategy :sparkle
+  end
 
   auto_updates true
+  depends_on macos: ">= :sierra"
 
-  app 'Zeplin.app'
+  app "Zeplin.app"
 
   zap trash: [
-               '~/Library/Logs/Zeplin',
-               '~/Library/Caches/io.zeplin.osx',
-               '~/Library/Preferences/io.zeplin.osx.plist',
-             ]
+    "~/Library/Logs/Zeplin",
+    "~/Library/Caches/io.zeplin.osx",
+    "~/Library/Preferences/io.zeplin.osx.plist",
+  ]
 end

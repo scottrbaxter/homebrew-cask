@@ -1,27 +1,36 @@
-cask 'hyper' do
-  version '1.4.8'
-  sha256 'a8e48a5f7a810ff67a4524491f360d622284f76058344baab909b21352df8985'
+cask "hyper" do
+  version "3.0.2"
+  sha256 "56ac31f2f8aa99edf03f277b25203eca9d8b6c4d6535f673a996fddca0d21bb5"
 
-  # github.com/zeit/hyper was verified as official when first introduced to the cask
-  url "https://github.com/zeit/hyper/releases/download/#{version}/hyper-#{version}-mac.zip"
-  appcast 'https://github.com/zeit/hyper/releases.atom',
-          checkpoint: 'e9ffa6b15e4033dacd8a4fe8fdfb8de8cdec5354cdd35a61087fee5af64b48f4'
-  name 'Hyper'
-  homepage 'https://hyper.is/'
+  url "https://github.com/zeit/hyper/releases/download/#{version}/hyper-#{version}-mac.zip",
+      verified: "github.com/zeit/hyper/"
+  name "Hyper"
+  desc "Terminal built on web technologies"
+  homepage "https://hyper.is/"
+
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
 
   auto_updates true
+  conflicts_with cask: "homebrew/cask-versions/hyper-canary"
 
-  app 'Hyper.app'
+  app "Hyper.app"
+  binary "#{appdir}/Hyper.app/Contents/Resources/bin/hyper"
 
   zap trash: [
-               '~/.hyper.js',
-               '~/.hyper_plugins',
-               '~/Library/Application Support/Hyper',
-               '~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/co.zeit.hyper.sfl*',
-               '~/Library/Caches/co.zeit.hyper',
-               '~/Library/Caches/co.zeit.hyper.ShipIt',
-               '~/Library/Preferences/co.zeit.hyper.plist',
-               '~/Library/Preferences/co.zeit.hyper.helper.plist',
-               '~/Library/Saved Application State/co.zeit.hyper.savedState',
-             ]
+    "~/.hyper.js",
+    "~/.hyper_plugins",
+    "~/Library/Application Support/Hyper",
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/co.zeit.hyper.sfl*",
+    "~/Library/Caches/co.zeit.hyper",
+    "~/Library/Caches/co.zeit.hyper.ShipIt",
+    "~/Library/Cookies/co.zeit.hyper.binarycookies",
+    "~/Library/Logs/Hyper",
+    "~/Library/Preferences/ByHost/co.zeit.hyper.ShipIt.*.plist",
+    "~/Library/Preferences/co.zeit.hyper.plist",
+    "~/Library/Preferences/co.zeit.hyper.helper.plist",
+    "~/Library/Saved Application State/co.zeit.hyper.savedState",
+  ]
 end

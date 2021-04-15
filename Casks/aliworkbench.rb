@@ -1,13 +1,23 @@
-cask 'aliworkbench' do
-  version '1.01.35-35'
-  sha256 'd42b830d1a5b1eafba095ea0f70c96b09fff608d3bdef83f03de6bedf76f4609'
+cask "aliworkbench" do
+  version "9.04.02,LqEYADnbwALXMQPyQRIT"
+  sha256 "61caabd57a079e04fd30d4b40702f48704a503c397759cffc22a5cb7d96b4e34"
 
-  # dbison.alicdn.com was verified as official when first introduced to the cask
-  url "https://dbison.alicdn.com/updates/MacQN-#{version}.dmg"
-  name 'AliWorkBench'
-  name 'Qian Niu'
-  name '千牛'
-  homepage 'https://qianniu.1688.com/'
+  url "https://gw.alipayobjects.com/os/rmsportal/#{version.after_comma}.dmg",
+      verified: "gw.alipayobjects.com/os/rmsportal/"
+  name "AliWorkBench"
+  name "Qian Niu"
+  name "千牛"
+  homepage "https://cts.alibaba.com/product/qianniu/download-pc"
 
-  app 'AliWorkBench.app'
+  livecheck do
+    url "https://alimarket.taobao.com/markets/qnww/qianniu-download?wh_from=macos"
+    strategy :header_match do |headers|
+      id = headers["location"][%r{/([^/]+)\.dmg}i, 1]
+      version = headers["content-disposition"][/-(\d+(?:\.\d+)*)\.dmg/i, 1]
+
+      "#{version},#{id}"
+    end
+  end
+
+  app "AliWorkBench.app"
 end

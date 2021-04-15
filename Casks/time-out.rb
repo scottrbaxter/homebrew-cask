@@ -1,18 +1,12 @@
-cask 'time-out' do
-  if MacOS.version <= :snow_leopard
-    version '1.6.5'
-    sha256 '2ceec8d8938af0acf32af601337c129087bb3b8c132c1f18e6eb3581788b8a49'
-  elsif MacOS.version <= :mavericks
-    version '1.7.1'
-    sha256 '3c9892344c8313b8ccf0a76cceb00834ddbe26e5114bcd674c4fd53aeb44e310'
-  else
-    version '2.3'
-    sha256 '89efede76841e2d7bc0d8759a90411b3b619705cb34372778409d7988c9fbb6c'
-  end
+cask "time-out" do
+  version "2.7.1"
+  sha256 "40fe0c87b0c9007c372bf3297f878b3f60537852dfc921078ce00656ef9c7a17"
 
-  url "http://www.dejal.com/download/timeout-#{version}.zip"
-  name 'Time Out'
-  homepage 'http://www.dejal.com/timeout/'
+  url "https://www.dejal.com/download/timeout-#{version}.zip"
+  appcast "https://dejal.net/appcast/?prod=timeout&aed=direct&from=2037&rel=gen"
+  name "Time Out"
+  desc "Customizable timing of breaks"
+  homepage "https://www.dejal.com/timeout/"
 
-  app 'Time Out.app'
+  app "Time Out.app"
 end

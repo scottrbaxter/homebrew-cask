@@ -1,14 +1,27 @@
-cask 'downie' do
-  version '3.1.5,1749'
-  sha256 '64925cae531bf0e9e59d8a4f7d8ce4b1f395bea9e6dba87999711b7ec8a6a9a6'
+cask "downie" do
+  version "4.2.2,4235"
+  sha256 "a30d4f12b20c6995d7b5d73e1e5bd4e0b991a94fb8c6fc5c8f11ebd1fcd3434c"
 
-  url "https://trial.charliemonroe.net/downie/Downie_#{version.major}_#{version.after_comma}.zip"
-  appcast "https://trial.charliemonroe.net/downie/updates_#{version.major}.xml",
-          checkpoint: '3e5e2de5facbd979275ccf514b24772bd39f19e49167eb28fbe080a147bfad89'
-  name 'Downie'
-  homepage 'https://software.charliemonroe.net/downie.php'
+  url "https://charliemonroesoftware.com/trial/downie/v#{version.major}/Downie_#{version.major}_#{version.after_comma}.dmg",
+      verified: "charliemonroesoftware.com/"
+  name "Downie"
+  desc "Downloads videos from different websites"
+  homepage "https://software.charliemonroe.net/downie.php"
 
-  depends_on macos: '>= :el_capitan'
+  livecheck do
+    url "https://charliemonroesoftware.com/trial/downie/v#{version.major}/updates.xml"
+    strategy :sparkle
+  end
+
+  auto_updates true
+  depends_on macos: ">= :el_capitan"
 
   app "Downie #{version.major}.app"
+
+  zap trash: [
+    "~/Library/Caches/com.charliemonroe.Downie-#{version.major}",
+    "~/Library/Containers/com.charliemonroe.Downie-#{version.major}",
+    "~/Library/Containers/com.charliemonroe.Downie-#{version.major}-Downie-Extension",
+    "~/Library/Preferences/com.charliemonroe.Downie-#{version.major}.plist",
+  ]
 end

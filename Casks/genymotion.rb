@@ -1,14 +1,30 @@
-cask 'genymotion' do
-  version '2.11.1'
-  sha256 '338a4da6106c28a62d924b0818129adadd95b5924951b5d1f3ede880fa27e68a'
+cask "genymotion" do
+  version "3.2.0"
+  sha256 "9025dd0baf74a7d7258570d6d2ca0f45af9f5c8e680080012cac7d42b411e9e3"
 
   url "https://dl.genymotion.com/releases/genymotion-#{version}/genymotion-#{version}.dmg"
-  name 'Genymotion'
-  homepage 'https://www.genymotion.com/'
+  name "Genymotion"
+  desc "Android emulator"
+  homepage "https://www.genymotion.com/"
 
-  depends_on cask: 'virtualbox'
+  livecheck do
+    url "https://www.genymotion.com/download/"
+    strategy :page_match
+    regex(/Genymotion\s*Desktop\s*(\d+(?:\.\d+)*)/i)
+  end
 
-  app 'Genymotion.app'
-  app 'Genymotion Shell.app'
+  depends_on cask: "virtualbox"
+
+  app "Genymotion.app"
+  app "Genymotion Shell.app"
   binary "#{appdir}/Genymotion Shell.app/Contents/MacOS/genyshell"
+
+  zap trash: [
+    "~/.Genymobile",
+    "~/Library/Caches/Genymobile",
+    "~/Library/Preferences/com.genymobile.Genymotion.plist",
+    "~/Library/Preferences/com.genymobile.soft.Genymotion.plist",
+    "~/Library/Saved Application State/com.genymobile.genymotion.savedState",
+    "~/Library/Saved Application State/com.genymobile.player.savedState",
+  ]
 end

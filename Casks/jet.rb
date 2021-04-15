@@ -1,11 +1,12 @@
-cask 'jet' do
-  version '2.4.0'
-  sha256 'a479444c82055c98616ed1abc9602804763a36b8559d04f60027ecb8ef4363a0'
+cask "jet" do
+  version "2.11.0"
+  sha256 "90c4f04fc4e4ecb62bdf24b95cb6fa9bd2fb999a7a3cd6aec12672fd86c73239"
 
-  # s3.amazonaws.com/codeship-jet-releases was verified as official when first introduced to the cask
-  url "https://s3.amazonaws.com/codeship-jet-releases/#{version}/jet-darwin_amd64_#{version}.tar.gz"
-  name 'Codeship Jet'
-  homepage 'https://documentation.codeship.com/pro/builds-and-configuration/cli/'
+  url "https://codeship-jet-releases.s3.amazonaws.com/#{version}/jet-darwin_amd64_#{version}.tar.gz",
+      verified: "codeship-jet-releases.s3.amazonaws.com/"
+  appcast "https://documentation.codeship.com/pro/jet-cli/release-notes/"
+  name "Codeship Jet"
+  homepage "https://documentation.codeship.com/pro/builds-and-configuration/cli/"
 
-  binary 'jet'
+  binary "jet"
 end

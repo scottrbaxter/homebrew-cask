@@ -1,10 +1,12 @@
-cask 'synergy' do
-  version '2.0.5,b1462-3f23b557'
-  sha256 '8ead0011ecafe430ce1670cfadf7b614b9112fd33f1669f00d9c50ecb43ebc0c'
+cask "synergy" do
+  version "1.13.0,bdb8f767"
+  sha256 "94796404c500d0c396d94a21e541fe3dca08bb7d491815f741f093bfe3b26ffa"
 
-  url "https://binaries.symless.com/v#{version.before_comma}/Synergy_v#{version.before_comma}-stable_#{version.after_comma}.dmg"
-  name 'Synergy'
-  homepage 'https://symless.com/synergy'
+  url "https://binaries.symless.com/synergy/v#{version.before_comma.major}-core-standard/#{version.before_comma}-stable-#{version.after_comma}/synergy_#{version.before_comma}-stable.#{version.after_comma}_macos_x86-64.dmg"
+  appcast "https://github.com/symless/synergy-core/releases.atom"
+  name "Synergy"
+  desc "Keyboard and mouse sharing tool - open-source core"
+  homepage "https://symless.com/synergy"
 
-  app 'Synergy.app'
+  app "Synergy.app"
 end

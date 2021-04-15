@@ -1,16 +1,18 @@
-cask 'xamarin' do
+cask "xamarin" do
   version :latest
   sha256 :no_check
 
-  url 'https://download.xamarin.com/Installer/Mac/XamarinInstaller.dmg'
-  name 'Xamarin Platform'
-  homepage 'https://www.xamarin.com/platform'
+  url "https://download.xamarin.com/Installer/Mac/XamarinInstaller.dmg"
+  name "Xamarin Platform"
+  homepage "https://www.xamarin.com/platform"
 
-  installer manual: 'Install Xamarin.app'
+  conflicts_with cask: "xamarin-studio"
 
-  uninstall delete: '/Applications/Xamarin Studio.app'
+  installer manual: "Install Xamarin.app"
 
-  zap trash: '~/Library/Developer/Xamarin'
+  uninstall delete: "/Applications/Xamarin Studio.app"
+
+  zap trash: "~/Library/Developer/Xamarin"
 
   caveats do
     depends_on_java

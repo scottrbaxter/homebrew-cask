@@ -1,15 +1,14 @@
-cask 'mos' do
-  version '1.7.0'
-  sha256 '84002cd43e682adf6c04643260b64ebd44d0e2af50117541a6ae7c7b89cf7391'
+cask "mos" do
+  version "3.3.2"
+  sha256 "5ff8bb9022c090457e1a85a8728e8d3cc9216e3d9122af4afe113c392e77cbd8"
 
-  # github.com/Caldis/Mos was verified as official when first introduced to the cask
-  url "https://github.com/Caldis/Mos/releases/download/#{version}/Mos.Version.#{version}.dmg"
-  appcast 'https://github.com/Caldis/Mos/releases.atom',
-          checkpoint: '0824522cc30c9cd5e3923392828d7039c35d03bab5cd7d78335b8b0b32cd1d27'
-  name 'Mos'
-  homepage 'http://mos.u2sk.com/'
+  url "https://github.com/Caldis/Mos/releases/download/#{version}/Mos.Versions.#{version}.dmg",
+      verified: "github.com/Caldis/Mos/"
+  name "Mos"
+  desc "Smooths scrolling and set mouse scroll directions independently"
+  homepage "https://mos.caldis.me/"
 
-  app 'Mos.app'
+  app "Mos.app"
 
-  zap trash: '~/Library/Preferences/com.u2sk.Mos.plist'
+  zap trash: "~/Library/Preferences/com.caldis.Mos.plist"
 end

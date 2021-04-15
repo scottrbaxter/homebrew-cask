@@ -1,25 +1,44 @@
-cask 'datagrip' do
-  version '2017.3.5,173.4652.2'
-  sha256 '0a4306bf23f6a7d410bac4e5334a4cbe780d8af6eb50ae1ea26a58ae84c16070'
+cask "datagrip" do
+  version "2021.1,211.6693.68"
 
-  url "https://download.jetbrains.com/datagrip/datagrip-#{version.before_comma}.dmg"
-  appcast 'https://data.services.jetbrains.com/products/releases?code=DG&latest=true&type=release',
-          checkpoint: 'd2ee5ae5f8cdd9035d092c4aea580569ec258eb45c7e8a1497572f8ae215f91b'
-  name 'DataGrip'
-  homepage 'https://www.jetbrains.com/datagrip/'
+  if Hardware::CPU.intel?
+    sha256 "cf218fd07ec2bb9af0c7a1bb2de7ada4008c7cfcf7028bd6cb7923c828b54782"
+    url "https://download.jetbrains.com/datagrip/datagrip-#{version.before_comma}.dmg"
+  else
+    sha256 "3d25c4794beae3c48b422d78e10708ef56f155e889b7c0d6e8eaf79feb986dc4"
+    url "https://download.jetbrains.com/datagrip/datagrip-#{version.before_comma}-aarch64.dmg"
+  end
+
+  name "DataGrip"
+  desc "Databases & SQL IDE"
+  homepage "https://www.jetbrains.com/datagrip/"
+
+  livecheck do
+    url "https://data.services.jetbrains.com/products/releases?code=DG&latest=true&type=release"
+    strategy :page_match do |page|
+      version = page.match(/"version":"(\d+(?:\.\d+)*)/i)
+      build = page.match(/"build":"(\d+(?:\.\d+)*)/i)
+      "#{version[1]},#{build[1]}"
+    end
+  end
 
   auto_updates true
 
-  app 'DataGrip.app'
+  app "DataGrip.app"
 
   uninstall_postflight do
-    ENV['PATH'].split(File::PATH_SEPARATOR).map { |path| File.join(path, 'datagrip') }.each { |path| File.delete(path) if File.exist?(path) && File.readlines(path).grep(%r{# see com.intellij.idea.SocketLock for the server side of this interface}).any? }
+    ENV["PATH"].split(File::PATH_SEPARATOR).map { |path| File.join(path, "datagrip") }.each do |path|
+      if File.exist?(path) &&
+         File.readlines(path).grep(/# see com.intellij.idea.SocketLock for the server side of this interface/).any?
+        File.delete(path)
+      end
+    end
   end
 
   zap trash: [
-               "~/Library/Application Support/DataGrip#{version.major_minor}",
-               "~/Library/Caches/DataGrip#{version.major_minor}",
-               "~/Library/Logs/DataGrip#{version.major_minor}",
-               "~/Library/Preferences/DataGrip#{version.major_minor}",
-             ]
+    "~/Library/Application Support/JetBrains/DataGrip#{version.major_minor}",
+    "~/Library/Caches/JetBrains/DataGrip#{version.major_minor}",
+    "~/Library/Logs/JetBrains/DataGrip#{version.major_minor}",
+    "~/Library/Saved Application State/com.jetbrains.datagrip.savedState",
+  ]
 end

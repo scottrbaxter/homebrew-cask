@@ -1,16 +1,22 @@
-cask 'sqlpro-studio' do
-  version '1.0.134'
-  sha256 'aa1cb6f87e2ac22e15a6c233ea69a5481df534d072adb1a5276f66a2c6904fa2'
+cask "sqlpro-studio" do
+  version "2021.07"
+  sha256 "414d28c5fe3b2f2f9d23ea53a8e096cbdf40f908371b65b1b8fa3a95545c63ba"
 
-  # d3fwkemdw8spx3.cloudfront.net/studio was verified as official when first introduced to the cask
-  url "https://d3fwkemdw8spx3.cloudfront.net/studio/SQLProStudio.#{version}.app.zip"
-  name 'SQLPro Studio'
-  homepage 'https://www.sqlprostudio.com/'
+  url "https://d3fwkemdw8spx3.cloudfront.net/studio/SQLProStudio.#{version}.app.zip",
+      verified: "d3fwkemdw8spx3.cloudfront.net/studio/"
+  name "SQLPro Studio"
+  desc "Database management tool"
+  homepage "https://www.sqlprostudio.com/"
 
-  app 'SQLPro Studio.app'
+  livecheck do
+    url "https://www.sqlprostudio.com/download.php"
+    strategy :header_match
+  end
+
+  app "SQLPro Studio.app"
 
   zap trash: [
-               '~/Library/Containers/com.hankinsoft.osx.sqlprostudio',
-               '~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.hankinsoft.osx.sqlprostudio.sfl*',
-             ]
+    "~/Library/Containers/com.hankinsoft.osx.sqlprostudio",
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.hankinsoft.osx.sqlprostudio.sfl*",
+  ]
 end

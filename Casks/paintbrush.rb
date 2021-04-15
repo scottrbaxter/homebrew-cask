@@ -1,19 +1,28 @@
-cask 'paintbrush' do
-  version '2.2.1'
-  sha256 '96ee40ce8052ffdb687a187e74f22bcce2ab40430d8b4c2f4b1d2637b3ad21a3'
+cask "paintbrush" do
+  version "2.6.0,20210402"
+  sha256 "9d12b754ec65edc77fa51d3a3c8a0b08ac863e10fd530bff219f9f22bb9dba3a"
 
-  url "https://downloads.sourceforge.net/paintbrush/Paintbrush%202.x/Paintbrush%20#{version}/Paintbrush-#{version}.zip"
-  appcast "https://paintbrush.sourceforge.io/updates#{version.major}x.xml",
-          checkpoint: '6bc468d2a34ae1fac111333bc3543620848e86db852549e2350df6a531fb0235'
-  name 'Paintbrush'
-  homepage 'http://paintbrush.sourceforge.net/'
+  url "https://downloads.sourceforge.net/paintbrush/Paintbrush%202.x/Paintbrush%20#{version.before_comma}/Paintbrush-#{version.before_comma}.zip",
+      verified: "downloads.sourceforge.net/paintbrush/"
+  name "Paintbrush"
+  desc "Image editor"
+  homepage "https://paintbrush.sourceforge.io/"
 
-  app 'Paintbrush.app'
+  livecheck do
+    url "https://paintbrush.sourceforge.io/updates/paintbrush-release.xml"
+    strategy :sparkle do |item|
+      "#{item.short_version}.0,#{item.version}"
+    end
+  end
+
+  app "Paintbrush.app"
 
   zap trash: [
-               '~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.soggywaffles.paintbrush.sfl*',
-               '~/Library/Preferences/com.soggywaffles.Paintbrush.LSSharedFileList.plist',
-               '~/Library/Preferences/com.soggywaffles.Paintbrush.plist',
-               '~/Library/Caches/com.soggywaffles.Paintbrush',
-             ]
+    "~/Library/Application Scripts/com.soggywaffles.Paintbrush",
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.soggywaffles.paintbrush.sfl*",
+    "~/Library/Caches/com.soggywaffles.Paintbrush",
+    "~/Library/Containers/com.soggywaffles.Paintbrush",
+    "~/Library/Preferences/com.soggywaffles.Paintbrush.LSSharedFileList.plist",
+    "~/Library/Preferences/com.soggywaffles.Paintbrush.plist",
+  ]
 end

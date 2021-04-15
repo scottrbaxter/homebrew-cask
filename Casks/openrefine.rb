@@ -1,13 +1,11 @@
-cask 'openrefine' do
-  version '2.8'
-  sha256 'c11faaeb89701fc1fbf76adaf54972584a10cc61bcf6b485849608f10649eb08'
+cask "openrefine" do
+  version "3.4.1"
+  sha256 "407078613f7cb6fad2f0731d15ed43a7dedd4311b58876198ebc52576bb89b98"
 
-  # github.com/OpenRefine/OpenRefine was verified as official when first introduced to the cask
-  url "https://github.com/OpenRefine/OpenRefine/releases/download/#{version}/openrefine-mac-#{version}.dmg"
-  appcast 'https://github.com/OpenRefine/OpenRefine/releases.atom',
-          checkpoint: '70f2487fabca2d098f90697ff2fe497dfe45ca3774bade19c8c2c56c1c228bf3'
-  name 'OpenRefine'
-  homepage 'http://openrefine.org/'
+  url "https://github.com/OpenRefine/OpenRefine/releases/download/#{version}/openrefine-mac-#{version}.dmg",
+      verified: "github.com/OpenRefine/OpenRefine/"
+  name "OpenRefine"
+  homepage "https://openrefine.org/"
 
-  app 'OpenRefine.app'
+  app "OpenRefine.app"
 end

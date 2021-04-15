@@ -1,26 +1,34 @@
-cask 'numi' do
-  version '3.18,174:1514897516'
-  sha256 '229051a8e0dd4d6b6f9bb0f61ce21333d94b48d831a5d826e034a5b42a1b673d'
+cask "numi" do
+  version "3.30.692"
+  sha256 "6946ff48db86bc58139a3444198b50c2f0eb330add4b3a1cf6e82e1537cd5673"
 
-  # dl.devmate.com/com.dmitrynikolaev.numi was verified as official when first introduced to the cask
-  url "https://dl.devmate.com/com.dmitrynikolaev.numi/#{version.after_comma.before_colon}/#{version.after_colon}/Numi-#{version.after_comma.before_colon}.zip"
-  appcast 'http://updates.devmate.com/com.dmitrynikolaev.numi.xml',
-          checkpoint: '27dcb40e2519ba17bd190032c62b7d8c7405a44e801121618a465ec4053cc553'
-  name 'Numi'
-  homepage 'https://numi.io/'
+  url "https://s3.numi.app/updates/#{version}/Numi.dmg"
+  name "Numi"
+  desc "Calculator and converter application"
+  homepage "https://numi.app/"
+
+  livecheck do
+    url "https://s1.numi.app/download"
+    strategy :header_match
+  end
 
   auto_updates true
+  depends_on macos: ">= :sierra"
 
-  app 'Numi.app'
+  app "Numi.app"
 
   uninstall launchctl: "com.dmitrynikolaev.numi#{version.major}helper",
-            quit:      'com.dmitrynikolaev.numi'
+            quit:      "com.dmitrynikolaev.numi"
 
   zap trash: [
-               '~/Library/Application Support/com.dmitrynikolaev.numi',
-               '~/Library/Caches/com.crashlytics.data/com.dmitrynikolaev.numi',
-               '~/Library/Caches/com.dmitrynikolaev.numi',
-               '~/Library/Caches/io.fabric.sdk.mac.data/com.dmitrynikolaev.numi',
-               '~/Library/Preferences/com.dmitrynikolaev.numi.plist',
-             ]
+    "~/Library/Application Support/Numi",
+    "~/Library/Application Support/com.dmitrynikolaev.numi",
+    "~/Library/Application Support/CrashReporter/Numi_*.plist",
+    "~/Library/Caches/com.crashlytics.data/com.dmitrynikolaev.numi",
+    "~/Library/Caches/com.dmitrynikolaev.numi",
+    "~/Library/Caches/io.fabric.sdk.mac.data/com.dmitrynikolaev.numi",
+    "~/Library/Containers/com.dmitrynikolaev.numi.NumiExtension",
+    "~/Library/Preferences/com.dmitrynikolaev.numi.plist",
+    "/Users/Shared/Numi",
+  ]
 end

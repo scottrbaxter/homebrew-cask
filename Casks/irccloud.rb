@@ -1,12 +1,20 @@
-cask 'irccloud' do
-  version '0.6.0'
-  sha256 'f3d791032171fed6cca9d95878514b6c315a0ec13f7c7482d1b7e6b43d818440'
+cask "irccloud" do
+  version "0.16.0"
+  sha256 "e942432cc457ce275960f6e5f120cc7be914ee06dc45fc88f9566a9aae251d79"
 
-  url "https://github.com/irccloud/irccloud-desktop/releases/download/v#{version}/IRCCloud-#{version}.dmg"
-  appcast 'https://github.com/irccloud/irccloud-desktop/releases.atom',
-          checkpoint: '7d71a18d23d43899cfdb9d92695a35a387ae94b3d4e040db9972139023e78fb4'
-  name 'IRCCloud Desktop'
-  homepage 'https://github.com/irccloud/irccloud-desktop'
+  url "https://github.com/irccloud/irccloud-desktop/releases/download/v#{version}/IRCCloud-#{version}-universal.dmg"
+  name "IRCCloud Desktop"
+  desc "IRC client"
+  homepage "https://github.com/irccloud/irccloud-desktop"
 
-  app 'IRCCloud.app'
+  app "IRCCloud.app"
+
+  zap trash: [
+    "~/Library/Application Support/IRCCloud",
+    "~/Library/Caches/com.irccloud.desktop",
+    "~/Library/Caches/com.irccloud.desktop.ShipIt",
+    "~/Library/Logs/IRCCloud",
+    "~/Library/Preferences/com.irccloud.desktop.plist",
+    "~/Library/Saved Application State/com.irccloud.desktop.savedState",
+  ]
 end

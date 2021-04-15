@@ -1,13 +1,11 @@
-cask 'data-integration' do
-  version '7.1.0.0-12'
-  sha256 'e53a7e7327a50b19bb1d16a06d589a8ba3719e5a678abf5cea713503453d37f2'
+cask "data-integration" do
+  version "9.1.0.0-324"
+  sha256 "ffbcb7bba736af765bbb14ccb0a5f2ae239e75b5aebf0ecfee924a5738d2c530"
 
-  # sourceforge.net/pentaho was verified as official when first introduced to the cask
   url "https://downloads.sourceforge.net/pentaho/pdi-ce-#{version}.zip"
-  appcast 'https://sourceforge.net/projects/pentaho/rss?path=/Data%20Integration',
-          checkpoint: '17befca044b649c71fcc9c4f7f9d14b27471c206874035c518075d96ed045d1e'
-  name 'Pentaho Data Integration'
-  homepage 'http://community.pentaho.com/'
+  name "Pentaho Data Integration"
+  desc "End to end data integration and analytics platform"
+  homepage "https://sourceforge.net/projects/pentaho/"
 
-  app 'data-integration/Data Integration.app'
+  app "data-integration/Data Integration.app"
 end

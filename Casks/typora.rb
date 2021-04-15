@@ -1,25 +1,30 @@
-cask 'typora' do
-  version '0.9.9.12.5'
-  sha256 '0fb77e602b29d74b82b1b0c895c33cee176cc3947dfbc616f027932f616f5566'
+cask "typora" do
+  version "0.9.9.36.2,4901"
+  sha256 "b7f0628cc0421a5cfbcd4fcfb07799091880f0f717494137ba19b5cfb24a424b"
 
-  url 'https://typora.io/download/Typora.dmg'
-  appcast 'https://www.typora.io/download/dev_update.xml',
-          checkpoint: '3d8ab4698cc2608bdfa38eeed4cfc71d2dd5f2a88a1ac3bc9898cf1a3e3ad4c7'
-  name 'Typora'
-  homepage 'https://typora.io/'
+  url "https://www.typora.io/download/Typora-#{version.before_comma}.dmg"
+  name "Typora"
+  desc "Configurable document editor that supports Markdown"
+  homepage "https://typora.io/"
+
+  livecheck do
+    url "https://www.typora.io/download/dev_update.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
+  depends_on macos: ">= :high_sierra"
 
-  app 'Typora.app'
+  app "Typora.app"
 
   zap trash: [
-               '~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/abnerworks.typora.sfl*',
-               '~/Library/Application Support/Typora',
-               '~/Library/Application Support/abnerworks.Typora',
-               '~/Library/Caches/abnerworks.Typora',
-               '~/Library/Cookies/abnerworks.Typora.binarycookies',
-               '~/Library/Preferences/abnerworks.Typora.plist',
-               '~/Library/Saved Application State/abnerworks.Typora.savedState',
-               '~/Library/WebKit/abnerworks.Typora',
-             ]
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/abnerworks.typora.sfl*",
+    "~/Library/Application Support/Typora",
+    "~/Library/Application Support/abnerworks.Typora",
+    "~/Library/Caches/abnerworks.Typora",
+    "~/Library/Cookies/abnerworks.Typora.binarycookies",
+    "~/Library/Preferences/abnerworks.Typora.plist",
+    "~/Library/Saved Application State/abnerworks.Typora.savedState",
+    "~/Library/WebKit/abnerworks.Typora",
+  ]
 end

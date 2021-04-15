@@ -1,25 +1,27 @@
-cask 'porting-kit' do
-  version '2.9.307'
-  sha256 'f47279b9807d9c6deb50993ce7f5b979f466946e2d32edc060ae34f2018f1a55'
+cask "porting-kit" do
+  version "3.0.60"
+  sha256 "7c6fd060d90e76c2a8c2272d49f92ef99600c65ed9b7c71617f9e96256a76637"
 
-  url "http://portingkit.com/kit/Porting%20Kit%20#{version}.zip"
-  appcast 'http://portingkit.com/kit/updatecast.xml',
-          checkpoint: 'a4ee476076c20cfa2732c3057e33d93da98a1749e326764c2a53d591bc74ee31'
-  name 'Porting Kit'
-  homepage 'http://portingkit.com/en/'
+  url "https://portingkit.com/kit/Porting%20Kit%20#{version}.zip"
+  name "Porting Kit"
+  homepage "https://portingkit.com/"
+
+  livecheck do
+    url "https://portingkit.com/kit/updatecast.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
-  conflicts_with cask: 'porting-kit-legacy'
-  depends_on macos: '>= :mountain_lion'
 
-  app 'Porting Kit.app'
+  app "Porting Kit.app"
 
   zap trash: [
-               '~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/edu.ufrj.vitormm.porting-kit.sfl*',
-               '~/Library/Application Support/Porting-Kit',
-               '~/Library/Caches/edu.ufrj.vitormm.Porting-Kit',
-               '~/Library/Cookies/edu.ufrj.vitormm.Porting-Kit.binarycookies',
-               '~/Library/Preferences/edu.ufrj.vitormm.Porting-Kit.plist',
-               '~/Library/Saved Application State/edu.ufrj.vitormm.Porting-Kit.savedState',
-             ]
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/edu.ufrj.vitormm.porting-kit.sfl*",
+    "~/Library/Application Support/Porting-Kit",
+    "~/Library/Caches/edu.ufrj.vitormm.Porting-Kit",
+    "~/Library/Cookies/edu.ufrj.vitormm.Porting-Kit.binarycookies",
+    "~/Library/Preferences/edu.ufrj.vitormm.Porting-Kit.plist",
+    "~/Library/Saved Application State/edu.ufrj.vitormm.Porting-Kit.savedState",
+    "~/Library/WebKit/edu.ufrj.vitormm.Porting-Kit",
+  ]
 end

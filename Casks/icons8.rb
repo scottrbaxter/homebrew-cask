@@ -1,13 +1,25 @@
-cask 'icons8' do
-  # note: "8" is not a version number, but an intrinsic part of the product name
-  version '5.6.4'
-  sha256 '01dd5ca5fbc412ba8a515200d6f50e7b27a1e696257af0ac87e293758e8e55bd'
+cask "icons8" do
+  # NOTE: "8" is not a version number, but an intrinsic part of the product name
+  version "5.7.4,57400"
+  sha256 :no_check
 
-  url 'https://desktop.icons8.com/updates/mac/Icons8App_for_Mac_OS.dmg'
-  appcast 'https://desktop.icons8.com/updates/mac/icons8_cast.xml',
-          checkpoint: '9b997f3161fb2a6b83d4cd3098c0798587971e358161d3b8b87543a36d78a48f'
-  name 'Icons8 App'
-  homepage 'https://icons8.com/'
+  url "https://desktop.icons8.com/updates/mac/Icons8App_for_Mac_OS.dmg"
+  name "Icons8 App"
+  desc "App for browsing icon, photo and music packages"
+  homepage "https://icons8.com/"
 
-  app 'Icons8.app'
+  livecheck do
+    url "https://desktop.icons8.com/updates/mac/icons8_cast.xml"
+    strategy :sparkle
+  end
+
+  app "Icons8.app"
+
+  zap trash: [
+    "~/Library/Preferences/com.visualpharm.Icons8.plist",
+    "~/Library/Containers/com.visualpharm.StandaloneLoginHelper",
+    "~/Library/Caches/com.visualpharm.Icons8",
+    '~/Library/Application\ Support/com.visualpharm.Icons8',
+    '~/Library/Application\ Scripts/com.visualpharm.StandaloneLoginHelper',
+  ]
 end

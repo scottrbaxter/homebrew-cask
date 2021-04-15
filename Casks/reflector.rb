@@ -1,14 +1,22 @@
-cask 'reflector' do
-  version '3.0.2'
-  sha256 '52b11529455e014aba83a5a683aa64a5c65fba873f27a7766a0a2182f93547df'
+cask "reflector" do
+  version "4.0.0,1"
+  sha256 "41fecbb26673dad787b32c4763f9d2049c61d571c49783cdc20e866d9a91f7d5"
 
-  url "https://download.airsquirrels.com/Reflector#{version.major}/Mac/Reflector-#{version}.dmg"
-  appcast "https://updates.airsquirrels.com/Reflector#{version.major}/Mac/Reflector#{version.major}.xml",
-          checkpoint: 'dbd337002b4eeb9d63cf4a12c6b63c8ed94dddf2787975e5281b684610777e5e'
-  name "Reflector #{version.major}"
-  homepage 'http://www.airsquirrels.com/reflector/'
+  url "https://download.airsquirrels.com/Reflector#{version.major}/Mac/Reflector-#{version.before_comma}.dmg"
+  name "Reflector"
+  desc "Wireless screen-mirroring application"
+  homepage "https://www.airsquirrels.com/reflector/"
 
-  depends_on macos: '>= :mountain_lion'
+  livecheck do
+    url "https://updates-prod.airsquirrels.com/Reflector#{version.major}/Mac/updateCheck/"
+    strategy :sparkle
+  end
 
   app "Reflector #{version.major}.app"
+
+  zap trash: [
+    "~/Library/Application Support/Logs/Reflector*.log*",
+    "~/Library/Caches/com.squirrels.Reflector-*",
+    "~/Library/Preferences/com.squirrels.Reflector-*.plist",
+  ]
 end

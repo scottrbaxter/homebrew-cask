@@ -1,11 +1,22 @@
-cask 'bathyscaphe' do
-  version '300-v1057'
-  sha256 '7fa8d7b374d8feb87762cf5e560ed90d24416122c6ed2535805c05a58d1d0946'
+cask "bathyscaphe" do
+  version "3.1.0,1089"
+  sha256 "32f7758d2898fd8cccd1b506c8d78bbff6733640e392eba67c95a6626377a603"
 
-  # bitbucket.org/bathyscaphe/public/downloads was verified as official when first introduced to the cask
-  url "https://bitbucket.org/bathyscaphe/public/downloads/BathyScaphe-#{version}.dmg"
-  name 'BathyScaphe'
-  homepage 'https://bathyscaphe.bitbucket.io/'
+  url "https://bitbucket.org/bathyscaphe/public/downloads/BathyScaphe-#{version.before_comma.no_dots}-v#{version.after_comma}.dmg",
+      verified: "bitbucket.org/bathyscaphe/public/downloads/"
+  name "BathyScaphe"
+  homepage "https://bathyscaphe.bitbucket.io/"
 
-  app 'BathyScaphe.app'
+  livecheck do
+    url "https://bathyscaphe.bitbucket.io/appcast.xml"
+    strategy :sparkle do |item|
+      match = item.url.match(%r{/BathyScaphe-(\d+)-v(\d+)\.dmg}i)
+      major_minor = item.short_version
+      "#{major_minor}.#{match[1].delete_prefix(major_minor.delete("."))},#{match[2]}"
+    end
+  end
+
+  depends_on macos: ">= :sierra"
+
+  app "BathyScaphe.app"
 end

@@ -1,25 +1,27 @@
-cask 'jettison' do
-  version '1.5.3'
-  sha256 'fdd4a4357b94732c3129cd01af23ce18169b274351c2b5dedba63aa3cb732390'
+cask "jettison" do
+  version "1.8.2,3340"
+  sha256 "ff3e6bde991a52b5f33b38ea24f543dc421c2e055c4f1c89aa37fa2f823bea97"
 
-  url "https://stclairsoft.com/download/Jettison-#{version}.dmg"
-  appcast 'https://stclairsoft.com/cgi-bin/sparkle.cgi?JT',
-          checkpoint: '6319301b4f7de64553226a1f22044eecd9bfcad0f401f091696b115ceaa950d4'
-  name 'Jettison'
-  name 'St. Clair Software Jettison'
-  homepage 'https://stclairsoft.com/Jettison/'
+  url "https://stclairsoft.com/download/Jettison-#{version.before_comma}.dmg"
+  name "Jettison"
+  name "St. Clair Software Jettison"
+  desc "Automatically ejects external drives"
+  homepage "https://stclairsoft.com/Jettison/"
+
+  livecheck do
+    url "https://stclairsoft.com/cgi-bin/sparkle.cgi?JT"
+    strategy :sparkle
+  end
 
   auto_updates true
 
-  app 'Jettison.app'
-
-  uninstall login_item: 'Jettison'
+  app "Jettison.app"
 
   zap trash: [
-               '~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.stclairsoft.jettison.sfl*',
-               '~/Library/Application Support/Jettison',
-               '~/Library/Preferences/com.stclairsoft.Jettison.plist',
-               '~/Library/Preferences/com.stclairsoft.Jettison.AppStore.plist',
-               '~/Library/Caches/com.stclairsoft.Jettison',
-             ]
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.stclairsoft.jettison.sfl*",
+    "~/Library/Application Support/Jettison",
+    "~/Library/Preferences/com.stclairsoft.Jettison.plist",
+    "~/Library/Preferences/com.stclairsoft.Jettison.AppStore.plist",
+    "~/Library/Caches/com.stclairsoft.Jettison",
+  ]
 end

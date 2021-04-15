@@ -1,29 +1,39 @@
-cask 'visual-studio-code' do
-  version '1.20.1,f88bbf9137d24d36d968ea6b2911786bfe103002'
-  sha256 'cf2d40a7cea17376c606e2dc87cc28f8ff60ac7a3adf325ef055af7167ad1d57'
+cask "visual-studio-code" do
+  version "1.55.2"
 
-  # az764295.vo.msecnd.net/stable was verified as official when first introduced to the cask
-  url "https://az764295.vo.msecnd.net/stable/#{version.after_comma}/VSCode-darwin-stable.zip"
-  appcast 'https://vscode-update.azurewebsites.net/api/update/darwin/stable/VERSION',
-          checkpoint: '8f124bfb6d3d7fd600bce51f06bf20fa8f3ddf68b3c4d1fb793189879cff8096'
-  name 'Microsoft Visual Studio Code'
-  name 'VS Code'
-  homepage 'https://code.visualstudio.com/'
+  if Hardware::CPU.intel?
+    sha256 "c3621a13c9a927e99563513f95593d4d605f70a123e538681fba6d3ef6ec9dee"
+    url "https://update.code.visualstudio.com/#{version}/darwin/stable"
+  else
+    sha256 "be3a1ebfac2c6c5e882714304adc518aff8bac6b663e194a9e73524c62065b94"
+    url "https://update.code.visualstudio.com/#{version}/darwin-arm64/stable"
+  end
+
+  name "Microsoft Visual Studio Code"
+  name "VS Code"
+  desc "Open-source code editor"
+  homepage "https://code.visualstudio.com/"
+
+  livecheck do
+    url "https://update.code.visualstudio.com/api/update/darwin-universal/stable/VERSION"
+    strategy :page_match
+    regex(/"productVersion"\s*:\s*"(\d+(:?\.\d+)*)"/)
+  end
 
   auto_updates true
-  depends_on macos: '>= :mavericks'
 
-  app 'Visual Studio Code.app'
+  app "Visual Studio Code.app"
   binary "#{appdir}/Visual Studio Code.app/Contents/Resources/app/bin/code"
 
   zap trash: [
-               '~/Library/Application Support/Code',
-               '~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.microsoft.vscode.sfl*',
-               '~/Library/Caches/com.microsoft.VSCode',
-               '~/Library/Caches/com.microsoft.VSCode.ShipIt',
-               '~/Library/Preferences/com.microsoft.VSCode.helper.plist',
-               '~/Library/Preferences/com.microsoft.VSCode.plist',
-               '~/Library/Saved Application State/com.microsoft.VSCode.savedState',
-               '~/.vscode',
-             ]
+    "~/Library/Application Support/Code",
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.microsoft.vscode.sfl*",
+    "~/Library/Caches/com.microsoft.VSCode",
+    "~/Library/Caches/com.microsoft.VSCode.ShipIt",
+    "~/Library/Preferences/ByHost/com.microsoft.VSCode.ShipIt.*.plist",
+    "~/Library/Preferences/com.microsoft.VSCode.helper.plist",
+    "~/Library/Preferences/com.microsoft.VSCode.plist",
+    "~/Library/Saved Application State/com.microsoft.VSCode.savedState",
+    "~/.vscode",
+  ]
 end

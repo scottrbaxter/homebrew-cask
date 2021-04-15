@@ -1,15 +1,28 @@
-cask 'tuxera-ntfs' do
-  version '2016.1'
-  sha256 'd957b207b13b705f9ef5e4f54942af0b41fb335219ca0833c34627ce95e968f9'
+cask "tuxera-ntfs" do
+  version "2020.1"
+  sha256 :no_check # required as upstream package is updated in-place
 
-  url "https://www.tuxera.com/mac/tuxerantfs_#{version}.dmg"
-  name 'Tuxera NTFS'
-  homepage 'https://www.tuxera.com/products/tuxera-ntfs-for-mac/'
+  url "https://tuxera.com/mac/tuxerantfs_#{version}.dmg"
+  name "Tuxera NTFS"
+  desc "File system and storage management software"
+  homepage "https://ntfsformac.tuxera.com/"
 
-  pkg '.packages/Flat/Install Tuxera NTFS.mpkg'
+  livecheck do
+    url :homepage
+    strategy :page_match
+    regex(/href=.*?tuxerantfs_(\d+(?:\.\d+))\.dmg/i)
+  end
 
-  uninstall pkgutil: [
-                       'com.tuxera.pkg.Tuxera_NTFS',
-                       'com.tuxera.pkg.Tuxera_NTFS_compat',
-                     ]
+  auto_updates true
+
+  pkg ".packages/Flat/Install Tuxera NTFS.mpkg"
+
+  uninstall quit:    [
+    "com.tuxera.Tuxera-NTFS",
+    "com.tuxera.filesystems.ntfs.agent",
+  ],
+            pkgutil: [
+              "com.tuxera.pkg.Tuxera_NTFS",
+              "com.tuxera.pkg.Tuxera_NTFS_compat",
+            ]
 end

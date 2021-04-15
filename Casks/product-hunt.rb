@@ -1,10 +1,15 @@
-cask 'product-hunt' do
-  version :latest
+cask "product-hunt" do
+  version "1.0.3"
   sha256 :no_check
 
-  url 'https://s3.producthunt.com/mac/ProductHunt.dmg'
-  name 'Product Hunt'
-  homepage 'https://www.producthunt.com/apps/mac'
+  url "https://s3.producthunt.com/mac/ProductHunt.dmg"
+  name "Product Hunt"
+  homepage "https://www.producthunt.com/apps/mac"
 
-  app 'Product Hunt.app'
+  livecheck do
+    url "https://producthunt.s3.amazonaws.com/mac/producthuntcast.xml"
+    strategy :sparkle
+  end
+
+  app "Product Hunt.app"
 end
